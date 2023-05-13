@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Register = () => {
+export const RegisterScreen = () => {
   return (
     <div>Register</div>
   )
