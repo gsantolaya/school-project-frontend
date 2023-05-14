@@ -4,6 +4,7 @@ import { HomeScreen } from "../home/pages/HomeScreen";
 import { AboutUsScreen } from "../home/pages/AboutUsScreen";
 import { LoginScreen } from "../auth/pages/LoginScreen";
 import { RegisterScreen } from "../auth/pages/RegisterScreen";
+import { StudentsScreen } from '../home/pages/StudentsScreen';
 
 export const AppRouter = () => {
   return (
@@ -13,6 +14,7 @@ export const AppRouter = () => {
         <Route path="/aboutUs" element={<AboutUsScreen />} />
         <Route path="/login" element={<LoginScreen />} />
         <Route path="/register" element={<RegisterScreen />} />
+        <Route path="/students" element={<StudentsScreen />} />
       </Routes>
     </BrowserRouter>
   )
