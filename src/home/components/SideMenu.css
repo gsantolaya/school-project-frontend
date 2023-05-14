@@ -1,0 +1,26 @@
+.sideMenuContainer{
+    background-color: #E6E8DB;
+    height: 100vh !important;
+    position: absolute;
+    padding-top: 50px;
+}
+.sideMenuLinks{
+    color: #7A0045 !important;
+    font-weight: bold !important;
+    border: solid #7A0045;
+    border-radius: 20px;
+    margin: 10px;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    text-decoration: none;
+}
+.logOut{
+    margin-top: 50px;
+    color: #7A0045 !important;
+    font-weight: bold !important;
+}
+@media screen and (max-width: 576px){
+    .sideMenuContainer{
+        display: none !important;
+    }
+}
