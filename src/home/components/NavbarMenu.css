@@ -16,6 +16,11 @@
     color: #7a0045 !important;
     background-color: white !important;
 }
+.logo{
+    height: 70px;
+    margin: 0px;
+    padding: 0px;
+}
 /*
 #basic-navbar-nav{
     color: white !important;

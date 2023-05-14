@@ -15,7 +15,12 @@
     text-decoration: none;
 }
 .logOut{
-    padding-top: 50px;
+    margin-top: 50px;
     color: #7A0045 !important;
-    font-weight: bold;
+    font-weight: bold !important;
+}
+@media screen and (max-width: 576px){
+    .sideMenuContainer{
+        display: none !important;
+    }
 }
