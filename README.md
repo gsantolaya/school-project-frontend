@@ -73,3 +73,5 @@ Se instalo:
 bootstrap
 react-router-dom
 Chakra
+axios
+react-icons
