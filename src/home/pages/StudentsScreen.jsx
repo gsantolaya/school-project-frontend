@@ -15,6 +15,8 @@ import Form from 'react-bootstrap/Form';
 export const StudentsScreen = () => {
 
     const [students, setStudents] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchOption, setSearchOption] = useState('name');
     const [showModal, setShowModal] = useState(false);
     const [selectedStudent, setSelectedStudent] = useState(null);
     const [showConfirmationToast, setShowConfirmationToast] = useState(false);
@@ -82,38 +84,96 @@ export const StudentsScreen = () => {
 
     const handleEditFormSubmit = async (event) => {
         event.preventDefault();
-        
+
         try {
-          const response = await axios.put(`http://localhost:8060/api/students/${editedStudent._id}`, editedStudent);
-          if (response.status === 200) {
-            // Actualizar la lista de estudiantes después de la actualización exitosa
-            const updatedStudents = students.map((student) => {
-              if (student._id === editedStudent._id) {
-                return { ...student, ...editedStudent };
-              }
-              return student;
-            });
-            setStudents(updatedStudents);
-            
-            handleCloseEditModal();
-            
-            // Mostrar un toast o mensaje de éxito
-            alert("Estudiante actualizado correctamente");
-          }
+            const response = await axios.put(`http://localhost:8060/api/students/${editedStudent._id}`, editedStudent);
+            if (response.status === 200) {
+                const updatedStudents = students.map((student) => {
+                    if (student._id === editedStudent._id) {
+                        return { ...student, ...editedStudent };
+                    }
+                    return student;
+                });
+                setStudents(updatedStudents);
+
+                handleCloseEditModal();
+
+                alert("Estudiante actualizado correctamente");
+            }
         } catch (error) {
-          console.log(error);
-          // Mostrar un toast o mensaje de error
-          alert("Error al actualizar el estudiante");
+            console.log(error);
+            alert("Error al actualizar el estudiante");
         }
-      };
+    };
+
+    const handleAddStudent = () => {
+        // setShowModal(true);
+        // setEditedStudent({
+        //     firstName: '',
+        //     lastName: '',
+        //     currentYearOfStudy: '',
+        //     payment: false,
+        // });
+    };
+
+    const handleSearchInputChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
+    const handleSearchOptionChange = (event) => {
+        setSearchOption(event.target.value);
+    };
+
+    const filteredStudents = students.filter((student) => {
+        const fullName = `${student.firstName} ${student.lastName}`.toLowerCase();
+        const studentId = student._id.toLowerCase();
+        const currentYearOfStudy = student.currentYearOfStudy.toString().toLowerCase();
+        const paymentStatus = student.payment ? 'al día' : 'deudor';
+        switch (searchOption) {
+            case 'name':
+                return fullName.includes(searchTerm.toLowerCase());
+            case 'id':
+                return studentId.includes(searchTerm.toLowerCase());
+            case 'year':
+                return currentYearOfStudy.includes(searchTerm.toLowerCase());
+            case 'payment':
+                return paymentStatus.includes(searchTerm.toLowerCase());
+            default:
+                return fullName.includes(searchTerm.toLowerCase());
+        }
+    });
     return (
         <>
-
-
             <NavbarMenu />
             <SideMenu />
             <div className='Container col-md-9 col-lg-10 position-absolute end-0 p-5 text-center'>
                 <h1 className='mb-5 font-weight-bold'>Listado de Alumnos</h1>
+                <div className='d-flex'>
+                    <Form.Group className='col-5 m-2' controlId="searchForm">
+                        <Form.Control
+                            type="text"
+                            placeholder="Buscar estudiante"
+                            value={searchTerm}
+                            onChange={handleSearchInputChange}
+                        />
+                    </Form.Group>
+                    <Form.Group className='d-flex m-2' controlId="searchOptionForm">Buscar por:
+                        <Form.Control
+                            as="select"
+                            value={searchOption}
+                            onChange={handleSearchOptionChange}
+                        >
+                            <option value="name">Nombre</option>
+                            <option value="id">ID</option>
+                            <option value="year">Año de cursado actual</option>
+                            <option value="payment">Cuota</option>
+                        </Form.Control>
+                    </Form.Group>
+                    <Button variant="primary" onClick={handleAddStudent}>
+                        Agregar estudiante
+                    </Button>
+                </div>
+
+
                 <Table striped bordered hover>
                     <thead>
                         <tr>
@@ -128,21 +188,19 @@ export const StudentsScreen = () => {
                     </thead>
                     <tbody>
                         {
-                            students.map((student) => {
-                                return (
-                                    <tr key={student._id}>
-                                        <td>{student._id}</td>
-                                        <td>{student.firstName}</td>
-                                        <td>{student.lastName}</td>
-                                        <td>{student.currentYearOfStudy}</td>
-                                        <td style={{ color: student.payment ? 'green' : 'red' }}>
-                                            {student.payment ? 'Al día' : 'Deudor'}
-                                        </td>
-                                        <td><Button onClick={() => handleShowEditModal(student)} variant="secondary">Ver detalles</Button>{' '}</td>
-                                        <td><Button onClick={() => handleShowModal(student)} variant="danger">Eliminar <FaTrashAlt /></Button>{' '}</td>
-                                    </tr>
-                                )
-                            })
+                            filteredStudents.map((student) => (
+                                <tr key={student._id}>
+                                    <td>{student._id}</td>
+                                    <td>{student.firstName}</td>
+                                    <td>{student.lastName}</td>
+                                    <td>{student.currentYearOfStudy}</td>
+                                    <td style={{ color: student.payment ? 'green' : 'red' }}>
+                                        {student.payment ? 'Al día' : 'Deudor'}
+                                    </td>
+                                    <td><Button onClick={() => handleShowEditModal(student)} variant="secondary">Ver detalles</Button>{' '}</td>
+                                    <td><Button onClick={() => handleShowModal(student)} variant="danger">Eliminar <FaTrashAlt /></Button>{' '}</td>
+                                </tr>
+                            ))
                         }
                     </tbody>
                 </Table>
