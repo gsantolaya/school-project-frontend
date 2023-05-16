@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import NavbarMenu from '../components/NavbarMenu';
+//import NavbarMenu from '../components/NavbarMenu';
 import { FaTrashAlt } from "react-icons/fa"
 import { SideMenu } from '../components/SideMenu';
 import Table from 'react-bootstrap/Table';
@@ -33,7 +33,7 @@ export const StudentsScreen = () => {
 
     const deleteStudent = async (id) => {
         try {
-            const response = await axios.delete(`http://localhost:8060/api/students/${id}`);
+            const response = await axios.delete(`http://localhost:8060/api/student/${id}`);
             if (response.status === 200) {
                 handleCloseModal()
                 setShowConfirmationToast(true)
@@ -143,7 +143,6 @@ export const StudentsScreen = () => {
     });
     return (
         <>
-            <NavbarMenu />
             <SideMenu />
             <div className='Container col-md-9 col-lg-10 position-absolute end-0 p-5 text-center'>
                 <h1 className='mb-5 font-weight-bold'>Listado de Alumnos</h1>
@@ -168,7 +167,7 @@ export const StudentsScreen = () => {
                             <option value="payment">Cuota</option>
                         </Form.Control>
                     </Form.Group>
-                    <Button variant="primary" onClick={handleAddStudent}>
+                    <Button className='m-2' variant="primary" onClick={handleAddStudent}>
                         Agregar estudiante
                     </Button>
                 </div>
