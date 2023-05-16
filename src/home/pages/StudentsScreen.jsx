@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-//import NavbarMenu from '../components/NavbarMenu';
 import { FaTrashAlt } from "react-icons/fa"
-import { SideMenu } from '../components/SideMenu';
 import Table from 'react-bootstrap/Table';
 import './StudentsScreen.css';
 import axios from 'axios';
@@ -9,7 +7,6 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Toast from 'react-bootstrap/Toast';
 import Form from 'react-bootstrap/Form';
-
 
 
 export const StudentsScreen = () => {
@@ -31,9 +28,45 @@ export const StudentsScreen = () => {
             })
     }, [])
 
+    const handleShowModal = (student) => {
+        setSelectedStudent(student);
+        setShowModal(true);
+    };
+    const handleCloseModal = () => {
+        setSelectedStudent(null);
+        setShowModal(false);
+    }
+    const handleShowEditModal = (student) => {
+        setEditedStudent(student);
+        setShowEditModal(true);
+    };
+    const handleCloseEditModal = () => {
+        setEditedStudent(null);
+        setShowEditModal(false);
+    };
+    const handleConfirmationToastClose = () => {
+        setShowConfirmationToast(false);
+    };
+    const handleErrorToastClose = () => {
+        setShowErrorToast(false);
+    };
+    const handleEditInputChange = (event) => {
+        const { name, value } = event.target;
+        setEditedStudent((prevStudent) => ({
+            ...prevStudent,
+            [name]: value,
+        }));
+    };
+    const handleSearchInputChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
+    const handleSearchOptionChange = (event) => {
+        setSearchOption(event.target.value);
+    };
+
     const deleteStudent = async (id) => {
         try {
-            const response = await axios.delete(`http://localhost:8060/api/student/${id}`);
+            const response = await axios.delete(`http://localhost:8060/api/students/${id}`);
             if (response.status === 200) {
                 handleCloseModal()
                 setShowConfirmationToast(true)
@@ -46,45 +79,8 @@ export const StudentsScreen = () => {
         }
     }
 
-    const handleShowModal = (student) => {
-        setSelectedStudent(student);
-        setShowModal(true);
-    };
-
-    const handleCloseModal = () => {
-        setSelectedStudent(null);
-        setShowModal(false);
-    }
-
-    const handleShowEditModal = (student) => {
-        setEditedStudent(student);
-        setShowEditModal(true);
-    };
-
-    const handleCloseEditModal = () => {
-        setEditedStudent(null);
-        setShowEditModal(false);
-    };
-
-
-    const handleConfirmationToastClose = () => {
-        setShowConfirmationToast(false);
-    };
-
-    const handleErrorToastClose = () => {
-        setShowErrorToast(false);
-    };
-    const handleEditInputChange = (event) => {
-        const { name, value } = event.target;
-        setEditedStudent((prevStudent) => ({
-            ...prevStudent,
-            [name]: value,
-        }));
-    };
-
     const handleEditFormSubmit = async (event) => {
         event.preventDefault();
-
         try {
             const response = await axios.put(`http://localhost:8060/api/students/${editedStudent._id}`, editedStudent);
             if (response.status === 200) {
@@ -116,12 +112,6 @@ export const StudentsScreen = () => {
         // });
     };
 
-    const handleSearchInputChange = (event) => {
-        setSearchTerm(event.target.value);
-    };
-    const handleSearchOptionChange = (event) => {
-        setSearchOption(event.target.value);
-    };
 
     const filteredStudents = students.filter((student) => {
         const fullName = `${student.firstName} ${student.lastName}`.toLowerCase();
@@ -143,66 +133,73 @@ export const StudentsScreen = () => {
     });
     return (
         <>
-            <SideMenu />
-            <div className='Container col-md-9 col-lg-10 position-absolute end-0 p-5 text-center'>
+            <div className='text-center p-2 p-md-5'>
                 <h1 className='mb-5 font-weight-bold'>Listado de Alumnos</h1>
-                <div className='d-flex'>
-                    <Form.Group className='col-5 m-2' controlId="searchForm">
-                        <Form.Control
-                            type="text"
-                            placeholder="Buscar estudiante"
-                            value={searchTerm}
-                            onChange={handleSearchInputChange}
-                        />
-                    </Form.Group>
-                    <Form.Group className='d-flex m-2' controlId="searchOptionForm">Buscar por:
-                        <Form.Control
-                            as="select"
-                            value={searchOption}
-                            onChange={handleSearchOptionChange}
-                        >
-                            <option value="name">Nombre</option>
-                            <option value="id">ID</option>
-                            <option value="year">Año de cursado actual</option>
-                            <option value="payment">Cuota</option>
-                        </Form.Control>
-                    </Form.Group>
-                    <Button className='m-2' variant="primary" onClick={handleAddStudent}>
-                        Agregar estudiante
-                    </Button>
+                <div className='row d-md-flex'>
+                    <div className='col-12 col-md-4 my-2 my-md-0'>
+                        <Form.Group controlId="searchForm">
+                            <Form.Control
+                                type="text"
+                                placeholder="Buscar estudiante"
+                                value={searchTerm}
+                                onChange={handleSearchInputChange}
+                            />
+                        </Form.Group>
+                    </div>
+                    <div className='col-12 col-md-4 my-2 my-md-0'>
+                            <Form.Group className='d-flex my-2 ' controlId="searchOptionForm">
+                                <p><b>Buscar por:</b></p>
+                                <Form.Control
+                                    as="select"
+                                    value={searchOption}
+                                    onChange={handleSearchOptionChange}
+                                >
+                                    <option value="name">Nombre</option>
+                                    <option value="id">ID</option>
+                                    <option value="year">Año de cursado actual</option>
+                                    <option value="payment">Cuota</option>
+                                </Form.Control>
+                            </Form.Group>
+                    </div>
+                    <div className='col-12 my-2 col-md-2 my-md-0 ms-auto'>
+                        <Button variant="primary" onClick={handleAddStudent}>
+                            Agregar estudiante
+                        </Button>
+                    </div>
                 </div>
 
-
-                <Table striped bordered hover>
-                    <thead>
-                        <tr>
-                            <th>Nro. de Expediente</th>
-                            <th>Apellido</th>
-                            <th>Nombre</th>
-                            <th>Año cursado actual</th>
-                            <th>Cuota</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            filteredStudents.map((student) => (
-                                <tr key={student._id}>
-                                    <td>{student._id}</td>
-                                    <td>{student.firstName}</td>
-                                    <td>{student.lastName}</td>
-                                    <td>{student.currentYearOfStudy}</td>
-                                    <td style={{ color: student.payment ? 'green' : 'red' }}>
-                                        {student.payment ? 'Al día' : 'Deudor'}
-                                    </td>
-                                    <td><Button onClick={() => handleShowEditModal(student)} variant="secondary">Ver detalles</Button>{' '}</td>
-                                    <td><Button onClick={() => handleShowModal(student)} variant="danger">Eliminar <FaTrashAlt /></Button>{' '}</td>
-                                </tr>
-                            ))
-                        }
-                    </tbody>
-                </Table>
+                <div className='table-container' >
+                    <Table striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th>Nro. de Expediente</th>
+                                <th>Apellido</th>
+                                <th>Nombre</th>
+                                <th>Año cursado actual</th>
+                                <th>Cuota</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                filteredStudents.map((student) => (
+                                    <tr key={student._id}>
+                                        <td>{student._id}</td>
+                                        <td>{student.firstName}</td>
+                                        <td>{student.lastName}</td>
+                                        <td>{student.currentYearOfStudy}</td>
+                                        <td style={{ color: student.payment ? 'green' : 'red' }}>
+                                            {student.payment ? 'Al día' : 'Deudor'}
+                                        </td>
+                                        <td><Button onClick={() => handleShowEditModal(student)} variant="secondary">Ver detalles</Button>{' '}</td>
+                                        <td><Button onClick={() => handleShowModal(student)} variant="danger">Eliminar <FaTrashAlt /></Button>{' '}</td>
+                                    </tr>
+                                ))
+                            }
+                        </tbody>
+                    </Table>
+                </div>
             </div>
             <Modal show={showModal} onHide={handleCloseModal}>
                 <Modal.Header closeButton>
