@@ -15,6 +15,7 @@
 .navLinks:hover{
     color: #7a0045 !important;
     background-color: white !important;
+    transform: scale(1.05)
 }
 .logo{
     height: 70px;
