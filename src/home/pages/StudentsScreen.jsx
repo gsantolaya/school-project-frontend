@@ -123,7 +123,7 @@ export const StudentsScreen = () => {
     return (
         <>
             <div className='text-center p-2 p-md-5'>
-                <h1 className='mb-5'><b>Listado de Alumnos</b></h1>
+                <h1 className='mb-5 title'><b>Listado de Alumnos</b></h1>
                 <div className='row d-md-flex'>
                     <div className='col-12 col-md-4 my-2 my-md-0'>
                         <Form.Group controlId="searchForm">
@@ -159,7 +159,7 @@ export const StudentsScreen = () => {
                     <Table striped bordered hover>
                         <thead>
                             <tr>
-                                <th>Nro. de Expediente</th>
+                                <th>ID de Expediente</th>
                                 <th>Apellido</th>
                                 <th>Nombre</th>
                                 <th>Año cursado actual</th>
@@ -177,7 +177,7 @@ export const StudentsScreen = () => {
                                         <td>{student.lastName}</td>
                                         <td>{student.currentYearOfStudy}</td>
                                         <td style={{ color: student.payment ? 'green' : 'red' }}>
-                                            {student.payment ? 'Al día' : 'Deudor'}
+                                            {student.payment ? 'Al día' : 'Pendiente'}
                                         </td>
                                         <td><Button onClick={() => handleShowEditModal(student)} variant="secondary">Ver detalles</Button>{' '}</td>
                                         <td><Button onClick={() => handleShowModal(student)} variant="danger">Eliminar <FaTrashAlt /></Button>{' '}</td>

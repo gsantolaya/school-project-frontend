@@ -10,6 +10,9 @@
     text-decoration: none;
 
 }
+.title{
+  color: #7a0045 !important;
+}
 .buttonAddStudent:hover{
   color: black !important;
   background-color: white !important;
