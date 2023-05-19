@@ -13,9 +13,10 @@ import { NavbarMenu } from '../home/components/NavbarMenu';
 import { NewStudentScreen } from '../home/pages/NewStudentScreen';
 
 export const AppRouter = () => {
+  const isNavbarVisible = window.location.pathname !== '/login' && window.location.pathname !== '/register';
   return (
     <BrowserRouter>
-    <NavbarMenu/>
+    {isNavbarVisible && <NavbarMenu />}
       <Routes>
         <Route path="/login" element={<LoginScreen />} />
         <Route path="/register" element={<RegisterScreen />} />

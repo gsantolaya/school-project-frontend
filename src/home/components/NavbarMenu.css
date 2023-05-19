@@ -4,7 +4,7 @@
 .navLinks{
     color: white !important;
     font-weight: bold !important;
-    border: solid white;
+    border: solid 1px white;
     border-radius: 20px;
     margin: 10px;
     padding-left: 20px !important;
