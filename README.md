@@ -75,3 +75,4 @@ react-router-dom
 Chakra
 axios
 react-icons
+react-helmet

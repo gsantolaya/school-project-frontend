@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FaTrashAlt } from "react-icons/fa"
+import { FaTrashAlt } from "react-icons/fa";
 import Table from 'react-bootstrap/Table';
 import './StudentsScreen.css';
 import axios from 'axios';
@@ -7,10 +7,10 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Toast from 'react-bootstrap/Toast';
 import Form from 'react-bootstrap/Form';
+import Nav from 'react-bootstrap/Nav';
 
 
 export const StudentsScreen = () => {
-
     const [students, setStudents] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [searchOption, setSearchOption] = useState('name');
@@ -102,17 +102,6 @@ export const StudentsScreen = () => {
         }
     };
 
-    const handleAddStudent = () => {
-        // setShowModal(true);
-        // setEditedStudent({
-        //     firstName: '',
-        //     lastName: '',
-        //     currentYearOfStudy: '',
-        //     payment: false,
-        // });
-    };
-
-
     const filteredStudents = students.filter((student) => {
         const fullName = `${student.firstName} ${student.lastName}`.toLowerCase();
         const studentId = student._id.toLowerCase();
@@ -134,7 +123,7 @@ export const StudentsScreen = () => {
     return (
         <>
             <div className='text-center p-2 p-md-5'>
-                <h1 className='mb-5 font-weight-bold'>Listado de Alumnos</h1>
+                <h1 className='mb-5 title'><b>Listado de Alumnos</b></h1>
                 <div className='row d-md-flex'>
                     <div className='col-12 col-md-4 my-2 my-md-0'>
                         <Form.Group controlId="searchForm">
@@ -162,9 +151,7 @@ export const StudentsScreen = () => {
                             </Form.Group>
                     </div>
                     <div className='col-12 my-2 col-md-2 my-md-0 ms-auto'>
-                        <Button variant="primary" onClick={handleAddStudent}>
-                            Agregar estudiante
-                        </Button>
+                        <Nav.Link className="buttonAddStudent" href="newStudent">Agregar Estudiante</Nav.Link>
                     </div>
                 </div>
 
@@ -172,7 +159,7 @@ export const StudentsScreen = () => {
                     <Table striped bordered hover>
                         <thead>
                             <tr>
-                                <th>Nro. de Expediente</th>
+                                <th>ID de Expediente</th>
                                 <th>Apellido</th>
                                 <th>Nombre</th>
                                 <th>Año cursado actual</th>
@@ -190,7 +177,7 @@ export const StudentsScreen = () => {
                                         <td>{student.lastName}</td>
                                         <td>{student.currentYearOfStudy}</td>
                                         <td style={{ color: student.payment ? 'green' : 'red' }}>
-                                            {student.payment ? 'Al día' : 'Deudor'}
+                                            {student.payment ? 'Al día' : 'Pendiente'}
                                         </td>
                                         <td><Button onClick={() => handleShowEditModal(student)} variant="secondary">Ver detalles</Button>{' '}</td>
                                         <td><Button onClick={() => handleShowModal(student)} variant="danger">Eliminar <FaTrashAlt /></Button>{' '}</td>

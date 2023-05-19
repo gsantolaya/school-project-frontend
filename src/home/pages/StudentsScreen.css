@@ -1,3 +1,24 @@
+
+.buttonAddStudent{
+    color: white !important;
+    font-weight: bold !important;
+    border: solid white;
+    border-radius: 20px;
+    margin: 10px;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    text-decoration: none;
+
+}
+.title{
+  color: #7a0045 !important;
+}
+.buttonAddStudent:hover{
+  color: black !important;
+  background-color: white !important;
+  transform: scale(1.05)
+}
+
 @media screen and (max-width: 576px){
     .table-container {
         overflow-x: scroll !important;

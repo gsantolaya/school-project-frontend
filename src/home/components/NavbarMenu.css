@@ -17,18 +17,26 @@
     background-color: white !important;
     transform: scale(1.05)
 }
+/* .navSideLinks{
+    color: white !important;
+    font-weight: bold !important;
+    border: solid white;
+    border-radius: 20px;
+    margin: 10px;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    text-decoration: none;
+} */
+.navSide{
+    display: none !important;
+}
 .logo{
     height: 70px;
     margin: 0px;
     padding: 0px;
 }
-/*
-#basic-navbar-nav{
-    color: white !important;
+@media screen and (max-width: 576px){
+    .navSide{
+        display: inherit !important;
+    }
 }
-.App-logo{
-    width: 70px;
-    height: 70px;
-    margin: 0px;
-    padding: 0px;
-} */

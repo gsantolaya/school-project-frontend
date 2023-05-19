@@ -10,6 +10,7 @@ import { AnalyticsScreen } from '../home/pages/AnalyticsScreen';
 import { PaymentsScreen } from '../home/pages/PaymentsScreen';
 import { UsersScreen } from '../home/pages/UsersScreen';
 import { NavbarMenu } from '../home/components/NavbarMenu';
+import { NewStudentScreen } from '../home/pages/NewStudentScreen';
 
 export const AppRouter = () => {
   const isNavbarVisible = window.location.pathname !== '/login' && window.location.pathname !== '/register';
@@ -26,6 +27,8 @@ export const AppRouter = () => {
           <Route path="/analytics" element={<AnalyticsScreen />} />
           <Route path="/payments" element={<PaymentsScreen />} />
           <Route path="/users" element={<UsersScreen />} />
+          <Route path="/newStudent" element={<NewStudentScreen/>} />
+          
           </Route>
         {/* <Route path="*" element={<NoPage />} /> */}
       </Routes>
