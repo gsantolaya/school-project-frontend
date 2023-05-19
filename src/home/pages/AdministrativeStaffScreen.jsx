@@ -16,7 +16,6 @@ for (let number = 1; number <= 10; number++) {
 export const AdministrativeStaffScreen = () => {
   return (
     <>
-    <SideMenu />
     <div  className='Container col-md-9 col-lg-10 position-absolute end-0 p-5 text-center'>
 <h1>Personal Administrativo</h1>
 
