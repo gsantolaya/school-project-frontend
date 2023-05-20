@@ -10,11 +10,13 @@ import { AnalyticsScreen } from '../home/pages/AnalyticsScreen';
 import { PaymentsScreen } from '../home/pages/PaymentsScreen';
 import { UsersScreen } from '../home/pages/UsersScreen';
 import { NavbarMenu } from '../home/components/NavbarMenu';
+import { Footer } from '../home/components/Footer'
 
 export const AppRouter = () => {
   const isNavbarVisible = window.location.pathname !== '/login' && window.location.pathname !== '/register';
   return (
     <BrowserRouter>
+     
     {isNavbarVisible && <NavbarMenu />}
       <Routes>
         <Route path="/login" element={<LoginScreen />} />
@@ -29,6 +31,9 @@ export const AppRouter = () => {
           </Route>
         {/* <Route path="*" element={<NoPage />} /> */}
       </Routes>
+      <Footer/>
+    
+   
     </BrowserRouter>
   )
 }
