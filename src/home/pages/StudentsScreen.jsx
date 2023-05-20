@@ -151,7 +151,7 @@ export const StudentsScreen = () => {
                             </Form.Group>
                     </div>
                     <div className='col-12 my-2 col-md-2 my-md-0 ms-auto'>
-                        <Nav.Link className="buttonAddStudent" href="newStudent">Agregar Estudiante</Nav.Link>
+                        <Nav.Link className="buttonAddStudent" href="newStudent">Agregar Alumno</Nav.Link>
                     </div>
                 </div>
 

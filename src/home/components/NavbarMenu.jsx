@@ -27,12 +27,6 @@ export function NavbarMenu() {
               <NavDropdown.Divider />
               <NavDropdown.Item className="navSideLinks" href="/home">Cerrar Sesión</NavDropdown.Item>
             </NavDropdown>
-            {/* <Nav.Link className="navSideLinks" href="/administrativeStaff">Personal Administrativo</Nav.Link>
-            <Nav.Link className="navSideLinks" href="/students">Alumnos</Nav.Link>
-            <Nav.Link className="navSideLinks" href="/analytics">Analiticos</Nav.Link>
-            <Nav.Link className="navSideLinks" href="/payments">Pagos</Nav.Link>
-            <Nav.Link className="navSideLinks" href="/users">Usuarios</Nav.Link>
-            <Nav.Link className="navSideLinks" href="/home">Cerrar Sesión</Nav.Link> */}
           </Nav>
 
         </Navbar.Collapse>
