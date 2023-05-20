@@ -19,6 +19,14 @@ export const AnalyticsScreen = () => {
   const [editedStudent, setEditedStudent] = useState(null);
 
 
+
+  const [filterName, setFilterName] = useState("");
+  const [filterSubject, setFilterSubject] = useState("");
+  const [filterGrade, setFilterGrade] = useState("");
+  const [filterYear, setFilterYear] = useState("");
+
+
+
   useEffect(() => {
     axios.get('http://localhost:8060/api/students')
       .then((response) => {
@@ -36,7 +44,7 @@ export const AnalyticsScreen = () => {
     setSelectedStudent(null);
     setShowDeleteModal(false);
   }
-
+  //------------------------------------------------------------------------------------------------------------------------------------
   //Modificar nota
   const handleShowEditModal = (student, subject) => {
     setSelectedStudent(student);
@@ -44,11 +52,11 @@ export const AnalyticsScreen = () => {
     setEditedStudent({ ...student }); // Agregar esta línea para establecer editedStudent
     setShowEditModal(true);
   };
-
   const handleCloseEditModal = () => {
     setEditedStudent(null);
     setShowEditModal(false);
   }
+  //------------------------------------------------------------------------------------------------------------------------------------
   const deleteNote = async (id, subject) => {
     try {
       const updatedStudent = { ...selectedStudent };
@@ -97,10 +105,98 @@ export const AnalyticsScreen = () => {
       alert("Error al actualizar el estudiante");
     }
   };
+
+
+  const filteredStudents = students.filter((student) => {
+    const { firstName, lastName, notes } = student;
+
+    // Filtrar por nombre del alumno
+    if (filterName !== "" && `${lastName}, ${firstName}`.toLowerCase().indexOf(filterName.toLowerCase()) === -1) {
+      return false;
+    }
+
+    // Filtrar por materia
+    if (filterSubject !== "" && !(filterSubject in notes)) {
+      return false;
+    }
+    // Filtrar por año
+    if (filterYear !== "" && !(filterYear in notes)) {
+      return false;
+    }
+    // Filtrar por nota
+    if (filterGrade !== "") {
+      const grade = notes[filterSubject];
+      if (grade !== null && grade !== parseFloat(filterGrade)) {
+        return false;
+      }
+    }
+
+    return true;
+  });
+
+
   return (
     <>
       <div className='text-center p-2 p-md-5'>
-        <h1 className='mb-5 title'><b>Analiticos</b></h1>
+        <h1 className='mb-5 title'><b>Analíticos</b></h1>
+
+        <div className='filters'>
+          <Form className='col-md-10'>
+            <Form.Group className='d-flex m-2' controlId="filterName">
+              <Form.Label className='col-2 '><b>Nombre del alumno:</b></Form.Label>
+              <Form.Control
+                type="text"
+                value={filterName}
+                onChange={(event) => setFilterName(event.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className='d-flex m-2' controlId="filterSubject">
+              <Form.Label className='col-2'><b>Materia:</b></Form.Label>
+              <Form.Control
+                as="select"
+                value={filterSubject}
+                onChange={(event) => setFilterSubject(event.target.value)}
+              >
+                <option value="">Todas</option>
+                <option value="math">Matemáticas</option>
+                <option value="languageAndLiterature">Lengua y Literatura</option>
+                <option value="biology">Biología</option>
+                <option value="physics">Física</option>
+                <option value="chemistry">Química</option>
+                <option value="economy">Economía</option>
+                <option value="geography">Geografía</option>
+                <option value="history">Historia</option>
+                <option value="physicalEducation">Educación Física</option>
+              </Form.Control>
+            </Form.Group>
+            <Form.Group className='d-flex m-2' controlId="filterYear">
+              <Form.Label className='col-2'><b>Año:</b></Form.Label>
+              <Form.Control
+                as="select"
+                value={filterYear}
+                onChange={(event) => setFilterYear(event.target.value)}
+              >
+                <option value="">Todos</option>
+                <option value="I">I</option>
+                <option value="II">II</option>
+                <option value="III">III</option>
+                <option value="IV">IV</option>
+              </Form.Control>
+            </Form.Group>
+
+            <Form.Group className='d-flex m-2' controlId="filterGrade">
+              <Form.Label className='col-2'><b>Nota:</b></Form.Label>
+              <Form.Control
+                type="number"
+                step="0.1"
+                min="0"
+                max="10"
+                value={filterGrade}
+                onChange={(event) => setFilterGrade(event.target.value)}
+              />
+            </Form.Group>
+          </Form>
+        </div>
         <div className='table-container'>
           <Table striped bordered hover>
             <thead>
@@ -112,7 +208,7 @@ export const AnalyticsScreen = () => {
               </tr>
             </thead>
             <tbody>
-              {students.map((student) => {
+              {filteredStudents.map((student) => {
                 const { firstName, lastName, notes } = student;
                 const subjectKeys = Object.keys(notes).filter((key) =>
                   key.endsWith('I') || key.endsWith('II') || key.endsWith('III') || key.endsWith('IV')
@@ -235,7 +331,7 @@ export const AnalyticsScreen = () => {
 
       <Modal show={showEditModal} onHide={handleCloseEditModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Editar Estudiante</Modal.Title>
+          <Modal.Title>Cambiar Calificación</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleEditFormSubmit}>
@@ -247,12 +343,17 @@ export const AnalyticsScreen = () => {
                 min="4"
                 max="10"
                 value={editedStudent ? editedStudent.notes[selectedSubject] : ''}
-                onChange={(event) => setEditedStudent({ ...selectedStudent, notes: { ...selectedStudent.notes, [selectedSubject]: parseFloat(event.target.value) } })}
+                onChange={(event) => event.target.value !== '' && setEditedStudent({ ...selectedStudent, notes: { ...selectedStudent.notes, [selectedSubject]: parseFloat(event.target.value) } })}
               />
             </Form.Group>
+            <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseEditModal}>
+              Cancelar
+            </Button>
             <Button variant="primary" type="submit">
               Guardar cambios
             </Button>
+            </Modal.Footer>
           </Form>
         </Modal.Body>
       </Modal>
