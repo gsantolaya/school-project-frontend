@@ -1,5 +1,4 @@
 import React from "react";
-import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import logo from "../components/img/Logo Navbar.png";
@@ -17,8 +16,8 @@ import {
 
 export function Footer() {
   return (
-    <Nav className="justify-content-around navContainer p-4"  activeKey="/home">
-        <div className="flex-column d-flex text-white ">
+    <Nav className="justify-content-around navContainer p-4 mt-5"  activeKey="/home">
+        <div className="flex-column d-flex text-white col-xs-12 col-md-4  mb-3">
         <h4>Contactanos</h4>
         <ListGroup.Item>
           <strong>
@@ -39,11 +38,12 @@ export function Footer() {
           Av. Independencia 5125, <br /> San Miguel de Tucumán, Argentina
         </ListGroup.Item>
       </div>
-      <Navbar.Brand href="#home">
+      <div className="d-flex align-items-center">
+      <Navbar.Brand className="d-none d-lg-block  "  href="#home">
         <img src={logo} width="300px" height="70px" alt="Code School logo" />
       </Navbar.Brand>
-
-      <div className="flex-row d-flex" style={{ color: "white" }}>
+      </div>
+      <div className="flex-row d-flex align-items-center justify-content-center " style={{ color: "white" }}>
         <ListGroup.Item className="p-2" action href="/">
           <BsFacebook size={30} />
         </ListGroup.Item>
