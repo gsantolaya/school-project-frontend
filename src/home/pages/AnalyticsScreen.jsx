@@ -109,21 +109,19 @@ export const AnalyticsScreen = () => {
 
   const filteredStudents = students.filter((student) => {
     const { firstName, lastName, notes } = student;
-
-    // Filtrar por nombre del alumno
+    
     if (filterName !== "" && `${lastName}, ${firstName}`.toLowerCase().indexOf(filterName.toLowerCase()) === -1) {
       return false;
     }
 
-    // Filtrar por materia
     if (filterSubject !== "" && !(filterSubject in notes)) {
       return false;
     }
-    // Filtrar por año
+    
     if (filterYear !== "" && !(filterYear in notes)) {
       return false;
     }
-    // Filtrar por nota
+    
     if (filterGrade !== "") {
       const grade = notes[filterSubject];
       if (grade !== null && grade !== parseFloat(filterGrade)) {
@@ -171,11 +169,7 @@ export const AnalyticsScreen = () => {
             </Form.Group>
             <Form.Group className='d-flex m-2' controlId="filterYear">
               <Form.Label className='col-2'><b>Año:</b></Form.Label>
-              <Form.Control
-                as="select"
-                value={filterYear}
-                onChange={(event) => setFilterYear(event.target.value)}
-              >
+              <Form.Control as="select" value={filterYear} onChange={(event) => setFilterYear(event.target.value)}>
                 <option value="">Todos</option>
                 <option value="I">I</option>
                 <option value="II">II</option>
@@ -188,8 +182,8 @@ export const AnalyticsScreen = () => {
               <Form.Label className='col-2'><b>Nota:</b></Form.Label>
               <Form.Control
                 type="number"
-                step="0.1"
-                min="0"
+                step="1"
+                min="4"
                 max="10"
                 value={filterGrade}
                 onChange={(event) => setFilterGrade(event.target.value)}
@@ -197,7 +191,7 @@ export const AnalyticsScreen = () => {
             </Form.Group>
           </Form>
         </div>
-        <div className='table-container'>
+        <div className='table-container mt-5'>
           <Table striped bordered hover>
             <thead>
               <tr>
@@ -301,8 +295,8 @@ export const AnalyticsScreen = () => {
                       <td>{lastName}, {firstName}</td>
                       <td>{grade !== null ? grade : 'Sin calificación'}</td>
                       <td>
-                        <Button className='m-1' onClick={() => handleShowEditModal(student, subject)} variant="secondary"><FaEdit /></Button>{' '}
-                        <Button className='m-1' onClick={() => handleShowDeleteModal(student, subject)} variant="danger"><FaTrashAlt /></Button>{' '}
+                        <Button className='m-1' onClick={() => handleShowEditModal(student, subject)} variant="secondary"><FaEdit /></Button>
+                        <Button className='m-1' onClick={() => handleShowDeleteModal(student, subject)} variant="danger"><FaTrashAlt /></Button>
                       </td>
                     </tr>
                   );

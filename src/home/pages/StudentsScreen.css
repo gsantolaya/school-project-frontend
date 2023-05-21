@@ -13,6 +13,10 @@
 .title{
   color: #7a0045 !important;
 }
+.banned{
+  text-decoration:line-through;
+  text-decoration-color: red;
+}
 .buttonAddStudent:hover{
   color: black !important;
   background-color: white !important;
