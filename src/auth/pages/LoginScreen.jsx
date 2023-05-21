@@ -15,8 +15,9 @@ export const LoginScreen = () => {
 
 
   return (
-    <div className="d-flex  justify-content-center align-items-center flex-column mt-5">
-      <h1 className="title" >Bienvenidos</h1>
+    <div className='containerAuth'>
+    <div className="d-flex  justify-content-center align-items-center flex-column">
+      <h1 className="title mt-5" >Bienvenidos</h1>
     <div  >
 
       <Form onSubmit={handleSubmit(Submit)}>
@@ -54,7 +55,7 @@ export const LoginScreen = () => {
       </div>
     </Form>
 
-<div className="flex-column d-flex align-items-center mt-2" >
+<div className="flex-column d-flex align-items-center m-5" >
     <Form.Text>
     ¿No tienes cuenta?
       </Form.Text>  
@@ -62,6 +63,7 @@ export const LoginScreen = () => {
 <Link  to={"/register"} >Registrate Aquí</Link>
 </div>
 
+    </div>
     </div>
     </div>
   )

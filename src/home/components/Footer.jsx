@@ -16,7 +16,7 @@ import {
 
 export function Footer() {
   return (
-    <Nav className="justify-content-around navContainer p-4 mt-5"  activeKey="/home">
+    <Nav className="justify-content-around navContainer p-4 "  activeKey="/home">
         <div className="flex-column d-flex text-white col-xs-12 col-md-4  mb-3">
         <h4>Contactanos</h4>
         <ListGroup.Item>
