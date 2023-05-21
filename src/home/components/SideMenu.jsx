@@ -11,22 +11,19 @@ export function SideMenu() {
 
   return (
     <Nav className="flex-column sideMenuContainer col-12 text-center">
-      <Nav.Link className={`sideMenuLinks ${isActive("/administrativeStaff")}`} href="/administrativeStaff">
+      <Nav.Link className={`sideMenuLinks ${isActive("/home/administrativeStaff")}`} href="/home/administrativeStaff">
         Personal Administrativo
       </Nav.Link>
-      <Nav.Link className={`sideMenuLinks ${isActive("/students")}`} href="/students">
+      <Nav.Link className={`sideMenuLinks ${isActive("/home/students")}`} href="/home/students">
         Alumnos
       </Nav.Link>
-      <Nav.Link className={`sideMenuLinks ${isActive("/analytics")}`} href="/analytics">
-        Analiticos
+      <Nav.Link className={`sideMenuLinks ${isActive("/home/analytics")}`} href="/home/analytics">
+        Analíticos
       </Nav.Link>
-      <Nav.Link className={`sideMenuLinks ${isActive("/payments")}`} href="/payments">
+      <Nav.Link className={`sideMenuLinks ${isActive("/home/payments")}`} href="/home/payments">
         Pagos
       </Nav.Link>
-      <Nav.Link className={`sideMenuLinks ${isActive("/users")}`} href="/users">
-        Usuarios
-      </Nav.Link>
-      <Nav.Link className="logOut" href="/home">Cerrar Sesión</Nav.Link>
+      <Nav.Link className="log" href="/">Cerrar Sesión</Nav.Link>
     </Nav>
   );
 }

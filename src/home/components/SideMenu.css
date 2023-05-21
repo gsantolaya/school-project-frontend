@@ -1,6 +1,6 @@
 .sideMenuContainer{
     padding-top: 50px;
-    min-height: 90vh;
+    min-height:80vh;
 }
 .sideMenuLinks{
     color: #7A0045 !important;
@@ -19,12 +19,12 @@
 .sideMenuLinks:hover{
     transform: scale(1.05)
 }
-.logOut{
+.log{
     margin-top: 50px;
     color: #7A0045 !important;
     font-weight: bold !important;
 }
-.logOut:hover{
+.log:hover{
     text-decoration:underline !important;
 }
 @media screen and (max-width: 576px){
