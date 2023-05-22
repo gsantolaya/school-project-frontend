@@ -7,7 +7,7 @@ export const PaymentsScreen = () => {
   return (
     <>
       <div className='welcome-container text-center'>
-        <h1 className='p-5'><b>SITIO EN CONSTRUCCION</b></h1>
+        <h1 className='p-5'><b>SITIO EN CONSTRUCCION: PROXIMAMENTE PAGOS</b></h1>
         <img src={logo} className="App-logo" alt="logo" />
       </div>
     </>
