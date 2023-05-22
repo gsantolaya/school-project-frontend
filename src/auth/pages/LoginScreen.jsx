@@ -13,6 +13,7 @@ export const LoginScreen = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const Submit = (data) => {
+    console.log(data);
     axios
       .post('http://localhost:8060/api/users/login', data)
       .then((res) => {
@@ -27,7 +28,7 @@ export const LoginScreen = () => {
     if (tokenIsValid()) {
       navigate('/home');
     }
-  }, []);
+  }, [navigate]);
 
   return (
     <div className='containerAuth'>
@@ -40,9 +41,9 @@ export const LoginScreen = () => {
               <Form.Control
                 placeholder="Carlos Perez"
                 type="text"
-                id="user"
-                name="user"
-                {...register("user", { required: true })}
+                id="email"
+                name="email"
+                {...register("email", { required: true })}
               />
               {errors?.user && <span className="text-danger">Este campo es requerido</span>}
             </Form.Group>
