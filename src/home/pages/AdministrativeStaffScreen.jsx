@@ -26,7 +26,7 @@ export const AdministrativeStaffScreen = () => {
 
 
   useEffect(() => {
-    axios.get("http://localhost:8080/API/adminStaff").then((response) => {
+    axios.get("http://localhost:8060/api/adminStaff").then((response) => {
       setAdminStaff(response.data);
  
       setAdminFiltered(response.data)

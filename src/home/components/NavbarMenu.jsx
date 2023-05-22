@@ -2,15 +2,15 @@ import React from 'react'
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import logo from '../components/img/Logo Navbar.png';
+import Logo from '../components/img/Logo.png';
 import './NavbarMenu.css';
-import { NavDropdown } from 'react-bootstrap';
+
 
 export function NavbarMenu() {
   return (
     <Navbar className="navContainer" variant="dark" expand="lg">
       <Container>
-        <Navbar.Brand href="/"><img src={logo} className="logo" alt="logo" /></Navbar.Brand>
+        <Navbar.Brand href="/"><img src={Logo} width="150px" height="150px" alt="logo" /></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">

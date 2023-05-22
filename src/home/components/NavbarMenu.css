@@ -42,11 +42,6 @@
     text-decoration: underline !important;
 }
 
-.logo {
-    height: 70px;
-    margin: 0px;
-    padding: 0px;
-}
 
 @media screen and (max-width: 576px) {
     .navSideLinks {
