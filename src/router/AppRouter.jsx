@@ -12,25 +12,36 @@ import { UsersScreen } from '../home/pages/UsersScreen';
 import { NavbarMenu } from '../home/components/NavbarMenu';
 import {NoPage} from '../home/pages/NoPage'
 
+import { NewStudentScreen } from '../home/pages/NewStudentScreen';
+import { Error404Screen } from '../Error404Screen';
+import { Welcome } from '../home/components/Welcome';
+import { Footer } from '../home/components/Footer';
+
+
 export const AppRouter = () => {
-  const isNavbarVisible = window.location.pathname !== '/login' && window.location.pathname !== '/register';
   return (
-    <BrowserRouter>
-    {isNavbarVisible && <NavbarMenu />}
-      <Routes>
-        <Route path="/login" element={<LoginScreen />} />
-        <Route path="/register" element={<RegisterScreen />} />
-        <Route path="/aboutUs" element={<AboutUsScreen />} />
-        <Route path="/" element={<HomeScreen />}>
-          <Route path="/administrativeStaff" element={<AdministrativeStaffScreen />} />
-          <Route path="/students" element={<StudentsScreen />} />
-          <Route path="/analytics" element={<AnalyticsScreen />} />
-          <Route path="/payments" element={<PaymentsScreen />} />
-          <Route path="/users" element={<UsersScreen />} />
-          <Route path="*" element={<NoPage />} />
+
+
+    <>
+      <BrowserRouter>
+        <NavbarMenu />
+        <Routes>
+          <Route path="/login" element={<LoginScreen />} />
+          <Route path="/register" element={<RegisterScreen />} />
+          <Route path="/aboutUs" element={<AboutUsScreen />} />
+          <Route path="/" element={<Welcome />} />
+          <Route path="/home" element={<HomeScreen />}>
+            <Route path="/home/administrativeStaff" element={<AdministrativeStaffScreen />} />
+            <Route path="/home/students" element={<StudentsScreen />} />
+            <Route path="/home/analytics" element={<AnalyticsScreen />} />
+            <Route path="/home/payments" element={<PaymentsScreen />} />
+            <Route path="/home/users" element={<UsersScreen />} />
+            <Route path="/home/newStudent" element={<NewStudentScreen />} />
           </Route>
-        <Route path="*" element={<NoPage />} />
-      </Routes>
-    </BrowserRouter>
+          <Route path="*" element={<Error404Screen/>} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </>
   )
 }

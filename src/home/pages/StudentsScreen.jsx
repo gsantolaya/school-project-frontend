@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FaTrashAlt } from "react-icons/fa"
+import { FaTrashAlt } from "react-icons/fa";
 import Table from 'react-bootstrap/Table';
 import './StudentsScreen.css';
 import axios from 'axios';
@@ -7,10 +7,10 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Toast from 'react-bootstrap/Toast';
 import Form from 'react-bootstrap/Form';
+import Nav from 'react-bootstrap/Nav';
 
 
 export const StudentsScreen = () => {
-
     const [students, setStudents] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [searchOption, setSearchOption] = useState('name');
@@ -51,11 +51,19 @@ export const StudentsScreen = () => {
         setShowErrorToast(false);
     };
     const handleEditInputChange = (event) => {
-        const { name, value } = event.target;
-        setEditedStudent((prevStudent) => ({
-            ...prevStudent,
-            [name]: value,
-        }));
+        const { name, value, type, checked } = event.target;
+
+        if (type === 'checkbox') {
+            setEditedStudent((prevStudent) => ({
+                ...prevStudent,
+                [name]: checked,
+            }));
+        } else {
+            setEditedStudent((prevStudent) => ({
+                ...prevStudent,
+                [name]: value,
+            }));
+        }
     };
     const handleSearchInputChange = (event) => {
         setSearchTerm(event.target.value);
@@ -102,22 +110,11 @@ export const StudentsScreen = () => {
         }
     };
 
-    const handleAddStudent = () => {
-        // setShowModal(true);
-        // setEditedStudent({
-        //     firstName: '',
-        //     lastName: '',
-        //     currentYearOfStudy: '',
-        //     payment: false,
-        // });
-    };
-
-
     const filteredStudents = students.filter((student) => {
         const fullName = `${student.firstName} ${student.lastName}`.toLowerCase();
         const studentId = student._id.toLowerCase();
         const currentYearOfStudy = student.currentYearOfStudy.toString().toLowerCase();
-        const paymentStatus = student.payment ? 'al día' : 'deudor';
+        const paymentStatus = student.payment ? 'al día' : 'pendiente';
         switch (searchOption) {
             case 'name':
                 return fullName.includes(searchTerm.toLowerCase());
@@ -134,7 +131,7 @@ export const StudentsScreen = () => {
     return (
         <>
             <div className='text-center p-2 p-md-5'>
-                <h1 className='mb-5 font-weight-bold'>Listado de Alumnos</h1>
+                <h1 className='mb-5 title'><b>Listado de Alumnos</b></h1>
                 <div className='row d-md-flex'>
                     <div className='col-12 col-md-4 my-2 my-md-0'>
                         <Form.Group controlId="searchForm">
@@ -147,24 +144,22 @@ export const StudentsScreen = () => {
                         </Form.Group>
                     </div>
                     <div className='col-12 col-md-4 my-2 my-md-0'>
-                            <Form.Group className='d-flex my-2 ' controlId="searchOptionForm">
-                                <p><b>Buscar por:</b></p>
-                                <Form.Control
-                                    as="select"
-                                    value={searchOption}
-                                    onChange={handleSearchOptionChange}
-                                >
-                                    <option value="name">Nombre</option>
-                                    <option value="id">ID</option>
-                                    <option value="year">Año de cursado actual</option>
-                                    <option value="payment">Cuota</option>
-                                </Form.Control>
-                            </Form.Group>
+                        <Form.Group className='d-flex my-2 ' controlId="searchOptionForm">
+                            <p><b>Buscar por:</b></p>
+                            <Form.Control
+                                as="select"
+                                value={searchOption}
+                                onChange={handleSearchOptionChange}
+                            >
+                                <option value="name">Nombre</option>
+                                <option value="id">ID</option>
+                                <option value="year">Año de cursado actual</option>
+                                <option value="payment">Cuota</option>
+                            </Form.Control>
+                        </Form.Group>
                     </div>
                     <div className='col-12 my-2 col-md-2 my-md-0 ms-auto'>
-                        <Button variant="primary" onClick={handleAddStudent}>
-                            Agregar estudiante
-                        </Button>
+                        <Nav.Link className="buttonAddStudent" href="newStudent">Agregar Alumno</Nav.Link>
                     </div>
                 </div>
 
@@ -172,28 +167,29 @@ export const StudentsScreen = () => {
                     <Table striped bordered hover>
                         <thead>
                             <tr>
-                                <th>Nro. de Expediente</th>
+                                <th>ID de Expediente</th>
                                 <th>Apellido</th>
                                 <th>Nombre</th>
                                 <th>Año cursado actual</th>
                                 <th>Cuota</th>
-                                <th></th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             {
                                 filteredStudents.map((student) => (
-                                    <tr key={student._id}>
+                                    <tr key={student._id} className={student.isBanned ? "banned" : ""}>
                                         <td>{student._id}</td>
                                         <td>{student.firstName}</td>
                                         <td>{student.lastName}</td>
                                         <td>{student.currentYearOfStudy}</td>
                                         <td style={{ color: student.payment ? 'green' : 'red' }}>
-                                            {student.payment ? 'Al día' : 'Deudor'}
+                                            {student.payment ? 'Al día' : 'Pendiente'}
                                         </td>
-                                        <td><Button onClick={() => handleShowEditModal(student)} variant="secondary">Ver detalles</Button>{' '}</td>
-                                        <td><Button onClick={() => handleShowModal(student)} variant="danger">Eliminar <FaTrashAlt /></Button>{' '}</td>
+                                        <td>
+                                            <Button className='m-1' onClick={() => handleShowEditModal(student)} variant="secondary">+ Detalles</Button>
+                                            <Button className='m-1' onClick={() => handleShowModal(student)} variant="danger"> <FaTrashAlt /></Button>
+                                        </td>
                                     </tr>
                                 ))
                             }
@@ -242,6 +238,15 @@ export const StudentsScreen = () => {
                                 onChange={handleEditInputChange}
                             />
                         </Form.Group>
+                        <Form.Group controlId="editFormLastName">
+                            <Form.Label>DNI:</Form.Label>
+                            <Form.Control
+                                type="text"
+                                name="dni"
+                                value={editedStudent?.dni || ''}
+                                onChange={handleEditInputChange}
+                            />
+                        </Form.Group>
                         <Form.Group controlId="editFormCurrentYearOfStudy">
                             <Form.Label>Año de cursado actual:</Form.Label>
                             <Form.Control
@@ -266,6 +271,15 @@ export const StudentsScreen = () => {
                                 type="string"
                                 name="address"
                                 value={editedStudent?.address || ''}
+                                onChange={handleEditInputChange}
+                            />
+                        </Form.Group>
+                        <Form.Group controlId="editFormLastName">
+                            <Form.Label>Email:</Form.Label>
+                            <Form.Control
+                                type="text"
+                                name="email"
+                                value={editedStudent?.email || ''}
                                 onChange={handleEditInputChange}
                             />
                         </Form.Group>
@@ -296,9 +310,14 @@ export const StudentsScreen = () => {
                                 label="Pago al día"
                             />
                         </Form.Group>
-                        <Button variant="primary" type="submit">
-                            Guardar cambios
-                        </Button>
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={handleCloseEditModal}>
+                                Cancelar
+                            </Button>
+                            <Button variant="primary" type="submit">
+                                Guardar cambios
+                            </Button>
+                        </Modal.Footer>
                     </Form>
                 </Modal.Body>
             </Modal>

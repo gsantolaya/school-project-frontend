@@ -1,10 +1,16 @@
-import React from 'react'
+import React from 'react';
+import { useLocation } from 'react-router-dom';
 import './HomeScreen.css';
 import { SideMenu } from '../components/SideMenu';
-import { Outlet } from 'react-router-dom'
-
+import { Outlet } from 'react-router-dom';
+import { Welcome } from '../components/Welcome';
 
 export const HomeScreen = () => {
+  const location = useLocation();
+
+  // Verificar si la ruta es exactamente "/home"
+  const isHome = location.pathname === '/home';
+
   return (
     <>
       <div className='d-flex'>
@@ -12,9 +18,9 @@ export const HomeScreen = () => {
           <SideMenu />
         </div>
         <div className='col-12 col-md-10 main'>
-          <Outlet/>
+          {isHome ? <Welcome /> : <Outlet />}
         </div>
       </div>
     </>
-  )
-}
+  );
+};

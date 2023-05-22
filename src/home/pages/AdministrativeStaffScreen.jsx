@@ -11,10 +11,11 @@ import {
 let active = 1;
 let items = [];
 for (let number = 1; number <= 5; number++) {
+
   items.push(
     <Pagination.Item key={number} active={number === active}>
       {number}
-    </Pagination.Item>,
+    </Pagination.Item>
   );
 }
 
@@ -45,7 +46,7 @@ export const AdministrativeStaffScreen = () => {
       setAdminFiltered(filterAdminStaff)
     }
   };
- 
+
 
 
   return (
@@ -102,10 +103,11 @@ export const AdministrativeStaffScreen = () => {
           </Table>
         </div>
 
+
         <div className="justify-content-center align-items-center d-flex mt-3">
           <Pagination size="sm">{items}</Pagination>
         </div>
       </div>
     </>
-  )
-}
+  );
+};

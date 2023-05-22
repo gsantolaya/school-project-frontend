@@ -1,10 +1,11 @@
-.navContainer{
+.navContainer {
     background-color: #7A0045;
 }
-.navLinks{
+
+.navLinks {
     color: white !important;
     font-weight: bold !important;
-    border: solid 1px white;
+    border: solid white;
     border-radius: 20px;
     margin: 10px;
     padding-left: 20px !important;
@@ -12,23 +13,47 @@
     text-decoration: none;
 
 }
-.navLinks:hover{
+
+.navLinks:hover {
     color: #7a0045 !important;
     background-color: white !important;
     transform: scale(1.05)
 }
-.logo{
-    height: 70px;
-    margin: 0px;
-    padding: 0px;
-}
-/*
-#basic-navbar-nav{
+
+.navSideLinks {
+    display: none !important;
     color: white !important;
+    font-weight: bold !important;
+    border: solid white;
+    border-radius: 20px;
+    margin: 10px;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    text-decoration: none;
 }
-.App-logo{
-    width: 70px;
+
+.logOut {
+    display: none !important;
+    color: white !important;
+    font-weight: bold !important;
+}
+
+.logOut:hover {
+    text-decoration: underline !important;
+}
+
+.logo {
     height: 70px;
     margin: 0px;
     padding: 0px;
-} */
+}
+
+@media screen and (max-width: 576px) {
+    .navSideLinks {
+        display: inherit !important;
+    }
+
+    .logOut {
+        display: inherit !important;
+    }
+}
