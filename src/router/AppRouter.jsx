@@ -18,13 +18,11 @@ import { Footer } from '../home/components/Footer';
 
 
 export const AppRouter = () => {
-  const isNavbarVisible = window.location.pathname !== '/login' && window.location.pathname !== '/register';
-  const isFooter = window.location.pathname !== '/login' && window.location.pathname !== '/register';
   return (
 
     <>
       <BrowserRouter>
-        {isNavbarVisible && <NavbarMenu />}
+        <NavbarMenu />
         <Routes>
           <Route path="/login" element={<LoginScreen />} />
           <Route path="/register" element={<RegisterScreen />} />
@@ -40,7 +38,7 @@ export const AppRouter = () => {
           </Route>
           <Route path="*" element={<Error404Screen/>} />
         </Routes>
-        {isFooter && <Footer />}
+        <Footer />
       </BrowserRouter>
     </>
 

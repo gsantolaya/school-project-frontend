@@ -1,7 +1,6 @@
 
 import React from "react";
 import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
 import logo from "../components/img/Logo Navbar.png";
 import ListGroup from "react-bootstrap/ListGroup";
 import "./NavbarMenu.css";
@@ -17,8 +16,8 @@ import {
 
 export function Footer() {
   return (
-    <Nav className="justify-content-around navContainer p-4 "  activeKey="/home">
-        <div className="flex-column d-flex text-white col-xs-12 col-md-4  mb-3">
+    <Nav className="d-flex navContainer p-2 " activeKey="/home">
+      <div className="col-md-4 text-white ps-5">
         <h4>Contactanos</h4>
         <ListGroup.Item>
           <strong>
@@ -39,27 +38,17 @@ export function Footer() {
           Av. Independencia 5125, <br /> San Miguel de Tucumán, Argentina
         </ListGroup.Item>
       </div>
-      <div className="d-flex align-items-center">
-      <Navbar.Brand className="d-none d-lg-block  "  href="#home">
-        <img src={logo} width="300px" height="70px" alt="Code School logo" />
-      </Navbar.Brand>
+      <div className="d-flex align-items-center justify-content-center col-md-4">
+          <img src={logo} width="300px" height="70px" alt="Code School logo" />
       </div>
-      <div className="flex-row d-flex align-items-center justify-content-center " style={{ color: "white" }}>
-        <ListGroup.Item className="p-2" action href="/">
-          <BsFacebook size={30} />
-        </ListGroup.Item>
-        <ListGroup.Item className="p-2" action href="/">
-          <BsInstagram size={30} />
-        </ListGroup.Item>
-        <ListGroup.Item className="p-2" action href="/">
-          <BsTwitter size={30} />
-        </ListGroup.Item>
-        <ListGroup.Item className="p-2" action href="/">
-          <BsWhatsapp size={30} />
-        </ListGroup.Item>
+      <div className="col-4 text-white d-flex align-items-center justify-content-center ">
+          <BsFacebook className='m-3' size={30} />
+          <BsInstagram className='m-3' size={30} />
+          <BsTwitter className='m-3' size={30} />
+          <BsWhatsapp className='m-3' size={30} />
       </div>
     </Nav>
 
-   
-  );
 
+  );
+}

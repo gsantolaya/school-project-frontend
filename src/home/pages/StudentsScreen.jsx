@@ -114,7 +114,7 @@ export const StudentsScreen = () => {
         const fullName = `${student.firstName} ${student.lastName}`.toLowerCase();
         const studentId = student._id.toLowerCase();
         const currentYearOfStudy = student.currentYearOfStudy.toString().toLowerCase();
-        const paymentStatus = student.payment ? 'al día' : 'deudor';
+        const paymentStatus = student.payment ? 'al día' : 'pendiente';
         switch (searchOption) {
             case 'name':
                 return fullName.includes(searchTerm.toLowerCase());

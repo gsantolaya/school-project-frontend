@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useForm } from "react-hook-form";
@@ -14,7 +14,7 @@ export const RegisterScreen = () => {
     console.log(data)};
 
   return (
-    <div className="d-flex  justify-content-center align-items-center flex-column mt-5">
+    <div className="containerAuth d-flex  justify-content-center align-items-center flex-column pt-5">
       <h1 className="title" >Registrate</h1>
     <div  >
 

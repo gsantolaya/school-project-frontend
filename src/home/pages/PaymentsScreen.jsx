@@ -1,7 +1,15 @@
 import React from 'react'
+import logo from '../components/img/Logo redondo.png';
+
+
 
 export const PaymentsScreen = () => {
   return (
-    <div className='Container col-md-9 col-lg-10 position-absolute end-0 p-5 text-center'>PaymentsScreen</div>
+    <>
+      <div className='welcome-container text-center'>
+        <h1 className='p-5'><b>SITIO EN CONSTRUCCION</b></h1>
+        <img src={logo} className="App-logo" alt="logo" />
+      </div>
+    </>
   )
 }
