@@ -3,7 +3,6 @@ import { useLocation } from 'react-router-dom';
 import './HomeScreen.css';
 import { SideMenu } from '../components/SideMenu';
 import { Outlet } from 'react-router-dom';
-import { Footer } from '../components/Footer';
 import { Welcome } from '../components/Welcome';
 
 export const HomeScreen = () => {
@@ -21,9 +20,6 @@ export const HomeScreen = () => {
         <div className='col-12 col-md-10 main'>
           {isHome ? <Welcome /> : <Outlet />}
         </div>
-      </div>
-      <div>
-        <Footer />
       </div>
     </>
   );
