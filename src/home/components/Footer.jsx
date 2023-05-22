@@ -1,7 +1,7 @@
 
 import React from "react";
 import Nav from "react-bootstrap/Nav";
-import logo from "../components/img/Logo Navbar.png";
+import Logo from "../components/img/Logo.png";
 import ListGroup from "react-bootstrap/ListGroup";
 import "./NavbarMenu.css";
 import {
@@ -17,7 +17,7 @@ import {
 export function Footer() {
   return (
     <Nav className="d-flex navContainer p-2 " activeKey="/home">
-      <div className="col-md-4 text-white ps-5">
+      <div className="col-md-4 text-white ps-5  ">
         <h4>Contactanos</h4>
         <ListGroup.Item>
           <strong>
@@ -39,7 +39,7 @@ export function Footer() {
         </ListGroup.Item>
       </div>
       <div className="d-flex align-items-center justify-content-center col-md-4">
-          <img src={logo} width="300px" height="70px" alt="Code School logo" />
+          <img src={Logo} width="150px" height="150px" alt="Code School logo" />
       </div>
       <div className="col-4 text-white d-flex align-items-center justify-content-center ">
           <BsFacebook className='m-3' size={30} />
