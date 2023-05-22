@@ -1,0 +1,15 @@
+.table-container{
+    max-height: 500px;
+    overflow-y: scroll;
+  }
+  .table-container::-webkit-scrollbar {
+    width: 0.5em; /* Ajusta el ancho del scroll si deseas */
+  }
+  
+  .table-container::-webkit-scrollbar-thumb {
+    background-color: #7A0045 ; /* Color del scroll */
+  }
+  
+  .table-container::-webkit-scrollbar-thumb:hover {
+    background-color: black; /* Color del scroll al pasar el cursor sobre él */
+  }

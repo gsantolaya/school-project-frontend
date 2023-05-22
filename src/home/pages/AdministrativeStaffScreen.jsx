@@ -53,6 +53,7 @@ export const AdministrativeStaffScreen = () => {
 
   return (
     <>
+
       <div className='text-center p-2 p-md-5'>
         <h1 className="title mb-5 font-weight-bold">Personal Administrativo</h1>
         <div className='row d-md-flex mb-4'>
@@ -83,6 +84,7 @@ export const AdministrativeStaffScreen = () => {
                    
                    
                 </div>
+
 
     
     
