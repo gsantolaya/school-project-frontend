@@ -3,12 +3,11 @@ import Table from "react-bootstrap/Table";
 import Pagination from "react-bootstrap/Pagination";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
-import { FaSearch } from "react-icons/fa";
 
 //pagination
 let active = 1;
 let items = [];
-for (let number = 1; number <= 10; number++) {
+for (let number = 1; number <= 20; number++) {
   items.push(
     <Pagination.Item key={number} active={number === active}>
       {number}
@@ -21,8 +20,9 @@ export const AdministrativeStaffScreen = () => {
   const [searchOption, setSearchOption] = useState("lastName");
   const [searchTerm, setSearchTerm] = useState("");
 
+
   useEffect(() => {
-    axios.get("http://localhost:8080/adminStaff").then((response) => {
+    axios.get("http://localhost:8080/API/adminStaff").then((response) => {
       setAdminStaff(response.data);
     });
   }, []);
@@ -50,11 +50,43 @@ export const AdministrativeStaffScreen = () => {
     }
   });
 
+
   return (
     <>
-      <div className="Container col-md-9 col-lg-10 position-absolute end-0 p-5 text-center">
-        <h1 className="title">Personal Administrativo</h1>
+      <div className='text-center p-2 p-md-5'>
+        <h1 className="title mb-5 font-weight-bold">Personal Administrativo</h1>
+        <div className='row d-md-flex mb-4'>
+        <div className='col-12 col-md-4 my-2 my-md-0 row d-md-flex'>
+                            <Form.Group  controlId="searchOptionForm">
+                            
+                                <Form.Control
+                                    as="select"
+                                    value={searchOption}
+                                    onChange={handleSearchOptionChange}
+                                >
+                                  <option value="lastName">Apellido</option>
+              <option value="schoolName">Nombre Institución</option>
+              <option value="dateAdmission">Fecha Iingreso</option>
+                                </Form.Control>
+                            </Form.Group>
+                    </div>
+                    <div className='col-12 col-md-4 my-2 my-md-0'>
+                        <Form.Group controlId="searchForm">
+                            <Form.Control
+                                type="text"
+                                placeholder="Buscar"
+                                value={searchTerm}
+                                onChange={handleSearchInputChange}
+                            />
+                        </Form.Group>
+                    </div>
+                   
+                   
+                </div>
 
+    
+    
+ {/* <div className=" ">
         <Form.Group controlId="searchForm">
           <Form.Control
             type="text"
@@ -64,10 +96,10 @@ export const AdministrativeStaffScreen = () => {
           />
         </Form.Group>
 
-        <div className="col-12 col-md-4 my-2 my-md-0">
-          <Form.Group controlId="searchOptionForm">
+     
+          
+          <Form.Group controlId="searchOptionForm" >
             <FaSearch />
-
             <Form.Control
               as="select"
               value={searchOption}
@@ -78,21 +110,25 @@ export const AdministrativeStaffScreen = () => {
               <option value="dateAdmission">Fecha Iingreso</option>
             </Form.Control>
           </Form.Group>
-        </div>
 
-        <Table striped bordered hover>
-          <thead>
+        </div>  */}
+  
+       
+
+        <div className="table-responsive m-2">
+        <Table striped bordered hover size="sm">
+          <thead className="title align-middle text-center">
             <tr>
               <th>ID</th>
               <th> Nombre</th>
               <th> Apellido</th>
               <th>Fecha Ingreso</th>
-              <th>Telefono</th>
+              <th> Teléfono</th>
               <th>Email</th>
-              <th>Direccion</th>
-              <th>Nombre Institucion</th>
-              <th>Telefono Institucion</th>
-              <th>Email Institucion</th>
+              <th>Dirección</th>
+              <th>Nombre Institución</th>
+              <th>Teléfono Institución</th>
+              <th>Email Institución</th>
             </tr>
           </thead>
           <tbody>
@@ -112,6 +148,9 @@ export const AdministrativeStaffScreen = () => {
             ))}
           </tbody>
         </Table>
+        </div>
+
+        
         <div className="justify-content-center align-items-center d-flex mt-3">
           <Pagination size="sm">{items}</Pagination>
         </div>
