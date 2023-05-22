@@ -10,15 +10,18 @@ import { AnalyticsScreen } from '../home/pages/AnalyticsScreen';
 import { PaymentsScreen } from '../home/pages/PaymentsScreen';
 import { UsersScreen } from '../home/pages/UsersScreen';
 import { NavbarMenu } from '../home/components/NavbarMenu';
+
 import { NewStudentScreen } from '../home/pages/NewStudentScreen';
 import { Error404Screen } from '../Error404Screen';
 import { Welcome } from '../home/components/Welcome';
 import { Footer } from '../home/components/Footer';
 
+
 export const AppRouter = () => {
   const isNavbarVisible = window.location.pathname !== '/login' && window.location.pathname !== '/register';
   const isFooter = window.location.pathname !== '/login' && window.location.pathname !== '/register';
   return (
+
     <>
       <BrowserRouter>
         {isNavbarVisible && <NavbarMenu />}
@@ -40,5 +43,6 @@ export const AppRouter = () => {
         {isFooter && <Footer />}
       </BrowserRouter>
     </>
+
   )
 }
