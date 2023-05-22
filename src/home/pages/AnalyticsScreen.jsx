@@ -1,14 +1,11 @@
-import './AnalyticsScreen.css';
-import Table from 'react-bootstrap/Table';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Table from 'react-bootstrap/Table';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import { FaTrashAlt, FaEdit } from "react-icons/fa";
 import Form from 'react-bootstrap/Form';
-
-
-
+import { FaTrashAlt, FaEdit } from "react-icons/fa";
+import './AnalyticsScreen.css';
 
 export const AnalyticsScreen = () => {
   const [students, setStudents] = useState([]);
@@ -19,12 +16,10 @@ export const AnalyticsScreen = () => {
   const [editedStudent, setEditedStudent] = useState(null);
 
 
-
   const [filterName, setFilterName] = useState("");
   const [filterSubject, setFilterSubject] = useState("");
+  // const [filterYear, setFilterYear] = useState("");
   const [filterGrade, setFilterGrade] = useState("");
-  const [filterYear, setFilterYear] = useState("");
-
 
 
   useEffect(() => {
@@ -44,19 +39,19 @@ export const AnalyticsScreen = () => {
     setSelectedStudent(null);
     setShowDeleteModal(false);
   }
-  //------------------------------------------------------------------------------------------------------------------------------------
+
   //Modificar nota
   const handleShowEditModal = (student, subject) => {
     setSelectedStudent(student);
     setSelectedSubject(subject);
-    setEditedStudent({ ...student }); // Agregar esta línea para establecer editedStudent
+    setEditedStudent({ ...student });
     setShowEditModal(true);
   };
   const handleCloseEditModal = () => {
     setEditedStudent(null);
     setShowEditModal(false);
   }
-  //------------------------------------------------------------------------------------------------------------------------------------
+
   const deleteNote = async (id, subject) => {
     try {
       const updatedStudent = { ...selectedStudent };
@@ -65,7 +60,6 @@ export const AnalyticsScreen = () => {
       const response = await axios.put(`http://localhost:8060/api/students/${id}`, updatedStudent);
 
       if (response.status === 200) {
-        // Actualiza el estado de students con la versión actualizada del estudiante
         const updatedStudents = students.map((student) => {
           if (student._id === id) {
             return updatedStudent;
@@ -106,90 +100,84 @@ export const AnalyticsScreen = () => {
     }
   };
 
-
-  const filteredStudents = students.filter((student) => {
-    const { firstName, lastName, notes } = student;
-    
-    if (filterName !== "" && `${lastName}, ${firstName}`.toLowerCase().indexOf(filterName.toLowerCase()) === -1) {
-      return false;
-    }
-
-    if (filterSubject !== "" && !(filterSubject in notes)) {
-      return false;
-    }
-    
-    if (filterYear !== "" && !(filterYear in notes)) {
-      return false;
-    }
-    
-    if (filterGrade !== "") {
-      const grade = notes[filterSubject];
-      if (grade !== null && grade !== parseFloat(filterGrade)) {
-        return false;
-      }
-    }
-
-    return true;
-  });
-
+  const SUBJECTS_LABELS = {
+    mathI: "Matemáticas I",
+    mathII: "Matemáticas II",
+    mathIII: "Matemáticas III",
+    mathIV: "Matemáticas IV",
+    languageAndLiteratureI: "Lengua y Literatura I",
+    languageAndLiteratureII: "Lengua y Literatura II",
+    languageAndLiteratureIII: "Lengua y Literatura III",
+    languageAndLiteratureIV: "Lengua y Literatura IV",
+    biologyI: "Biología I",
+    biologyII: "Biología II",
+    biologyIII: "Biología III",
+    biologyIV: "Biología IV",
+    physicsI: "Física I",
+    physicsII: "Física II",
+    physicsIII: "Física III",
+    physicsIV: "Física IV",
+    chemistryI: "Química I",
+    chemistryII: "Química II",
+    chemistryIII: "Química III",
+    chemistryIV: "Química IV",
+    economyI: "Economía I",
+    economyII: "Economía II",
+    economyIII: "Economía III",
+    economyIV: "Economía IV",
+    geographyI: "Geografía I",
+    geographyII: "Geografía II",
+    geographyIII: "Geografía III",
+    geographyIV: "Geografía IV",
+    historyI: "Historia I",
+    historyII: "Historia II",
+    historyIII: "Historia III",
+    historyIV: "Historia IV",
+    physicalEducationI: "Educación Física I",
+    physicalEducationII: "Educación Física II",
+    physicalEducationIII: "Educación Física III",
+    physicalEducationIV: "Educación Física IV",
+  };
 
   return (
     <>
       <div className='text-center p-2 p-md-5'>
         <h1 className='mb-5 title'><b>Analíticos</b></h1>
+        <div className="col-md-10 filter-container">
 
-        <div className='filters'>
-          <Form className='col-md-10'>
-            <Form.Group className='d-flex m-2' controlId="filterName">
-              <Form.Label className='col-2 '><b>Nombre del alumno:</b></Form.Label>
-              <Form.Control
-                type="text"
-                value={filterName}
-                onChange={(event) => setFilterName(event.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className='d-flex m-2' controlId="filterSubject">
-              <Form.Label className='col-2'><b>Materia:</b></Form.Label>
-              <Form.Control
-                as="select"
-                value={filterSubject}
-                onChange={(event) => setFilterSubject(event.target.value)}
-              >
-                <option value="">Todas</option>
-                <option value="math">Matemáticas</option>
-                <option value="languageAndLiterature">Lengua y Literatura</option>
-                <option value="biology">Biología</option>
-                <option value="physics">Física</option>
-                <option value="chemistry">Química</option>
-                <option value="economy">Economía</option>
-                <option value="geography">Geografía</option>
-                <option value="history">Historia</option>
-                <option value="physicalEducation">Educación Física</option>
-              </Form.Control>
-            </Form.Group>
-            <Form.Group className='d-flex m-2' controlId="filterYear">
-              <Form.Label className='col-2'><b>Año:</b></Form.Label>
-              <Form.Control as="select" value={filterYear} onChange={(event) => setFilterYear(event.target.value)}>
-                <option value="">Todos</option>
-                <option value="I">I</option>
-                <option value="II">II</option>
-                <option value="III">III</option>
-                <option value="IV">IV</option>
-              </Form.Control>
-            </Form.Group>
 
-            <Form.Group className='d-flex m-2' controlId="filterGrade">
-              <Form.Label className='col-2'><b>Nota:</b></Form.Label>
-              <Form.Control
-                type="number"
-                step="1"
-                min="4"
-                max="10"
-                value={filterGrade}
-                onChange={(event) => setFilterGrade(event.target.value)}
-              />
-            </Form.Group>
-          </Form>
+          <Form.Group className='d-flex m-2' controlId="formNameFilter">
+            <Form.Label className='col-2 '><b>Nombre:</b></Form.Label>
+            <Form.Control type="text" placeholder="Filtrar por nombre" value={filterName} onChange={(e) => setFilterName(e.target.value)} maxLength={30} />
+          </Form.Group>
+
+
+          <Form.Group className='d-flex m-2' controlId="formSubjectFilter">
+            <Form.Label className='col-2'><b>Materia:</b></Form.Label>
+            <Form.Control as="select" value={filterSubject} onChange={(e) => setFilterSubject(e.target.value)}>
+              <option value="">Todas las materias</option>
+              {Object.values(SUBJECTS_LABELS).map((subjectLabel) => (
+                <option key={subjectLabel} value={subjectLabel}>{subjectLabel}</option>
+              ))}
+            </Form.Control>
+          </Form.Group>
+
+          {/* <Form.Group className='d-flex m-2' controlId="formSubjectFilter">
+            <Form.Label className='col-2'><b>Año:</b></Form.Label>
+            <Form.Control as="select" value={filterYear} onChange={(e) => setFilterYear(e.target.value)}>
+              <option value="">Todos los años</option>
+              <option value="">I</option>
+              <option value="">II</option>
+              <option value="">III</option>
+              <option value="">IV</option>
+            </Form.Control>
+          </Form.Group> */}
+
+          <Form.Group className='d-flex m-2' controlId="formGradeFilter">
+            <Form.Label className='col-2'><b>Nota:</b></Form.Label>
+            <Form.Control type="text" placeholder="Filtrar por nota" value={filterGrade} onChange={(e) => setFilterGrade(e.target.value)} maxLength={2} />
+          </Form.Group>
+
         </div>
         <div className='table-container mt-5'>
           <Table striped bordered hover>
@@ -202,97 +190,31 @@ export const AnalyticsScreen = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredStudents.map((student) => {
+              {students.map((student) => {
                 const { firstName, lastName, notes } = student;
-                const subjectKeys = Object.keys(notes).filter((key) =>
-                  key.endsWith('I') || key.endsWith('II') || key.endsWith('III') || key.endsWith('IV')
-                );
+                const subjectKeys = Object.keys(notes);
 
                 return subjectKeys.map((subject) => {
                   const grade = notes[subject];
+                  const subjectLabel = SUBJECTS_LABELS[subject];
+
+                  // Aplicar los filtros
+                  if (
+                    (filterName !== "" && !`${lastName}, ${firstName}`.toLowerCase().includes(filterName.toLowerCase())) ||
+                    (filterSubject !== "" && subjectLabel !== filterSubject) ||
+                    // (filterYear !== "" && !student.year.toLowerCase().includes(filterYear.toLowerCase())) ||
+                    (filterGrade !== "" && (
+                      (grade === null && filterGrade.toLowerCase() !== "sin calificación" && filterGrade.toLowerCase() !== "-") ||
+                      (grade !== null && grade.toString() !== filterGrade)
+                    ))
+                  ) {
+                    return null;
+                  }
+
                   return (
                     <tr key={`${student.firstName}-${subject}`}>
-                      <td>
-                        {(() => {
-                          switch (subject) {
-                            case "mathI":
-                              return "Matemáticas I";
-                            case "mathII":
-                              return "Matemáticas II";
-                            case "mathIII":
-                              return "Matemáticas III";
-                            case "mathIV":
-                              return "Matemáticas IV";
-                            case "languageAndLiteratureI":
-                              return "Lengua y Literatura I";
-                            case "languageAndLiteratureII":
-                              return "Lengua y Literatura II";
-                            case "languageAndLiteratureIII":
-                              return "Lengua y Literatura III";
-                            case "languageAndLiteratureIV":
-                              return "Lengua y Literatura IV";
-                            case "biologyI":
-                              return "Biología I";
-                            case "biologyII":
-                              return "Biología II";
-                            case "biologyIII":
-                              return "Biología III";
-                            case "biologyIV":
-                              return "Biología IV";
-                            case "physicsI":
-                              return "Física I";
-                            case "physicsII":
-                              return "Física II";
-                            case "physicsIII":
-                              return "Física III";
-                            case "physicsIV":
-                              return "Física IV";
-                            case "chemistryI":
-                              return "Química I";
-                            case "chemistryII":
-                              return "Química II";
-                            case "chemistryIII":
-                              return "Química III";
-                            case "chemistryIV":
-                              return "Química IV";
-                            case "economyI":
-                              return "Economía I";
-                            case "economyII":
-                              return "Economía II";
-                            case "economyIII":
-                              return "Economía III";
-                            case "economyIV":
-                              return "Economía IV";
-                            case "geographyI":
-                              return "Geografía I";
-                            case "geographyII":
-                              return "Geografía II";
-                            case "geographyIII":
-                              return "Geografía III";
-                            case "geographyIV":
-                              return "Geografía IV";
-                            case "historyI":
-                              return "Historia I";
-                            case "historyII":
-                              return "Historia II";
-                            case "historyIII":
-                              return "Historia III";
-                            case "historyIV":
-                              return "Historia IV";
-                            case "physicalEducationI":
-                              return "Educación Física I";
-                            case "physicalEducationII":
-                              return "Educación Física II";
-                            case "physicalEducationIII":
-                              return "Educación Física III";
-                            case "physicalEducationIV":
-                              return "Educación Física IV";
-                            default:
-                              return subject;
-                          }
-                        })()}
-                      </td>
-                      <td>{lastName}, {firstName}</td>
+                      <td>{subjectLabel}</td>
+                      <td>{`${lastName}, ${firstName}`}</td>
                       <td>{grade !== null ? grade : 'Sin calificación'}</td>
                       <td>
                         <Button className='m-1' onClick={() => handleShowEditModal(student, subject)} variant="secondary"><FaEdit /></Button>
@@ -303,6 +225,7 @@ export const AnalyticsScreen = () => {
                 });
               })}
             </tbody>
+
           </Table>
         </div>
       </div>
@@ -341,12 +264,12 @@ export const AnalyticsScreen = () => {
               />
             </Form.Group>
             <Modal.Footer>
-            <Button variant="secondary" onClick={handleCloseEditModal}>
-              Cancelar
-            </Button>
-            <Button variant="primary" type="submit">
-              Guardar cambios
-            </Button>
+              <Button variant="secondary" onClick={handleCloseEditModal}>
+                Cancelar
+              </Button>
+              <Button variant="primary" type="submit">
+                Guardar cambios
+              </Button>
             </Modal.Footer>
           </Form>
         </Modal.Body>
