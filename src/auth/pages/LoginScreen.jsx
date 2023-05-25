@@ -1,84 +1,126 @@
-
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import axios from 'axios';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import "./Auth.css"
-import { tokenIsValid } from '../../utils/TokenIsValid';
+import axios from "axios";
+import Form from "react-bootstrap/Form";
+import "./Auth.css";
+import { tokenIsValid } from "../../utils/TokenIsValid";
+import { MdEmail } from "react-icons/md";
+import { ImKey } from "react-icons/im";
+
+
 
 export const LoginScreen = () => {
-  const navigate = useNavigate()
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const Submit = (data) => {
     console.log(data);
     axios
-      .post('http://localhost:8060/api/users/login', data)
+      .post("http://localhost:8060/api/users/login", data)
       .then((res) => {
         let value = res.data.token;
-        localStorage.setItem('token', value);
-        navigate('/home');
+        localStorage.setItem("token", value);
+        navigate("/home");
       })
       .catch((err) => console.log(err));
   };
 
   useEffect(() => {
     if (tokenIsValid()) {
-      navigate('/home');
+      navigate("/home");
     }
   }, [navigate]);
 
   return (
-    <div className='containerAuth'>
-      <div className="d-flex  justify-content-center align-items-center flex-column">
-        <h1 className="title mt-5" >Bienvenidos</h1>
-        <div  >
-          <Form onSubmit={handleSubmit(Submit)}>
-            <Form.Group className="mb-3 " controlId="formBasicEmail">
-              <Form.Label>Usuario</Form.Label>
-              <Form.Control
-                placeholder="Carlos Perez"
-                type="text"
+    <div className="containerAuth">
+      <div className="formContainer">
+        <h3
+          className="text-center fw-bolder fs-3"
+          style={{ color: " #7A0045" }}
+        >
+          Bienvenido a la Página{" "}
+        </h3>
+        <h2
+          className="text-center fw-bolder fs-2"
+          style={{ color: " #7A0045" }}
+        >
+          De Registro
+        </h2>
+        <Form onSubmit={handleSubmit(Submit)}>
+          <Form.Group className="inputContainer" controlId="formBasicEmail">
+            <div className="left">
+              <Form.Label className="fs-5 fw-bold">Email</Form.Label>
+              <input
+                className="fs-5 border-0 "
+                style={{ color: "#2f2f2f", background: "inherit" }}
+                type="email"
+                placeholder="Ingrese su email"
                 id="email"
                 name="email"
                 {...register("email", { required: true })}
               />
-              {errors?.user && <span className="text-danger">Este campo es requerido</span>}
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label >Contraseña</Form.Label>
-              <Form.Control
-                placeholder="Contraseña"
+              {errors?.email && (
+                <span className="text-danger">Este campo es requerido</span>
+              )}
+            </div>
+            <MdEmail size={25}/>
+           
+          </Form.Group>
+
+          <Form.Group className=" inputContainer" controlId="formBasicPassword">
+            <div className="left">
+              <Form.Label className="fs-5 fw-bold">Contraseña</Form.Label>
+              <input
+                className="fs-5  border-0 "
+                style={{ color: "#2f2f2f", background: "inherit" }}
                 type="password"
+                placeholder="Ingrese su contraseña"
                 id="password"
                 name="password"
-                {...register("password", { required: true, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/ })}
+                {...register("password", {
+                  required: true,
+                  pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/,
+                })}
               />
-              {errors?.password && <span className="text-danger">Este campo es requerido. </span>}
-              {errors?.password && errors.password.type === "pattern" && <span className="text-danger">La contraseña debe tener al menos 6 caracteres, una mayuscula y un numero</span>}
-            </Form.Group>
-            <div className="flex-column d-flex align-items-center m-5" >
-              <Form.Text>
-                ¿No tienes cuenta?
-              </Form.Text>
-              <Link to={"/register"} >Registrate Aquí</Link>
+              {errors?.password && (
+                <span className="text-danger">Este campo es requerido. </span>
+              )}
+              {errors?.password && errors.password.type === "pattern" && (
+                <span className="text-danger">
+                  La contraseña debe tener al menos 6 caracteres, una mayuscula
+                  y un numero
+                </span>
+              )}
             </div>
-            <div className="justify-content-center  d-flex">
-              <Button variant="outline-secondary" type="submit" className="w-50" >
-                Acceder
-              </Button>
-            </div>
-          </Form>
-          <div className="flex-column d-flex align-items-center mt-2" >
-            <Form.Text>
-              ¿No tienes cuenta?
-            </Form.Text>
-            <Link to={"/register"} >Registrate Aquí</Link>
-          </div>
-        </div>
+            <ImKey size={25}/>
+       
+          </Form.Group>
+
+          <button className="fs-5" type="submit">
+            Registrarme
+          </button>
+          <p className="text-center fs-5">
+            ¿Aún No tienes una Cuenta?{" "}
+            <Link
+              className="fs-4"
+              to={"/register"}
+              style={{
+                textDecoration: "none",
+                color: " #7A0045",
+                cursor: "pointer",
+              }}
+            >
+              Registrate!
+            </Link>
+          </p>
+        </Form>
       </div>
     </div>
-  )
-}
+
+  );
+};
