@@ -10,5 +10,12 @@ export function tokenIsValid() {
   const currentTime = new Date().getTime();
   const timeBeforeExpiration = 1200000;
 
-  return currentTime < expirationTime - timeBeforeExpiration;
+  const isValid = currentTime < expirationTime - timeBeforeExpiration;
+
+  if (isValid) {
+    const decodedToken = jwtDecode(tokenStore);
+    return decodedToken;
+  }
+
+  return isValid;
 }
