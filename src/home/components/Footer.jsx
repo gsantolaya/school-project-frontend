@@ -39,7 +39,7 @@ export function Footer() {
         </ListGroup.Item>
       </div>
       <div className="d-flex align-items-center justify-content-center col-md-4">
-          <img src={Logo} width="150px" height="150px" alt="Code School logo" />
+          <img src={Logo} width="200px" alt="Code School logo" />
       </div>
       <div className="col-4 text-white d-flex align-items-center justify-content-center ">
           <BsFacebook className='m-3' size={30} />

@@ -10,7 +10,7 @@ export function NavbarMenu() {
   return (
     <Navbar className="navContainer" variant="dark" expand="lg">
       <Container>
-        <Navbar.Brand href="/"><img src={Logo} width="150px" height="150px" alt="logo" /></Navbar.Brand>
+        <Navbar.Brand href="/"><img src={Logo} width="150px" alt="logo" /></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
