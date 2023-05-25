@@ -44,14 +44,8 @@ export const LoginScreen = () => {
           className="text-center fw-bolder fs-3"
           style={{ color: " #7A0045" }}
         >
-          Bienvenido a la Página{" "}
+          Bienvenido
         </h3>
-        <h2
-          className="text-center fw-bolder fs-2"
-          style={{ color: " #7A0045" }}
-        >
-          De Registro
-        </h2>
         <Form onSubmit={handleSubmit(Submit)}>
           <Form.Group className="inputContainer" controlId="formBasicEmail">
             <div className="left">
