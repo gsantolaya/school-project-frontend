@@ -22,8 +22,8 @@ export function NavbarMenu() {
             <Nav.Link className="navSideLinks" href="/users">Usuarios</Nav.Link>
             <Nav.Link className="logOut" href="/home">Cerrar Sesión</Nav.Link>
             <Nav.Link className="navLinks" href="aboutUs">Acerca de nosotros</Nav.Link>
-            <Nav.Link className="navLinks" href="login">Login</Nav.Link>
-            <Nav.Link className="navLinks" href="register">Registro</Nav.Link>
+            <Nav.Link className="navLinks" href="/login">Login</Nav.Link>
+            <Nav.Link className="navLinks" href="/register">Registro</Nav.Link>
           </Nav>
 
         </Navbar.Collapse>
