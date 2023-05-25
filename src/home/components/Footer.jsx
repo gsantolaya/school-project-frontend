@@ -4,7 +4,6 @@ import Logo from "../components/img/Logo.png";
 import ListGroup from "react-bootstrap/ListGroup";
 import "./NavbarMenu.css";
 import {
-
   BsEnvelope,
   BsPinMap,
   BsFacebook,

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
@@ -6,11 +6,11 @@ import Form from "react-bootstrap/Form";
 import "./Auth.css";
 import { tokenIsValid } from "../../utils/TokenIsValid";
 import { MdEmail } from "react-icons/md";
-import { ImKey } from "react-icons/im";
-
+import { AiFillEye, AiFillEyeInvisible} from "react-icons/ai";
 
 
 export const LoginScreen = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const {
     register,
@@ -78,7 +78,7 @@ export const LoginScreen = () => {
               <input
                 className="fs-5  border-0 "
                 style={{ color: "#2f2f2f", background: "inherit" }}
-                type="password"
+                type={showPassword ? "text": "password"}
                 placeholder="Ingrese su contraseña"
                 id="password"
                 name="password"
@@ -97,7 +97,10 @@ export const LoginScreen = () => {
                 </span>
               )}
             </div>
-            <ImKey size={25}/>
+            <div onClick={()=>setShowPassword(!showPassword)} >
+            {showPassword ? <AiFillEye size={25}/> : <AiFillEyeInvisible size={25}/>}
+       
+            </div>
        
           </Form.Group>
 

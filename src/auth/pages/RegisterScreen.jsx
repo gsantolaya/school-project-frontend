@@ -1,14 +1,15 @@
-import React from "react";
+import React, {  useState } from "react";
 import Form from "react-bootstrap/Form";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import "./Auth.css";
 import { FaUserAlt } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
-import { ImKey } from "react-icons/im";
+import { AiFillEye, AiFillEyeInvisible} from "react-icons/ai";
 
 
 export const RegisterScreen = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const {
     register,
@@ -95,7 +96,7 @@ export const RegisterScreen = () => {
               <input
                 className="fs-5  border-0 "
                 style={{ color: "#2f2f2f", background: "inherit" }}
-                type="password"
+                type={showPassword ? "text": "password"}
                 placeholder="Ingrese su contraseña"
                 id="password"
                 name="password"
@@ -104,7 +105,9 @@ export const RegisterScreen = () => {
               {errors?.password && <span className="text-danger">Este campo es requerido. </span>}
            {errors?.password && errors.password.type === "pattern" && <span className="text-danger">La contraseña debe tener al menos 6 caracteres, una mayuscula y un numero</span>}
             </div>
-            <ImKey size={25}/>
+            <div onClick={()=>setShowPassword(!showPassword)} >
+            {showPassword ? <AiFillEye size={25}/> : <AiFillEyeInvisible size={25}/>}
+            </div>
             
           </Form.Group>
 
