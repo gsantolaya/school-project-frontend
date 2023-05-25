@@ -10,7 +10,6 @@ import { AnalyticsScreen } from '../home/pages/AnalyticsScreen';
 import { PaymentsScreen } from '../home/pages/PaymentsScreen';
 import { UsersScreen } from '../home/pages/UsersScreen';
 import { NavbarMenu } from '../home/components/NavbarMenu';
-import {NoPage} from '../home/pages/NoPage'
 
 import { NewStudentScreen } from '../home/pages/NewStudentScreen';
 import { Error404Screen } from '../Error404Screen';
