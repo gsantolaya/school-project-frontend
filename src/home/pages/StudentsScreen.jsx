@@ -87,8 +87,8 @@ export const StudentsScreen = () => {
         }
     }
 
-    const handleEditFormSubmit = async (event) => {
-        event.preventDefault();
+    const handleEditFormSubmit = async (e) => {
+        e.preventDefault();
         try {
             const response = await axios.put(`http://localhost:8060/api/students/${editedStudent._id}`, editedStudent);
             if (response.status === 200) {
