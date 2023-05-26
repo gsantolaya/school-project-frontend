@@ -52,7 +52,7 @@ export const AdministrativeStaffScreen = () => {
   return (
     <>
       <div className="text-center p-2 p-md-5">
-        <h1 className="title mb-5 font-weight-bold">Personal Administrativo</h1>
+        <h1 className="title mb-5"><b>Personal Administrativo</b></h1>
 <div className="mb-4 w-50">
 
         <InputGroup >

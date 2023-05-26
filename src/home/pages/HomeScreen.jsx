@@ -14,10 +14,10 @@ export const HomeScreen = () => {
   return (
     <>
       <div className='d-flex'>
-        <div className='col-2 sideMenu'>
+        <div className='col-2 col-sm-4 col-md-3 col-lg-2 sideMenu'>
           <SideMenu />
         </div>
-        <div className='col-12 col-md-10 main'>
+        <div className='col-12 col-sm-8 col-md-9 col-lg-10 main'>
           {isHome ? <Welcome /> : <Outlet />}
         </div>
       </div>

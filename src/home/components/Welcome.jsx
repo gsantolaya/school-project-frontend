@@ -6,7 +6,7 @@ export const Welcome = () => {
     return (
         <>
             <div className='welcome-container text-center'>
-                <h1 className='p-5'>Bienvenido a CODE SCHOOL</h1>
+                <h1 className='p-5'><b>Bienvenido a CODE SCHOOL</b></h1>
                 <img src={Logotipo} className="App-logo" alt="logo" />
             </div>
         </>

@@ -32,8 +32,10 @@ export function NavbarMenu() {
 
   return (
     <Navbar className="navContainer p-1" variant="dark" expand="lg">
-      <Container>
-        <Navbar.Brand className='bigScreen' onClick={handleNavClick}><img src={LogoHorizontal} height="70px" alt="logo" /></Navbar.Brand>
+      <Container className='mx-4 ms-auto px-4'>
+        <Navbar.Brand className='bigScreen' onClick={handleNavClick}><img src={LogoHorizontal} height="70px" alt="logo" /></Navbar.Brand>      
+      </Container>
+      <Container className='mx-4 ms-auto px-4'>
         <Navbar.Brand className='smallScreen' onClick={handleNavClick}><img src={Logo} height="70px" alt="logo" /></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -52,7 +54,7 @@ export function NavbarMenu() {
 
             {decodedToken ? (
               <>
-                <Nav.Link className="userNameLink text-start" href="/myUser"><FaUserAlt /> {decodedToken.firstName} {decodedToken.lastName}</Nav.Link>
+                <Nav.Link className="userNameLink text-start" href="/home/users"><FaUserAlt /> {decodedToken.firstName} {decodedToken.lastName}</Nav.Link>
                 <Nav.Link className="logOut ms-auto" href="/home">Cerrar Sesión</Nav.Link>
               </>
             ) : (

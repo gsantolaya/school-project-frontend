@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FaTrashAlt } from "react-icons/fa";
+import { FaInfoCircle, FaTrashAlt } from "react-icons/fa";
 import Table from 'react-bootstrap/Table';
 import './StudentsScreen.css';
 import axios from 'axios';
@@ -187,7 +187,7 @@ export const StudentsScreen = () => {
                                             {student.payment ? 'Al día' : 'Pendiente'}
                                         </td>
                                         <td>
-                                            <Button className='m-1' onClick={() => handleShowEditModal(student)} variant="secondary">+ Detalles</Button>
+                                            <Button className='m-1' onClick={() => handleShowEditModal(student)} variant="secondary"><FaInfoCircle /></Button>
                                             <Button className='m-1' onClick={() => handleShowModal(student)} variant="danger"> <FaTrashAlt /></Button>
                                         </td>
                                     </tr>
