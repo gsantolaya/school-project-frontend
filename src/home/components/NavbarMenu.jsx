@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 export function NavbarMenu() {
+  const currentPath = window.location.pathname;
   const decodedToken = tokenIsValid();
   const navigate = useNavigate();
 
@@ -25,9 +26,13 @@ export function NavbarMenu() {
     }
   };
 
+  const isActive = (path) => {
+    return currentPath === path ? 'navActive' : '';
+  };
+
   return (
     <Navbar className="navContainer p-1" variant="dark" expand="lg">
-      <Container >
+      <Container>
         <Navbar.Brand className='bigScreen' onClick={handleNavClick}><img src={LogoHorizontal} height="70px" alt="logo" /></Navbar.Brand>
         <Navbar.Brand className='smallScreen' onClick={handleNavClick}><img src={Logo} height="70px" alt="logo" /></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -35,11 +40,10 @@ export function NavbarMenu() {
           <Nav className="ms-auto">
             <Nav.Link className="navLinks bigScreen" onClick={handleNavClick}>Inicio</Nav.Link>
             <NavDropdown className="navDropdownLinksTitle smallScreen" id="nav-dropdown-dark-example" title="Inicio" menuVariant="dark">
-              <NavDropdown.Item className="navDropdownLinks" href="/administrativeStaff">Personal Administrativo</NavDropdown.Item>
-              <NavDropdown.Item className="navDropdownLinks" href="/students">Alumnos</NavDropdown.Item>
-              <NavDropdown.Item className="navDropdownLinks" href="/analytics">Analíticos</NavDropdown.Item>
-              <NavDropdown.Item className="navDropdownLinks" href="/payments">Pagos</NavDropdown.Item>
-              <NavDropdown.Item className="navDropdownLinks" href="/users">Usuarios</NavDropdown.Item>
+              <NavDropdown.Item className={`navDropdownLinks ${isActive('/home/administrativeStaff')}`} href="/home/administrativeStaff">Personal Administrativo</NavDropdown.Item>
+              <NavDropdown.Item className={`navDropdownLinks ${isActive('/home/students')}`} href="/home/students">Alumnos</NavDropdown.Item>
+              <NavDropdown.Item className={`navDropdownLinks ${isActive('/home/analytics')}`} href="/home/analytics">Analíticos</NavDropdown.Item>
+              <NavDropdown.Item className={`navDropdownLinks ${isActive('/home/payments')}`} href="/home/payments">Pagos</NavDropdown.Item>
             </NavDropdown>
             <Nav.Link className="navLinks" href="aboutUs">Acerca de nosotros</Nav.Link>
 
@@ -49,7 +53,7 @@ export function NavbarMenu() {
             {decodedToken ? (
               <>
                 <Nav.Link className="userNameLink text-start" href="/myUser"><FaUserAlt /> {decodedToken.firstName} {decodedToken.lastName}</Nav.Link>
-                <Nav.Link className="logOut" href="/home">Cerrar Sesión</Nav.Link>
+                <Nav.Link className="logOut ms-auto" href="/home">Cerrar Sesión</Nav.Link>
               </>
             ) : (
               <>
@@ -63,7 +67,3 @@ export function NavbarMenu() {
     </Navbar>
   );
 }
-
-
-
-{/*  */ }
