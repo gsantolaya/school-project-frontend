@@ -13,6 +13,8 @@ export const NewStudentScreen = () => {
     const [newStudent, setNewStudent] = useState({
         firstName: '',
         lastName: '',
+        dni:'',
+        email:'',
         currentYearOfStudy: '',
         payment: true,
         phone: '',
@@ -56,7 +58,7 @@ export const NewStudentScreen = () => {
             geographyIV: null,
             historyIV: null,
             physicalEducationIV: null
-          }
+        }
     });
 
     const handleConfirmationToastClose = () => {
@@ -66,22 +68,23 @@ export const NewStudentScreen = () => {
     const handleErrorToastClose = () => {
         setShowErrorToast(false);
     };
+    console.log(newStudent)
 
     const handleAddStudentFormSubmit = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:8060/api/students', newStudent);
-            setShowConfirmationToast(true);
+            console.log(newStudent)
+            if (response.status === 201) {
+                setShowConfirmationToast(true);
 
-            // if (response.status === 200) {
-            //     setShowConfirmationToast(true);
-            // }
+                //     setShowConfirmationToast(true);
+            }
         } catch (error) {
             console.log(error);
             setShowErrorToast(true);
         }
     };
-
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setNewStudent((prevStudent) => ({
@@ -93,70 +96,46 @@ export const NewStudentScreen = () => {
     return (
         <>
             <div className="text-center p-5 row">
-                <h1>Nuevo Alumno</h1>
-                <div className='col-6'>Aqui va la foto del estudiante</div>
-                <div className='col-6'>
-                <Form onSubmit={handleAddStudentFormSubmit}>
-                    <Form.Group className="mb-3" controlId="formBasicFirstName">
-                        <Form.Label>Nombre</Form.Label>
-                        <Form.Control
-                            type="text"
-                            name="firstName"
-                            value={newStudent.firstName}
-                            onChange={handleInputChange}
-                        />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicLastName">
-                        <Form.Label>Apellido</Form.Label>
-                        <Form.Control
-                            type="text"
-                            name="lastName"
-                            value={newStudent.lastName}
-                            onChange={handleInputChange}
-                        />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicCurrentYearOfStudy">
-                        <Form.Label>Año de cursado</Form.Label>
-                        <Form.Control
-                            type="number"
-                            name="currentYearOfStudy"
-                            value={newStudent.currentYearOfStudy}
-                            onChange={handleInputChange}
-                        />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicPhone">
-                        <Form.Label>Teléfono</Form.Label>
-                        <Form.Control
-                            type="text"
-                            name="phone"
-                            value={newStudent.phone}
-                            onChange={handleInputChange}
-                        />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicAddress">
-                        <Form.Label>Dirección</Form.Label>
-                        <Form.Control
-                            type="text"
-                            name="address"
-                            value={newStudent.address}
-                            onChange={handleInputChange}
-                        />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicBirthdate">
-                        <Form.Label>Fecha de nacimiento</Form.Label>
-                        <Form.Control
-                            type="date"
-                            name="birthdate"
-                            value={newStudent.birthdate}
-                            onChange={handleInputChange}
-                        />
-                    </Form.Group>
-
-                    <Button variant="primary" type="submit">
-                        Agregar Nuevo Alumno
-                    </Button>
-                    <Nav.Link className="buttonCancel" href="students">Cancelar</Nav.Link>
-                </Form>
+                <h1 className="title mb-3"><b>Nuevo Alumno</b></h1>
+                <div className=''>
+                    <Form className='d-flex flex-wrap justify-content-center' onSubmit={handleAddStudentFormSubmit}>
+                        <Form.Group className="formFields m-2 col-10 col-md-5" controlId="formBasicFirstName">
+                            <Form.Label>Nombre</Form.Label>
+                            <Form.Control type="text" name="firstName" value={newStudent.firstName} onChange={handleInputChange} />
+                        </Form.Group>
+                        <Form.Group className="formFields m-2 col-10 col-md-5" controlId="formBasicLastName">
+                            <Form.Label>Apellido</Form.Label>
+                            <Form.Control type="text" name="lastName" value={newStudent.lastName} onChange={handleInputChange} />
+                        </Form.Group>
+                        <Form.Group className="formFields m-2 col-10 col-md-5" controlId="formBasicLastName">
+                            <Form.Label>DNI</Form.Label>
+                            <Form.Control type="text" name="dni" value={newStudent.dni} onChange={handleInputChange} />
+                        </Form.Group>
+                        <Form.Group className="formFields m-2 col-10 col-md-5" controlId="formBasicLastName">
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control type="text" name="email" value={newStudent.email} onChange={handleInputChange} />
+                        </Form.Group>
+                        <Form.Group className="formFields m-2 col-10 col-md-5" controlId="formBasicCurrentYearOfStudy">
+                            <Form.Label>Año de cursado</Form.Label>
+                            <Form.Control type="number" name="currentYearOfStudy" value={newStudent.currentYearOfStudy} onChange={handleInputChange} />
+                        </Form.Group>
+                        <Form.Group className="formFields m-2 col-10 col-md-5" controlId="formBasicPhone">
+                            <Form.Label>Teléfono</Form.Label>
+                            <Form.Control type="text" name="phone" value={newStudent.phone} onChange={handleInputChange} />
+                        </Form.Group>
+                        <Form.Group className="formFields m-2 col-10 col-md-5" controlId="formBasicAddress">
+                            <Form.Label>Dirección</Form.Label>
+                            <Form.Control type="text" name="address" value={newStudent.address} onChange={handleInputChange} />
+                        </Form.Group>
+                        <Form.Group className="formFields m-2 col-10 col-md-5" controlId="formBasicBirthdate">
+                            <Form.Label>Fecha de nacimiento</Form.Label>
+                            <Form.Control type="date" name="birthdate" value={newStudent.birthdate} onChange={handleInputChange} />
+                        </Form.Group>
+                        <Nav.Link className="buttonsFormAddStudent" href="students">Cancelar</Nav.Link>
+                        <Button className='buttonsFormAddStudent' variant="" type="submit">
+                            Agregar Nuevo Alumno
+                        </Button>
+                    </Form>
                 </div>
             </div>
             <div className="position-fixed bottom-0 end-0 p-3">

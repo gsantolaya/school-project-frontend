@@ -37,20 +37,15 @@ export const LoginScreen = () => {
   }, [navigate]);
 
   return (
+
     <div className="containerAuth">
       <div className="formContainer">
         <h3
           className="text-center fw-bolder fs-3"
           style={{ color: " #7A0045" }}
         >
-          Bienvenido a la Página{" "}
+          Bienvenido
         </h3>
-        <h2
-          className="text-center fw-bolder fs-2"
-          style={{ color: " #7A0045" }}
-        >
-          De Registro
-        </h2>
         <Form onSubmit={handleSubmit(Submit)}>
           <Form.Group className="inputContainer" controlId="formBasicEmail">
             <div className="left">
@@ -60,6 +55,7 @@ export const LoginScreen = () => {
                 style={{ color: "#2f2f2f", background: "inherit" }}
                 type="email"
                 placeholder="Ingrese su email"
+
                 id="email"
                 name="email"
                 {...register("email", { required: true })}

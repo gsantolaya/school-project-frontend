@@ -1,3 +1,4 @@
+
 import React, {  useState } from "react";
 import Form from "react-bootstrap/Form";
 import { useForm } from "react-hook-form";
@@ -21,6 +22,11 @@ export const RegisterScreen = () => {
     console.log(data);
   };
 
+  useEffect(() => {
+    if (tokenIsValid()) {
+      navigate("/home");
+    }
+  }, [navigate]);
 
   return (
     <div className="containerAuth">
