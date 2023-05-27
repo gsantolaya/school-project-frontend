@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
-import { FaInfoCircle } from "react-icons/fa";
 import axios from 'axios';
-import Button from 'react-bootstrap/Button';
 import { tokenIsValid } from '../../utils/TokenIsValid';
 import './MyStudentInformationScreen.css';
 
 export const MyStudentInformationScreen = () => {
   const [students, setStudents] = useState([]);
+  const [currentUserStudent, setCurrentUserStudent] = useState([]);
+
+
   useEffect(() => {
     axios.get('http://localhost:8060/api/students')
       .then((response) => {
-        setStudents(response.data)
+        setStudents(response.data);
+        const decodedToken = tokenIsValid();
+        const foundStudent = response.data.find(student => student.email === decodedToken.email);
+        setCurrentUserStudent(foundStudent);
       })
-  }, [])
+  }, []);
 
   const decodedToken = tokenIsValid();
-  const currentUserStudent = students.find(student => student.email === decodedToken.email);
   const SUBJECTS_LABELS = {
     mathI: "Matemáticas I",
     mathII: "Matemáticas II",
@@ -104,8 +107,6 @@ export const MyStudentInformationScreen = () => {
             {students.map((student) => {
               const { firstName, lastName, notes, email } = student;
               const subjectKeys = Object.keys(notes);
-
-              // Verificar si el email del estudiante coincide con el email del alumno que ha iniciado sesión
               if (email === decodedToken.email) {
                 return subjectKeys.map((subject) => {
                   const grade = notes[subject];
@@ -119,8 +120,7 @@ export const MyStudentInformationScreen = () => {
                   );
                 });
               }
-
-              return null; // No se muestra ninguna fila si el email no coincide
+              return null;
             })}
           </tbody>
         </Table>
