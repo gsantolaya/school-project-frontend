@@ -1,0 +1,33 @@
+.tableNotesContainer {
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
+.tableNotesContainer::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+.tableNotesContainer::-webkit-scrollbar-thumb {
+    background-color: #7A0045;
+}
+
+.tableNotesContainer::-webkit-scrollbar-thumb:hover {
+    background-color: black;
+}
+
+@media screen and (max-width: 576px) {
+    .tableInfoContainer {
+        overflow-x: scroll !important;
+    }
+    .tableInfoContainer::-webkit-scrollbar {
+        height: 0.2em;
+    }
+    
+    .tableInfoContainer::-webkit-scrollbar-thumb {
+        background-color: #7A0045;
+    }
+    
+    .tableInfoContainer::-webkit-scrollbar-thumb:hover {
+        background-color: black;
+    }
+}

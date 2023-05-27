@@ -61,32 +61,34 @@ export const MyStudentInformationScreen = () => {
   return (
     <>
       <div className='text-center p-5'>
-        <h1 className="title mb-3"><b>Mi Información Escolar</b></h1>
+        <h1 className="title mb-3"><b>Información Escolar</b></h1>
         <h4 className="text-start title mb-3"><b>Mis datos:</b></h4>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>ID de Expediente</th>
-              <th>Apellido</th>
-              <th>Nombre</th>
-              <th>Año cursado actual</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentUserStudent ? (
-              <tr key={currentUserStudent._id} className={currentUserStudent.isBanned ? "banned" : ""}>
-                <td>{currentUserStudent._id}</td>
-                <td>{currentUserStudent.firstName}</td>
-                <td>{currentUserStudent.lastName}</td>
-                <td>{currentUserStudent.currentYearOfStudy}</td>
-              </tr>
-            ) : (
+        <div className='tableInfoContainer'>
+          <Table striped bordered hover>
+            <thead>
               <tr>
-                <td colSpan={6} className="text-center">No ingresado</td>
+                <th>ID de Expediente</th>
+                <th>Apellido</th>
+                <th>Nombre</th>
+                <th>Año cursado actual</th>
               </tr>
-            )}
-          </tbody>
-        </Table>
+            </thead>
+            <tbody>
+              {currentUserStudent ? (
+                <tr key={currentUserStudent._id} className={currentUserStudent.isBanned ? "banned" : ""}>
+                  <td>{currentUserStudent._id}</td>
+                  <td>{currentUserStudent.firstName}</td>
+                  <td>{currentUserStudent.lastName}</td>
+                  <td>{currentUserStudent.currentYearOfStudy}</td>
+                </tr>
+              ) : (
+                <tr>
+                  <td colSpan={6} className="text-center">No ingresado</td>
+                </tr>
+              )}
+            </tbody>
+          </Table>
+        </div>
         <div className='d-flex'>
           <h4 className="text-start title mb-3"><b>Estado de pago:</b></h4>
           {currentUserStudent.payment ? (
@@ -96,34 +98,36 @@ export const MyStudentInformationScreen = () => {
           )}
         </div>
         <h4 className="text-start title mb-3"><b>Mi Analítico:</b></h4>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Materia</th>
-              <th>Nota final</th>
-            </tr>
-          </thead>
-          <tbody>
-            {students.map((student) => {
-              const { firstName, lastName, notes, email } = student;
-              const subjectKeys = Object.keys(notes);
-              if (email === decodedToken.email) {
-                return subjectKeys.map((subject) => {
-                  const grade = notes[subject];
-                  const subjectLabel = SUBJECTS_LABELS[subject];
+        <div className='tableNotesContainer mt-5'>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Materia</th>
+                <th>Nota final</th>
+              </tr>
+            </thead>
+            <tbody>
+              {students.map((student) => {
+                const { notes, email } = student;
+                const subjectKeys = Object.keys(notes);
+                if (email === decodedToken.email) {
+                  return subjectKeys.map((subject) => {
+                    const grade = notes[subject];
+                    const subjectLabel = SUBJECTS_LABELS[subject];
 
-                  return (
-                    <tr key={`${student.firstName}-${subject}`}>
-                      <td>{subjectLabel}</td>
-                      <td>{grade !== null ? grade : 'Sin calificación'}</td>
-                    </tr>
-                  );
-                });
-              }
-              return null;
-            })}
-          </tbody>
-        </Table>
+                    return (
+                      <tr key={`${student.firstName}-${subject}`}>
+                        <td>{subjectLabel}</td>
+                        <td>{grade !== null ? grade : 'Sin calificación'}</td>
+                      </tr>
+                    );
+                  });
+                }
+                return null;
+              })}
+            </tbody>
+          </Table>
+        </div>
 
       </div>
     </>

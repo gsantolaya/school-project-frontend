@@ -18,7 +18,6 @@ export const AnalyticsScreen = () => {
 
   const [filterName, setFilterName] = useState("");
   const [filterSubject, setFilterSubject] = useState("");
-  // const [filterYear, setFilterYear] = useState("");
   const [filterGrade, setFilterGrade] = useState("");
 
 
@@ -29,7 +28,6 @@ export const AnalyticsScreen = () => {
       });
   }, []);
 
-  //Eliminar nota
   const handleShowDeleteModal = (student, subject) => {
     setSelectedStudent({ ...student, subject });
     setSelectedSubject(subject);
@@ -40,7 +38,6 @@ export const AnalyticsScreen = () => {
     setShowDeleteModal(false);
   }
 
-  //Modificar nota
   const handleShowEditModal = (student, subject) => {
     setSelectedStudent(student);
     setSelectedSubject(subject);
@@ -161,18 +158,6 @@ export const AnalyticsScreen = () => {
               ))}
             </Form.Control>
           </Form.Group>
-
-          {/* <Form.Group className='d-flex m-2' controlId="formSubjectFilter">
-            <Form.Label className='col-2'><b>Año:</b></Form.Label>
-            <Form.Control as="select" value={filterYear} onChange={(e) => setFilterYear(e.target.value)}>
-              <option value="">Todos los años</option>
-              <option value="">I</option>
-              <option value="">II</option>
-              <option value="">III</option>
-              <option value="">IV</option>
-            </Form.Control>
-          </Form.Group> */}
-
           <Form.Group className='d-flex m-2' controlId="formGradeFilter">
             <Form.Label className='col-2'><b>Nota:</b></Form.Label>
             <Form.Control type="text" placeholder="Filtrar por nota" value={filterGrade} onChange={(e) => setFilterGrade(e.target.value)} maxLength={2} />
@@ -197,12 +182,9 @@ export const AnalyticsScreen = () => {
                 return subjectKeys.map((subject) => {
                   const grade = notes[subject];
                   const subjectLabel = SUBJECTS_LABELS[subject];
-
-                  // Aplicar los filtros
                   if (
                     (filterName !== "" && !`${lastName}, ${firstName}`.toLowerCase().includes(filterName.toLowerCase())) ||
                     (filterSubject !== "" && subjectLabel !== filterSubject) ||
-                    // (filterYear !== "" && !student.year.toLowerCase().includes(filterYear.toLowerCase())) ||
                     (filterGrade !== "" && (
                       (grade === null && filterGrade.toLowerCase() !== "sin calificación" && filterGrade.toLowerCase() !== "-") ||
                       (grade !== null && grade.toString() !== filterGrade)

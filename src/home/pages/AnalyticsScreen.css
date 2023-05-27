@@ -3,13 +3,13 @@
     overflow-y: scroll;
   }
   .table-container::-webkit-scrollbar {
-    width: 0.5em; /* Ajusta el ancho del scroll si deseas */
+    width: 0.5em;
   }
   
   .table-container::-webkit-scrollbar-thumb {
-    background-color: #7A0045 ; /* Color del scroll */
+    background-color: #7A0045 ;
   }
   
   .table-container::-webkit-scrollbar-thumb:hover {
-    background-color: black; /* Color del scroll al pasar el cursor sobre él */
+    background-color: black;
   }

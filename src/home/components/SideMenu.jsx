@@ -39,7 +39,7 @@ export function SideMenu() {
       )}
       {!decodedToken.isAdmin && (
         <Nav.Link className={`sideMenuLinks ${isActive('/home/myStudentInformation')}`} href="/home/myStudentInformation">
-          Mi información de estudiante
+          Mi información
         </Nav.Link>
       )}
       <Nav.Link className="log" href="/" onClick={handleLogout}>
