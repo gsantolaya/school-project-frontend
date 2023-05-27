@@ -81,7 +81,7 @@ export const RegisterScreen = () => {
           <Form.Group className="authFormGroup p-3 m-3" controlId="formBasicEmail">
             <div className="col-10">
               <Form.Label className="d-inline">Nombre:</Form.Label>
-              <input className="authInput d-block" type="text" placeholder="Ingrese su nombre" id="firstName" name="firstName" {...register("firstName", { required: true })} />
+              <input className="authInput d-block  w-100" type="text" placeholder="Ingrese su nombre" id="firstName" name="firstName" {...register("firstName", { required: true })} />
               {errors?.firstName && (<span className="authSpan">Este campo es requerido</span>)}
             </div>
             <div className='d-flex align-items-center'>
@@ -91,7 +91,7 @@ export const RegisterScreen = () => {
           <Form.Group className="authFormGroup p-3 m-3" controlId="formBasicEmail">
             <div className="col-10">
               <Form.Label className="d-inline">Apellido:</Form.Label>
-              <input className="authInput d-block" type="text" placeholder="Ingrese su apellido" id="lastName" name="lastName" {...register("lastName", { required: true })} />
+              <input className="authInput d-block  w-100" type="text" placeholder="Ingrese su apellido" id="lastName" name="lastName" {...register("lastName", { required: true })} />
               {errors?.lastName && (<span className="authSpan">Este campo es requerido</span>)}
             </div>
             <FaUserAlt size={25} />
@@ -99,7 +99,7 @@ export const RegisterScreen = () => {
           <Form.Group className="authFormGroup p-3 m-3" controlId="formBasicEmail">
             <div className="col-10">
               <Form.Label className="d-inline">Email:</Form.Label>
-              <input className="authInput d-block" type="email" placeholder="Ingrese su email" id="email" name="email" {...register("email", { required: true })} />
+              <input className="authInput d-block  w-100" type="email" placeholder="Ingrese su email" id="email" name="email" {...register("email", { required: true })} />
               {errors?.email && (<span className="authSpan">Este campo es requerido</span>)}
               {emailExists && (<span className="authSpan">El email ya ha sido registrado</span>)}
             </div>
@@ -108,7 +108,7 @@ export const RegisterScreen = () => {
           <Form.Group className="authFormGroup p-3 m-3" controlId="formBasicPassword">
             <div className="col-10">
               <Form.Label className="d-inline">Contraseña:</Form.Label>
-              <input className="authInput d-block" type={showPassword ? "text" : "password"} placeholder="Ingrese su contraseña" id="password" name="password"
+              <input className="authInput d-block  w-100" type={showPassword ? "text" : "password"} placeholder="Ingrese su contraseña" id="password" name="password"
                 {...register("password", { required: true, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/, })} />
               {errors?.password && (
                 <span className="authSpan">
