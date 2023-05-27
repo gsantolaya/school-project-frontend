@@ -10,8 +10,8 @@ import { AnalyticsScreen } from '../home/pages/AnalyticsScreen';
 import { PaymentsScreen } from '../home/pages/PaymentsScreen';
 import { UsersScreen } from '../home/pages/UsersScreen';
 import { NavbarMenu } from '../home/components/NavbarMenu';
-
 import { NewStudentScreen } from '../home/pages/NewStudentScreen';
+import { MyStudentInformationScreen } from '../home/pages/MyStudentInformationScreen';
 import { Error404Screen } from '../Error404Screen';
 import { Welcome } from '../home/components/Welcome';
 import { Footer } from '../home/components/Footer';
@@ -19,8 +19,6 @@ import { Footer } from '../home/components/Footer';
 
 export const AppRouter = () => {
   return (
-
-
     <>
       <BrowserRouter>
         <NavbarMenu />
@@ -36,6 +34,7 @@ export const AppRouter = () => {
             <Route path="/home/payments" element={<PaymentsScreen />} />
             <Route path="/home/users" element={<UsersScreen />} />
             <Route path="/home/newStudent" element={<NewStudentScreen />} />
+            <Route path="/home/myStudentInformation" element={<MyStudentInformationScreen />} />
           </Route>
           <Route path="*" element={<Error404Screen/>} />
         </Routes>

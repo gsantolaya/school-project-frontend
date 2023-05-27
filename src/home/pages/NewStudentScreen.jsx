@@ -13,6 +13,8 @@ export const NewStudentScreen = () => {
     const [newStudent, setNewStudent] = useState({
         firstName: '',
         lastName: '',
+        dni:'',
+        email:'',
         currentYearOfStudy: '',
         payment: true,
         phone: '',
@@ -66,22 +68,23 @@ export const NewStudentScreen = () => {
     const handleErrorToastClose = () => {
         setShowErrorToast(false);
     };
+    console.log(newStudent)
 
     const handleAddStudentFormSubmit = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:8060/api/students', newStudent);
-            setShowConfirmationToast(true);
+            console.log(newStudent)
+            if (response.status === 201) {
+                setShowConfirmationToast(true);
 
-            // if (response.status === 200) {
-            //     setShowConfirmationToast(true);
-            // }
+                //     setShowConfirmationToast(true);
+            }
         } catch (error) {
             console.log(error);
             setShowErrorToast(true);
         }
     };
-
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setNewStudent((prevStudent) => ({
