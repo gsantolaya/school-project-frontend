@@ -1,36 +1,37 @@
-.authContainer {
+.registerContainer {
     background-color: #95968a !important;
     min-height: 70vh;
     color: #7a0045 !important;
     display: flex;
     justify-content: center;
 }
-.authForm {
+.formRegister {
     background-color: #CDCFC0 !important;
     border: #7a0045 solid 3px;
     border-radius: 10px;
 }
-.authTitle {
-    color: #7a0045;
-    font-weight: bold;
-    text-align: center;
-}
-.authFormGroup {
+
+.formGroupRegister {
     background-color: white;
     border-radius: 10px;
     color: black;
     font-weight: bold;
     display: flex;
 }
-.authInput {
+.registerTitle {
+    color: #7a0045;
+    font-weight: bold;
+    text-align: center;
+}
+.inputRegister {
     border: 0px;
 }
 
-.authInput:focus {
+.inputRegister:focus {
     outline: none;
     border-bottom-color: #ccc;
 }
-.authButton {
+.registerButton {
     margin-top: 10px;
     border: none;
     width: 100%;
@@ -42,23 +43,11 @@
     border-radius: 8px;
     transition-duration: 1s;
 }
-.authLink{
+.registerLink{
     color: #7A0045;
     text-decoration: none;
 }
-.authLink:hover{
+.registerLink:hover{
     color: #7A0045;
     text-decoration: underline;
-}
-.authSpan {
-    color: red;
-    text-decoration: none;
-    font-weight: lighter;
-}
-@media screen and (max-width: 576px) {
-    .authForm {
-        min-height: 70vh;
-        border: none;
-        border-radius: 0px;
-    }
 }
