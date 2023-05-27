@@ -1,45 +1,36 @@
 .authContainer {
-    background-color: #CDCFC0 !important;
-    width: 100vw;
+    background-color: #95968a !important;
     min-height: 70vh;
     color: #7a0045 !important;
     display: flex;
-    align-items: center;
     justify-content: center;
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    outline: none
 }
-.formLoginContainer {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    border: #7A0045 solid 3px;
-    border-radius: 8px;
-    min-width: 200px;
-    width: 60%;
-    max-width: 500px;
-    padding-left: 40px;
-    padding-right: 40px;
+.authForm {
+    background-color: #CDCFC0 !important;
+    border: #7a0045 solid 3px;
+    border-radius: 10px;
+}
+.authTitle {
+    color: #7a0045;
+    font-weight: bold;
+    text-align: center;
+}
+.authFormGroup {
+    background-color: white;
+    border-radius: 10px;
+    color: black;
+    font-weight: bold;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+}
+.authInput {
+    border: 0px;
+}
 
+.authInput:focus {
+    outline: none;
+    border-bottom-color: #ccc;
 }
-.formRegisterContainer {
-    margin-top: 10px;
-    margin-bottom: 20px;
-    border: #7A0045 solid 3px;
-    border-radius: 8px;
-    min-width: 200px;
-    width: 60%;
-    max-width: 500px;
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-.loginButton {
+.authButton {
     margin-top: 10px;
     border: none;
     width: 100%;
@@ -51,43 +42,23 @@
     border-radius: 8px;
     transition-duration: 1s;
 }
-.loginButton:hover {
-    background-color: #f05aaf;
-    color: white;
-
-}
-.loginLink {
-    cursor: pointer;
+.authLink{
     color: #7A0045;
     text-decoration: none;
-    cursor: "pointer";
 }
-.loginLink:hover{
+.authLink:hover{
     color: #7A0045;
-    text-decoration:underline
+    text-decoration: underline;
 }
-.left{
-    display: flex;
-    flex-direction: column ;
-    gap: 3px;
-    width: 80%; 
+.authSpan {
+    color: red;
+    text-decoration: none;
+    font-weight: lighter;
 }
-.inputContainer{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #ececec;
-    padding: 10px;
-    border-radius: 8px;
-    color: black;
-}
-@media (max-width: 820px) {
-    .inputContainer {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background-color: #ececec;
-        padding: 10px;
-        border-radius: 8px;
+@media screen and (max-width: 576px) {
+    .authForm {
+        min-height: 70vh;
+        border: none;
+        border-radius: 0px;
     }
 }

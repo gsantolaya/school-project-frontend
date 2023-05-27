@@ -16,7 +16,6 @@ import { Error404Screen } from '../Error404Screen';
 import { Welcome } from '../home/components/Welcome';
 import { Footer } from '../home/components/Footer';
 
-
 export const AppRouter = () => {
   return (
     <>
@@ -36,7 +35,8 @@ export const AppRouter = () => {
             <Route path="/home/newStudent" element={<NewStudentScreen />} />
             <Route path="/home/myStudentInformation" element={<MyStudentInformationScreen />} />
           </Route>
-          <Route path="/error404" element={<Error404Screen/>} />
+          <Route path="/error404" element={<Error404Screen />} />
+          <Route path="/*" element={<Error404Screen />} />
         </Routes>
         <Footer />
       </BrowserRouter>
