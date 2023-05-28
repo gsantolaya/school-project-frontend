@@ -19,6 +19,7 @@ export const UsersScreen = () => {
   const [showEditMyUserModal, setShowEditMyUserModal] = useState(false);
   const [showDeleteUserModal, setShowDeleteUserModal] = useState(false);
 
+  const [showEditPasswordModal, setShowEditPasswordModal] = useState(false);
 
   //Funcion obtener usuarios:
   useEffect(() => {
@@ -120,6 +121,60 @@ export const UsersScreen = () => {
     }
   };
   //----------------------------------------------------------------------------------------------------------------------
+  // Funciones para editar la contrasena
+  const handleShowEditPassword = (user) => {
+    setEditedUser({
+      ...user,
+      email: user.email,
+      password: ''
+    });
+    setShowEditPasswordModal(true);
+  };
+  
+  const handleCloseEditPasswordModal = () => {
+    setEditedUser(null);
+    setShowEditPasswordModal(false);
+  };
+  
+  const handleEditPasswordFormSubmit = async (e) => {
+    e.preventDefault();
+    console.log(editedUser)
+    const token = localStorage.getItem('token');
+    try {
+      const response = await axios.put(
+        `http://localhost:8060/api/users/reset/password`,
+        { email: editedUser.email, password: editedUser.password },
+        {
+          headers: {
+            'access-token': token
+          }
+        }
+      );
+      if (response.status === 200) {
+        const updatedUsers = users.map((user) => {
+          if (user._id === editedUser._id) {
+            return { ...user, ...editedUser };
+          }
+          return user;
+        });
+        setUsers(updatedUsers);
+        handleCloseEditPasswordModal();
+        alert("Tu contrasena ha sido modificada");
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Error al modificar la contrasena");
+    }
+  };
+  
+  const handleEditPasswordInputChange = (event) => {
+    const { value } = event.target;
+    setEditedUser((prevUser) => ({
+      ...prevUser,
+      password: value
+    }));
+  };
+  //----------------------------------------------------------------------------------------------------------------------
   // Funciones eliminar otro usuario:
   const handleShowDeleteUserModal = (user) => {
     setSelectedUser(user);
@@ -169,6 +224,7 @@ export const UsersScreen = () => {
                       {isCurrentUser && (
                         <>
                           <Button className='m-1' onClick={() => handleShowEditMyUserModal(user)} variant="secondary"><FaEdit /></Button>
+                          <Button className='m-1' variant="secondary" onClick={() => handleShowEditPassword(user)}>Modificar contraseña</Button>
                           <Button className='m-1' onClick={() => handleShowDeleteMyUserModal(user)} variant="danger"><FaTrashAlt /></Button>
                         </>
                       )}
@@ -205,9 +261,8 @@ export const UsersScreen = () => {
                     <td className={`py-4 ${userClass}`}>{user.lastName} {user.firstName}</td>
                     <td className={`py-4 ${userClass}`}>{user.isAdmin ? 'Administrador' : 'Estudiante'}</td>
                     <td className='pt-3'>
-                      <Button className='m-1' onClick={() => handleShowEditMyUserModal(user)} variant="secondary">
-                        <FaEdit />
-                      </Button>
+                      <Button className='m-1' onClick={() => handleShowEditMyUserModal(user)} variant="secondary"><FaEdit /></Button>
+                      <Button className='m-1' variant="secondary" onClick={() => handleShowEditPassword(user)}>Modificar contraseña</Button>
                       <Button className='m-1' onClick={() => handleShowDeleteUserModal(user)} variant="danger">
                         <FaTrashAlt />
                       </Button>
@@ -284,15 +339,6 @@ export const UsersScreen = () => {
                 </Form.Group>
               </>
             )}
-            <Form.Group controlId="editFormPassword">
-              <Form.Label><b>Ingrese una nueva contraseña si desea modificarla:</b></Form.Label>
-              <Form.Control
-                type='text'
-                name="password"
-                value={editedUser?.password || ''}
-                onChange={handleEditInputChange}
-              />
-            </Form.Group>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleCloseEditMyUserModal}>
                 Cancelar
@@ -304,6 +350,43 @@ export const UsersScreen = () => {
           </Form>
         </Modal.Body>
       </Modal>
+      {/* Modal modificar contrasena */}
+      <Modal show={showEditPasswordModal} onHide={handleCloseEditPasswordModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Cambiar contraseña</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={handleEditPasswordFormSubmit}>
+            <Form.Group controlId="editFormFirstName">
+              <Form.Label>Email:</Form.Label>
+              <Form.Control
+                type="text"
+                name="email"
+                value={editedUser?.email || ''}
+                disabled  // Deshabilita el campo de entrada
+              />
+            </Form.Group>
+            <Form.Group controlId="editFormLasttName">
+              <Form.Label>Nueva contraseña:</Form.Label>
+              <Form.Control
+                type="text"
+                name="password"
+                value={editedUser?.password || ''}
+                onChange={handleEditPasswordInputChange}
+              />
+            </Form.Group>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleCloseEditPasswordModal}>
+                Cancelar
+              </Button>
+              <Button variant="primary" type="submit">
+                Modificar
+              </Button>
+            </Modal.Footer>
+          </Form>
+        </Modal.Body>
+      </Modal>
+
       {/* Modal eliminar otra cuenta */}
       <Modal show={showDeleteUserModal} onHide={handleCloseDeleteUserModal}>
         <Modal.Header closeButton>
