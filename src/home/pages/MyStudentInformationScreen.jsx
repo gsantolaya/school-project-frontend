@@ -5,6 +5,7 @@ import { tokenIsValid } from '../../utils/TokenIsValid';
 import './MyStudentInformationScreen.css';
 
 export const MyStudentInformationScreen = () => {
+
   const [students, setStudents] = useState([]);
   const [currentUserStudent, setCurrentUserStudent] = useState([]);
 
@@ -83,7 +84,7 @@ export const MyStudentInformationScreen = () => {
                 </tr>
               ) : (
                 <tr>
-                  <td colSpan={6} className="text-center">No ingresado</td>
+                  <td colSpan={6} className="text-center">No hay datos disponibles</td>
                 </tr>
               )}
             </tbody>
@@ -91,7 +92,7 @@ export const MyStudentInformationScreen = () => {
         </div>
         <div className='d-flex'>
           <h4 className="text-start title mb-3"><b>Estado de pago:</b></h4>
-          {currentUserStudent.payment ? (
+          {currentUserStudent && currentUserStudent.payment ? (
             <h4 className="ms-3" style={{ color: 'green' }}><b>Al día</b></h4>
           ) : (
             <h4 className="ms-3" style={{ color: 'red' }}><b>Pendiente de pago</b></h4>
