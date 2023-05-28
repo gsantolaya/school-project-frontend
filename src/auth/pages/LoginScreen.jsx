@@ -44,7 +44,7 @@ export const LoginScreen = () => {
             <div className="col-10">
               <Form.Label className="d-inline">Email:</Form.Label>
               <input className="authInput d-block w-100" type="email" maxLength={35} placeholder="Ingrese su email" id="email" name="email" {...register("email", { required: true })} />
-              {errors?.email && (<span className="spamLogin">Este campo es requerido</span>)}
+              {errors?.email && (<span className="authSpan">Este campo es requerido</span>)}
             </div>
             <div className="d-flex align-items-center">
               <MdEmail size={25} />
