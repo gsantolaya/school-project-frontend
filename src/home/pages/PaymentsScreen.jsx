@@ -77,6 +77,7 @@ export const PaymentsScreen = () => {
             <Form.Group controlId="searchForm">
               <Form.Control
                 type="text"
+                maxLength={35}
                 placeholder="Buscar estudiante"
                 value={searchTerm}
                 onChange={handleSearchInputChange}

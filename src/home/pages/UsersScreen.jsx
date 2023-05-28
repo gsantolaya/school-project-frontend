@@ -10,7 +10,6 @@ import Form from 'react-bootstrap/Form';
 import { useNavigate } from "react-router-dom";
 import { useForm } from 'react-hook-form';
 
-
 export const UsersScreen = () => {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
@@ -131,24 +130,24 @@ export const UsersScreen = () => {
     });
     setShowEditPasswordModal(true);
   };
-  
+
   const handleCloseEditPasswordModal = () => {
     setEditedUser(null);
     setShowEditPasswordModal(false);
   };
-  
-  const handleEditPasswordFormSubmit = async (e) => {
-    e.preventDefault();
-    console.log(editedUser)
+
+  const { register, handleSubmit, formState: { errors } } = useForm();
+
+  const handleEditPasswordFormSubmit = handleSubmit(async (data) => {
     const token = localStorage.getItem('token');
     try {
       const response = await axios.put(
-        `http://localhost:8060/api/users/reset/password`,
-        { email: editedUser.email, password: editedUser.password },
+        'http://localhost:8060/api/users/reset/password',
+        { email: editedUser.email, password: data.password },
         {
           headers: {
-            'access-token': token
-          }
+            'access-token': token,
+          },
         }
       );
       if (response.status === 200) {
@@ -160,21 +159,23 @@ export const UsersScreen = () => {
         });
         setUsers(updatedUsers);
         handleCloseEditPasswordModal();
-        alert("Tu contrasena ha sido modificada");
+        alert('Tu contraseña ha sido modificada');
       }
     } catch (error) {
       console.log(error);
-      alert("Error al modificar la contrasena");
+      alert('Error al modificar la contraseña');
     }
-  };
-  
+  });
+
+
   const handleEditPasswordInputChange = (event) => {
     const { value } = event.target;
     setEditedUser((prevUser) => ({
       ...prevUser,
-      password: value
+      // Remove the password assignment here
     }));
   };
+
   //----------------------------------------------------------------------------------------------------------------------
   // Funciones eliminar otro usuario:
   const handleShowDeleteUserModal = (user) => {
@@ -208,7 +209,7 @@ export const UsersScreen = () => {
   return (
     <>
       <div className='text-center p-5'>
-        <h1 className="title mb-3"><b>Welcome {decodedToken.firstName}</b></h1>
+        <h1 className="title mb-3"><b>Bienvenid@ {decodedToken.firstName}</b></h1>
         <h4 className="text-start title mb-3"><b>Mi usuario:</b></h4>
         <Table striped bordered hover>
           <tbody>
@@ -224,8 +225,8 @@ export const UsersScreen = () => {
                     <td className='pt-3'>
                       {isCurrentUser && (
                         <>
-                          <Button className='m-1' onClick={() => handleShowEditMyUserModal(user)} variant="secondary"><FaEdit /></Button>
                           <Button className='m-1' variant="secondary" onClick={() => handleShowEditPassword(user)}>Modificar contraseña</Button>
+                          <Button className='m-1' onClick={() => handleShowEditMyUserModal(user)} variant="dark"><FaEdit /></Button>
                           <Button className='m-1' onClick={() => handleShowDeleteMyUserModal(user)} variant="danger"><FaTrashAlt /></Button>
                         </>
                       )}
@@ -262,8 +263,8 @@ export const UsersScreen = () => {
                     <td className={`py-4 ${userClass}`}>{user.lastName} {user.firstName}</td>
                     <td className={`py-4 ${userClass}`}>{user.isAdmin ? 'Administrador' : 'Estudiante'}</td>
                     <td className='pt-3'>
-                      <Button className='m-1' onClick={() => handleShowEditMyUserModal(user)} variant="secondary"><FaEdit /></Button>
                       <Button className='m-1' variant="secondary" onClick={() => handleShowEditPassword(user)}>Modificar contraseña</Button>
+                      <Button className='m-1' onClick={() => handleShowEditMyUserModal(user)} variant="dark"><FaEdit /></Button>
                       <Button className='m-1' onClick={() => handleShowDeleteUserModal(user)} variant="danger">
                         <FaTrashAlt />
                       </Button>
@@ -304,6 +305,7 @@ export const UsersScreen = () => {
               <Form.Label>Nombre:</Form.Label>
               <Form.Control
                 type="text"
+                maxLength={20}
                 name="firstName"
                 value={editedUser?.firstName || ''}
                 onChange={handleEditInputChange}
@@ -313,6 +315,7 @@ export const UsersScreen = () => {
               <Form.Label>Apellido:</Form.Label>
               <Form.Control
                 type="text"
+                maxLength={20}
                 name="lastName"
                 value={editedUser?.lastName || ''}
                 onChange={handleEditInputChange}
@@ -370,12 +373,18 @@ export const UsersScreen = () => {
             <Form.Group controlId="editFormLasttName">
               <Form.Label>Nueva contraseña:</Form.Label>
               <Form.Control
-                type="text"
+                type="password"
+                maxLength={35}
                 name="password"
-                value={editedUser?.password || ''}
-                onChange={handleEditPasswordInputChange}
+                {...register('password', { required: true, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/ })}
               />
+              {errors.password && (
+                <span className="text-danger">
+                  La contraseña debe contener al menos una letra mayúscula, una letra minúscula, un número y tener al menos 6 caracteres.
+                </span>
+              )}
             </Form.Group>
+
             <Modal.Footer>
               <Button variant="secondary" onClick={handleCloseEditPasswordModal}>
                 Cancelar
