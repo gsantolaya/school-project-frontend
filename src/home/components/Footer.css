@@ -13,7 +13,7 @@
 .socialMedia:hover {
     transform: scale(1.1);
     color: white;
-
+}
 @media screen and (max-width: 576px) {
     #logoContainer {
         display: none !important;
@@ -43,4 +43,4 @@
     #socialMediaContainer {
         display: inherit !important;
     }
-}  */
+} */

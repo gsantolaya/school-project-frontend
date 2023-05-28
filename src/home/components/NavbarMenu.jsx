@@ -47,7 +47,7 @@ export function NavbarMenu() {
               <NavDropdown.Item className={`navDropdownLinks ${isActive('/home/analytics')}`} href="/home/analytics">Analíticos</NavDropdown.Item>
               <NavDropdown.Item className={`navDropdownLinks ${isActive('/home/payments')}`} href="/home/payments">Pagos</NavDropdown.Item>
             </NavDropdown>
-            <Nav.Link className="navLinks" href="aboutUs">Acerca de nosotros</Nav.Link>
+            <Nav.Link className="navLinks" href="/aboutUs">Acerca de nosotros</Nav.Link>
 
 
 
