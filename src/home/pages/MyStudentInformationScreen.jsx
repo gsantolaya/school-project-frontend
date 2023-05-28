@@ -97,8 +97,8 @@ export const MyStudentInformationScreen = () => {
             <h4 className="ms-3" style={{ color: 'red' }}><b>Pendiente de pago</b></h4>
           )}
         </div>
-        <h4 className="text-start title mb-3"><b>Mi Analítico:</b></h4>
-        <div className='tableNotesContainer mt-5'>
+        <h4 className="text-start title"><b>Mi Analítico:</b></h4>
+        <div className='tableNotesContainer mt-4'>
           <Table striped bordered hover>
             <thead>
               <tr>

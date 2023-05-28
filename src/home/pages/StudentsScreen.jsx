@@ -163,14 +163,13 @@ export const StudentsScreen = () => {
                     </div>
                 </div>
 
-                <div className='table-container' >
+                <div className='table-container mt-4' >
                     <Table striped bordered hover>
                         <thead>
                             <tr>
                                 <th>ID de Expediente</th>
-                                <th>Apellido</th>
-                                <th>Nombre</th>
-                                <th>Año cursado actual</th>
+                                <th>Alumno</th>
+                                <th>Año de cursado actual</th>
                                 <th>Cuota</th>
                                 <th></th>
                             </tr>
@@ -180,8 +179,7 @@ export const StudentsScreen = () => {
                                 filteredStudents.map((student) => (
                                     <tr key={student._id} className={student.isBanned ? "banned" : ""}>
                                         <td>{student._id}</td>
-                                        <td>{student.firstName}</td>
-                                        <td>{student.lastName}</td>
+                                        <td>{student.lastName}, {student.firstName}</td>
                                         <td>{student.currentYearOfStudy}</td>
                                         <td style={{ color: student.payment ? 'green' : 'red' }}>
                                             {student.payment ? 'Al día' : 'Pendiente'}

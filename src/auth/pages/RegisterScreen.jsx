@@ -57,6 +57,7 @@ export const RegisterScreen = () => {
           }, (err) => {
             console.log('FAILED...', err);
           });
+          navigate('/login');
       })
       .catch((err) => console.log(err));
   };

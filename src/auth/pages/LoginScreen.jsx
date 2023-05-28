@@ -19,6 +19,7 @@ export const LoginScreen = () => {
   } = useForm();
 
   const Submit = (data) => {
+    console.log(data)
     axios.post("http://localhost:8060/api/users/login", data)
       .then((res) => {
         let value = res.data.token;
@@ -53,7 +54,7 @@ export const LoginScreen = () => {
             <div className="col-10">
               <Form.Label className="d-inline">Contraseña:</Form.Label>
               <input className="authInput d-block w-100" type={showPassword ? "text" : "password"} placeholder="Ingrese su contraseña" id="password" name="password"
-                {...register("authInput", { required: true, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/, })} />
+                {...register("password", { required: true, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/, })} />
               {errors?.password && (<span className="authSpan">Este campo es requerido. </span>)}
               {errors?.password && errors.password.type === "pattern" &&
                 (<span className="authSpan">La contraseña debe tener al menos 6 caracteres, una mayuscula y un número.</span>)}
