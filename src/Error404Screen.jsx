@@ -11,7 +11,9 @@ import Button from "react-bootstrap/Button";
 
 export const Error404Screen = () => {
   return (
+
     <Container className="p-4" fluid style={{ background: " #7A0045" }}>
+
       <Row>
         <Col className="text-center">
           <Figure>
