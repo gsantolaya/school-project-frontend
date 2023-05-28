@@ -142,8 +142,6 @@ export const PaymentsScreen = () => {
                       Pendiente
                     </option>
                   </select>
-
-
                 </td>
                 <td><Button className='m-1' variant="secondary" onClick={redirectToErrorPage}><FaInfoCircle /> Detalles</Button></td>
               </tr>
