@@ -16,6 +16,7 @@ import { Error404Screen } from '../Error404Screen';
 import { Welcome } from '../home/components/Welcome';
 import { Footer } from '../home/components/Footer';
 
+
 export const AppRouter = () => {
   return (
     <>
