@@ -136,6 +136,7 @@ export const StudentsScreen = () => {
                     <div className='col-12 col-md-4 my-2 my-md-0'>
                         <Form.Group controlId="searchForm">
                             <Form.Control
+                                maxLength={30}
                                 type="text"
                                 placeholder="Buscar estudiante"
                                 value={searchTerm}
@@ -221,6 +222,7 @@ export const StudentsScreen = () => {
                         <Form.Group controlId="editFormFirstName">
                             <Form.Label>Nombre:</Form.Label>
                             <Form.Control
+                                maxLength={20}
                                 type="text"
                                 name="firstName"
                                 value={editedStudent?.firstName || ''}
@@ -230,6 +232,7 @@ export const StudentsScreen = () => {
                         <Form.Group controlId="editFormLastName">
                             <Form.Label>Apellido:</Form.Label>
                             <Form.Control
+                                maxLength={20}
                                 type="text"
                                 name="lastName"
                                 value={editedStudent?.lastName || ''}
@@ -239,6 +242,7 @@ export const StudentsScreen = () => {
                         <Form.Group controlId="editFormLastName">
                             <Form.Label>DNI:</Form.Label>
                             <Form.Control
+                                maxLength={20}
                                 type="text"
                                 name="dni"
                                 value={editedStudent?.dni || ''}
@@ -248,6 +252,9 @@ export const StudentsScreen = () => {
                         <Form.Group controlId="editFormCurrentYearOfStudy">
                             <Form.Label>Año de cursado actual:</Form.Label>
                             <Form.Control
+                                maxLength={1}
+                                min={1}
+                                max={4}
                                 type="number"
                                 name="currentYearOfStudy"
                                 value={editedStudent?.currentYearOfStudy || ''}
@@ -257,6 +264,7 @@ export const StudentsScreen = () => {
                         <Form.Group controlId="editFormPhone">
                             <Form.Label>Teléfono:</Form.Label>
                             <Form.Control
+                                maxLength={15}
                                 type="string"
                                 name="phone"
                                 value={editedStudent?.phone || ''}
@@ -266,6 +274,7 @@ export const StudentsScreen = () => {
                         <Form.Group controlId="editFormAddress">
                             <Form.Label>Dirección</Form.Label>
                             <Form.Control
+                                maxLength={30}
                                 type="string"
                                 name="address"
                                 value={editedStudent?.address || ''}
@@ -275,6 +284,7 @@ export const StudentsScreen = () => {
                         <Form.Group controlId="editFormLastName">
                             <Form.Label>Email:</Form.Label>
                             <Form.Control
+                                maxLength={35}
                                 type="text"
                                 name="email"
                                 value={editedStudent?.email || ''}
@@ -285,6 +295,7 @@ export const StudentsScreen = () => {
                             <Form.Label>Fecha de nacimiento:</Form.Label>
                             <Form.Control
                                 type="string"
+                                maxLength={9}
                                 name="birthdate"
                                 value={editedStudent?.birthdate || ''}
                                 onChange={handleEditInputChange}

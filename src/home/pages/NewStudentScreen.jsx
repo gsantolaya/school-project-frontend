@@ -96,35 +96,35 @@ export const NewStudentScreen = () => {
                     <Form className='d-flex flex-wrap justify-content-center' onSubmit={handleAddStudentFormSubmit}>
                         <Form.Group className="formFields m-2 col-10 col-md-5" controlId="formBasicFirstName">
                             <Form.Label>Nombre</Form.Label>
-                            <Form.Control type="text" name="firstName" value={newStudent.firstName} onChange={handleInputChange} />
+                            <Form.Control type="text" maxLength={20} name="firstName" value={newStudent.firstName} onChange={handleInputChange} />
                         </Form.Group>
                         <Form.Group className="formFields m-2 col-10 col-md-5" controlId="formBasicLastName">
                             <Form.Label>Apellido</Form.Label>
-                            <Form.Control type="text" name="lastName" value={newStudent.lastName} onChange={handleInputChange} />
+                            <Form.Control type="text" maxLength={20} name="lastName" value={newStudent.lastName} onChange={handleInputChange} />
                         </Form.Group>
                         <Form.Group className="formFields m-2 col-10 col-md-5" controlId="formBasicLastName">
                             <Form.Label>DNI</Form.Label>
-                            <Form.Control type="text" name="dni" value={newStudent.dni} onChange={handleInputChange} />
+                            <Form.Control type="text" maxLength={20} name="dni" value={newStudent.dni} onChange={handleInputChange} />
                         </Form.Group>
                         <Form.Group className="formFields m-2 col-10 col-md-5" controlId="formBasicLastName">
                             <Form.Label>Email</Form.Label>
-                            <Form.Control type="text" name="email" value={newStudent.email} onChange={handleInputChange} />
+                            <Form.Control type="text" maxLength={35} name="email" value={newStudent.email} onChange={handleInputChange} />
                         </Form.Group>
                         <Form.Group className="formFields m-2 col-10 col-md-5" controlId="formBasicCurrentYearOfStudy">
                             <Form.Label>Año de cursado</Form.Label>
-                            <Form.Control type="number" name="currentYearOfStudy" value={newStudent.currentYearOfStudy} onChange={handleInputChange} />
+                            <Form.Control type="number" maxLength={1} min={1} max={4} name="currentYearOfStudy" value={newStudent.currentYearOfStudy} onChange={handleInputChange} />
                         </Form.Group>
                         <Form.Group className="formFields m-2 col-10 col-md-5" controlId="formBasicPhone">
                             <Form.Label>Teléfono</Form.Label>
-                            <Form.Control type="text" name="phone" value={newStudent.phone} onChange={handleInputChange} />
+                            <Form.Control type="text" maxLength={5} name="phone" value={newStudent.phone} onChange={handleInputChange} />
                         </Form.Group>
                         <Form.Group className="formFields m-2 col-10 col-md-5" controlId="formBasicAddress">
                             <Form.Label>Dirección</Form.Label>
-                            <Form.Control type="text" name="address" value={newStudent.address} onChange={handleInputChange} />
+                            <Form.Control type="text" maxLength={30} name="address" value={newStudent.address} onChange={handleInputChange} />
                         </Form.Group>
                         <Form.Group className="formFields m-2 col-10 col-md-5" controlId="formBasicBirthdate">
                             <Form.Label>Fecha de nacimiento</Form.Label>
-                            <Form.Control type="date" name="birthdate" value={newStudent.birthdate} onChange={handleInputChange} />
+                            <Form.Control type="date" maxLength={9} name="birthdate" value={newStudent.birthdate} onChange={handleInputChange} />
                         </Form.Group>
                         <Nav.Link className="buttonsFormAddStudent" href="students">Cancelar</Nav.Link>
                         <Button className='buttonsFormAddStudent' variant="" type="submit">

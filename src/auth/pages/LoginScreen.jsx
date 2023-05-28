@@ -43,7 +43,7 @@ export const LoginScreen = () => {
           <Form.Group className="authFormGroup p-3 m-3" controlId="formBasicEmail">
             <div className="col-10">
               <Form.Label className="d-inline">Email:</Form.Label>
-              <input className="authInput d-block w-100" type="email" placeholder="Ingrese su email" id="email" name="email" {...register("email", { required: true })} />
+              <input className="authInput d-block w-100" type="email" maxLength={35} placeholder="Ingrese su email" id="email" name="email" {...register("email", { required: true })} />
               {errors?.email && (<span className="spamLogin">Este campo es requerido</span>)}
             </div>
             <div className="d-flex align-items-center">
@@ -53,7 +53,7 @@ export const LoginScreen = () => {
           <Form.Group className="authFormGroup p-3 m-3" controlId="formBasicPassword">
             <div className="col-10">
               <Form.Label className="d-inline">Contraseña:</Form.Label>
-              <input className="authInput d-block w-100" type={showPassword ? "text" : "password"} placeholder="Ingrese su contraseña" id="password" name="password"
+              <input className="authInput d-block w-100" type={showPassword ? "text" : "password"} maxLength={35} placeholder="Ingrese su contraseña" id="password" name="password"
                 {...register("password", { required: true, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/, })} />
               {errors?.password && (<span className="authSpan">Este campo es requerido. </span>)}
               {errors?.password && errors.password.type === "pattern" &&

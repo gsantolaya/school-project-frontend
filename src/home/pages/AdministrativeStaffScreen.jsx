@@ -28,20 +28,20 @@ export const AdministrativeStaffScreen = () => {
   useEffect(() => {
     axios.get("http://localhost:8060/api/adminStaff").then((response) => {
       setAdminStaff(response.data);
- 
+
       setAdminFiltered(response.data)
     });
   }, []);
 
   const handleSearchInput = (e) => {
     let userInput = (e.target.value).toLowerCase()
-    if(userInput===""){
+    if (userInput === "") {
       setAdminFiltered(adminStaff)
-    }else{
-      const filterAdminStaff = adminStaff.filter((admin) => {  
-        return admin.firstName.toLowerCase().includes(userInput) || 
-        admin.schoolName.toLowerCase().includes(userInput) ||
-        admin.lastName.toLowerCase().includes(userInput)
+    } else {
+      const filterAdminStaff = adminStaff.filter((admin) => {
+        return admin.firstName.toLowerCase().includes(userInput) ||
+          admin.schoolName.toLowerCase().includes(userInput) ||
+          admin.lastName.toLowerCase().includes(userInput)
       });
       setAdminFiltered(filterAdminStaff)
     }
@@ -53,20 +53,20 @@ export const AdministrativeStaffScreen = () => {
     <>
       <div className="text-center p-2 p-md-5">
         <h1 className="title mb-5"><b>Personal Administrativo</b></h1>
-<div className="mb-4 w-50">
+        <div className="mb-4 w-50">
 
-        <InputGroup >
-          <InputGroup.Text id="btnGroupAddon"><BsSearch/></InputGroup.Text>
-          <Form.Control
-            type="text"
-            placeholder="Buscar por Apellido, Nombre Institución o Fecha Ingreso"
-            aria-label="Input group example"
-            aria-describedby="btnGroupAddon"
-            onChange={handleSearchInput}
-          />
-        </InputGroup>
+          <InputGroup >
+            <InputGroup.Text id="btnGroupAddon"><BsSearch /></InputGroup.Text>
+            <Form.Control
+              type="text"
+              placeholder="Buscar por Apellido, Nombre Institución o Fecha Ingreso"
+              aria-label="Input group example"
+              aria-describedby="btnGroupAddon"
+              onChange={handleSearchInput}
+            />
+          </InputGroup>
         </div>
-      
+
 
         <div className="table-responsive m-2">
           <Table striped bordered hover size="sm">
@@ -101,11 +101,6 @@ export const AdministrativeStaffScreen = () => {
               ))}
             </tbody>
           </Table>
-        </div>
-
-
-        <div className="justify-content-center align-items-center d-flex mt-3">
-          <Pagination size="sm">{items}</Pagination>
         </div>
       </div>
     </>

@@ -18,7 +18,6 @@ export const UsersScreen = () => {
   const [showDeleteMyUserModal, setShowDeleteMyUserModal] = useState(false);
   const [showEditMyUserModal, setShowEditMyUserModal] = useState(false);
   const [showDeleteUserModal, setShowDeleteUserModal] = useState(false);
-  const [selectedUserModal, setSelectedUserModal] = useState(null);
 
   const [showEditPasswordModal, setShowEditPasswordModal] = useState(false);
 
@@ -69,7 +68,6 @@ export const UsersScreen = () => {
   //----------------------------------------------------------------------------------------------------------------------
   // Funciones editar mi usuario:
   const handleShowEditMyUserModal = (user) => {
-    setSelectedUserModal(user);
     setEditedUser({
       ...user,
       email: user.email,
@@ -79,9 +77,6 @@ export const UsersScreen = () => {
   };
   const handleCloseEditMyUserModal = () => {
     setEditedUser(null);
-    setShowEditMyUserModal(false);
-  }
-  const handleCloseEditMyUserModalOnly = () => {
     setShowEditMyUserModal(false);
   }
   const handleEditMyUserFormSubmit = async (e) => {
@@ -128,10 +123,13 @@ export const UsersScreen = () => {
   //----------------------------------------------------------------------------------------------------------------------
   // Funciones para editar la contrasena
   const handleShowEditPassword = (user) => {
+    setEditedUser({
+      ...user,
+      email: user.email,
+      password: ''
+    });
     setShowEditPasswordModal(true);
-    handleCloseEditMyUserModalOnly();
   };
-  
 
   const handleCloseEditPasswordModal = () => {
     setEditedUser(null);
@@ -141,7 +139,6 @@ export const UsersScreen = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const handleEditPasswordFormSubmit = handleSubmit(async (data) => {
-    console.log(editedUser)
     const token = localStorage.getItem('token');
     try {
       const response = await axios.put(
@@ -171,13 +168,13 @@ export const UsersScreen = () => {
   });
 
 
-  // const handleEditPasswordInputChange = (event) => {
-  //   const { value } = event.target;
-  //   setEditedUser((prevUser) => ({
-  //     ...prevUser,
-  //     // Remove the password assignment here
-  //   }));
-  // };
+  const handleEditPasswordInputChange = (event) => {
+    const { value } = event.target;
+    setEditedUser((prevUser) => ({
+      ...prevUser,
+      // Remove the password assignment here
+    }));
+  };
 
   //----------------------------------------------------------------------------------------------------------------------
   // Funciones eliminar otro usuario:
@@ -228,7 +225,8 @@ export const UsersScreen = () => {
                     <td className='pt-3'>
                       {isCurrentUser && (
                         <>
-                          <Button className='m-1' onClick={() => handleShowEditMyUserModal(user)} variant="secondary"><FaEdit /></Button>
+                          <Button className='m-1' variant="secondary" onClick={() => handleShowEditPassword(user)}>Modificar contraseña</Button>
+                          <Button className='m-1' onClick={() => handleShowEditMyUserModal(user)} variant="dark"><FaEdit /></Button>
                           <Button className='m-1' onClick={() => handleShowDeleteMyUserModal(user)} variant="danger"><FaTrashAlt /></Button>
                         </>
                       )}
@@ -265,7 +263,8 @@ export const UsersScreen = () => {
                     <td className={`py-4 ${userClass}`}>{user.lastName} {user.firstName}</td>
                     <td className={`py-4 ${userClass}`}>{user.isAdmin ? 'Administrador' : 'Estudiante'}</td>
                     <td className='pt-3'>
-                      <Button className='m-1' onClick={() => handleShowEditMyUserModal(user)} variant="secondary"><FaEdit /></Button>
+                      <Button className='m-1' variant="secondary" onClick={() => handleShowEditPassword(user)}>Modificar contraseña</Button>
+                      <Button className='m-1' onClick={() => handleShowEditMyUserModal(user)} variant="dark"><FaEdit /></Button>
                       <Button className='m-1' onClick={() => handleShowDeleteUserModal(user)} variant="danger">
                         <FaTrashAlt />
                       </Button>
@@ -306,6 +305,7 @@ export const UsersScreen = () => {
               <Form.Label>Nombre:</Form.Label>
               <Form.Control
                 type="text"
+                maxLength={20}
                 name="firstName"
                 value={editedUser?.firstName || ''}
                 onChange={handleEditInputChange}
@@ -315,6 +315,7 @@ export const UsersScreen = () => {
               <Form.Label>Apellido:</Form.Label>
               <Form.Control
                 type="text"
+                maxLength={20}
                 name="lastName"
                 value={editedUser?.lastName || ''}
                 onChange={handleEditInputChange}
@@ -340,13 +341,6 @@ export const UsersScreen = () => {
                     label="Administrador"
                   />
                 </Form.Group>
-                <Button
-  className='m-1'
-  variant="secondary"
-  onClick={() => handleShowEditPassword(selectedUserModal)}
->
-  Modificar contraseña
-</Button>
               </>
             )}
             <Modal.Footer>
@@ -367,20 +361,20 @@ export const UsersScreen = () => {
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleEditPasswordFormSubmit}>
-          <Form.Group controlId="editFormFirstName">
-  <Form.Label>Email:</Form.Label>
-  <Form.Control
-    type="text"
-    name="email"
-    value={selectedUserModal?.email || ''}
-    disabled
-  />
-</Form.Group>
-
+            <Form.Group controlId="editFormFirstName">
+              <Form.Label>Email:</Form.Label>
+              <Form.Control
+                type="text"
+                name="email"
+                value={editedUser?.email || ''}
+                disabled  // Deshabilita el campo de entrada
+              />
+            </Form.Group>
             <Form.Group controlId="editFormLasttName">
               <Form.Label>Nueva contraseña:</Form.Label>
               <Form.Control
                 type="password"
+                maxLength={35}
                 name="password"
                 {...register('password', { required: true, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/ })}
               />
