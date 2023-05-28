@@ -1,5 +1,5 @@
 
-import React, {  useState } from "react";
+import React, {  useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,6 +7,7 @@ import "./Auth.css";
 import { FaUserAlt } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { AiFillEye, AiFillEyeInvisible} from "react-icons/ai";
+import { tokenIsValid } from "../../utils/TokenIsValid";
 
 
 export const RegisterScreen = () => {

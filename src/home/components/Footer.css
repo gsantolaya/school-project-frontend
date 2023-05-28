@@ -14,7 +14,7 @@
     transform: scale(1.1);
     color: white;
 }
-/* @media screen and (max-width: 576px) {
+ @media screen and (max-width: 576px) {
     #logoContainer {
         display: none;
     }
@@ -22,7 +22,7 @@
         display: none;
     }
 }
-@media screen and (min-width:577px) and (max-width: 766px) {}
+/* @media screen and (min-width:577px) and (max-width: 766px) {}
 #logoContainer {
     display: none !important;
 }
@@ -43,4 +43,4 @@
     #socialMediaContainer {
         display: inherit !important;
     }
-} */
+}  */
