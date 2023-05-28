@@ -13,13 +13,13 @@
 .socialMedia:hover {
     transform: scale(1.1);
     color: white;
-}
- @media screen and (max-width: 576px) {
+
+@media screen and (max-width: 576px) {
     #logoContainer {
-        display: none;
+        display: none !important;
     }
     #socialMediaContainer {
-        display: none;
+        display: none !important;
     }
 }
 /* @media screen and (min-width:577px) and (max-width: 766px) {}

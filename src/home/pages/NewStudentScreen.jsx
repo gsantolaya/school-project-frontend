@@ -9,7 +9,6 @@ import Nav from 'react-bootstrap/Nav';
 export const NewStudentScreen = () => {
     const [showConfirmationToast, setShowConfirmationToast] = useState(false);
     const [showErrorToast, setShowErrorToast] = useState(false);
-
     const [newStudent, setNewStudent] = useState({
         firstName: '',
         lastName: '',
@@ -68,17 +67,13 @@ export const NewStudentScreen = () => {
     const handleErrorToastClose = () => {
         setShowErrorToast(false);
     };
-    console.log(newStudent)
-
     const handleAddStudentFormSubmit = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:8060/api/students', newStudent);
-            console.log(newStudent)
             if (response.status === 201) {
                 setShowConfirmationToast(true);
-
-                //     setShowConfirmationToast(true);
+                //setShowConfirmationToast(true);
             }
         } catch (error) {
             console.log(error);

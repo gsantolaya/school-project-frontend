@@ -36,7 +36,8 @@ export const AppRouter = () => {
             <Route path="/home/newStudent" element={<NewStudentScreen />} />
             <Route path="/home/myStudentInformation" element={<MyStudentInformationScreen />} />
           </Route>
-          <Route path="*" element={<Error404Screen/>} />
+          <Route path="/error404" element={<Error404Screen />} />
+          <Route path="/*" element={<Error404Screen />} />
         </Routes>
         <Footer />
       </BrowserRouter>

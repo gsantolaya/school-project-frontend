@@ -14,8 +14,6 @@ export const AnalyticsScreen = () => {
   const [selectedSubject, setSelectedSubject] = useState("");
   const [showEditModal, setShowEditModal] = useState(false);
   const [editedStudent, setEditedStudent] = useState(null);
-
-
   const [filterName, setFilterName] = useState("");
   const [filterSubject, setFilterSubject] = useState("");
   const [filterGrade, setFilterGrade] = useState("");
