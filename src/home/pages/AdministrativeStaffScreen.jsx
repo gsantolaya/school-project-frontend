@@ -41,7 +41,7 @@ export const AdministrativeStaffScreen = () => {
     }else{
       navigate("/login")
     }
-  }, []);
+  }, [navigate,store.tokenValid,store.token]);
 
   const handleSearchInput = (e) => {
     let userInput = (e.target.value).toLowerCase()
