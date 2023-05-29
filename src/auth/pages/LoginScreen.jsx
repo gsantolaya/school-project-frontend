@@ -8,7 +8,6 @@ import { tokenIsValid } from "../../utils/TokenIsValid";
 import { MdEmail } from "react-icons/md";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
-
 export const LoginScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
@@ -59,7 +58,7 @@ export const LoginScreen = () => {
               {errors?.password && errors.password.type === "pattern" &&
                 (<span className="authSpan">La contraseña debe tener al menos 6 caracteres, una mayuscula y un número.</span>)}
             </div>
-            <div className="d-flex align-items-center btn" onClick={() => setShowPassword(!showPassword)}>
+            <div className="d-flex align-items-center" onClick={() => setShowPassword(!showPassword)}>
               {showPassword ? <AiFillEye size={25} /> : <AiFillEyeInvisible size={25} />}
             </div>
           </Form.Group>

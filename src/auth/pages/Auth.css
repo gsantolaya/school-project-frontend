@@ -43,6 +43,9 @@
     border-radius: 8px;
     transition-duration: 1s;
 }
+.authButton:hover{
+    transform: scale(1.05);
+}
 .authLink{
     color: #7A0045;
     text-decoration: none;

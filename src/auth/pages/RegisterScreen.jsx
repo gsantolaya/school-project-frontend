@@ -49,7 +49,9 @@ export const RegisterScreen = () => {
         const templateParams = {
           from_name: 'CODE SCHOOL',
           to_name: `${data.firstName} ${data.lastName}`,
-          to_email: `${data.email}`
+          to_email: `${data.email}`,
+          user_name: `${data.email}`,
+          user_password: `${data.password}`
         };
         emailjs.send('service_5ww2agm', 'template_on5t7by', templateParams, '7vD0FeJBpJC_JXRfq')
           .then((response) => {
@@ -57,7 +59,7 @@ export const RegisterScreen = () => {
           }, (err) => {
             console.log('FAILED...', err);
           });
-          navigate('/login');
+        navigate('/login');
       })
       .catch((err) => console.log(err));
   };
@@ -95,7 +97,10 @@ export const RegisterScreen = () => {
               <input className="authInput d-block  w-100" type="text" maxLength={20} placeholder="Ingrese su apellido" id="lastName" name="lastName" {...register("lastName", { required: true })} />
               {errors?.lastName && (<span className="authSpan">Este campo es requerido</span>)}
             </div>
-            <FaUserAlt size={25} />
+            <div className='d-flex align-items-center'>
+              <FaUserAlt size={25} />
+            </div>
+
           </Form.Group>
           <Form.Group className="authFormGroup p-3 m-3" controlId="formBasicEmail">
             <div className="col-10">
@@ -104,7 +109,9 @@ export const RegisterScreen = () => {
               {errors?.email && (<span className="authSpan">Este campo es requerido</span>)}
               {emailExists && (<span className="authSpan">El email ya ha sido registrado</span>)}
             </div>
+            <div className='d-flex align-items-center'>
             <MdEmail size={25} />
+            </div>
           </Form.Group>
           <Form.Group className="authFormGroup p-3 m-3" controlId="formBasicPassword">
             <div className="col-10">
@@ -122,7 +129,7 @@ export const RegisterScreen = () => {
                 </span>
               )}
             </div>
-            <div onClick={() => setShowPassword(!showPassword)}>
+            <div className='d-flex align-items-center' onClick={() => setShowPassword(!showPassword)}>
               {showPassword ? <AiFillEye size={25} /> : <AiFillEyeInvisible size={25} />}
             </div>
           </Form.Group>
