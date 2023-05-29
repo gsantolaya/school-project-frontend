@@ -4,6 +4,9 @@ import Pagination from "react-bootstrap/Pagination";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
 import InputGroup from 'react-bootstrap/InputGroup';
+import { TokenStorage } from "../../utils/TokenStorage";
+import { useNavigate } from "react-router-dom";
+
 import {
   BsSearch
 } from "react-icons/bs";
@@ -23,14 +26,20 @@ export const AdministrativeStaffScreen = () => {
   const [adminStaff, setAdminStaff] = useState([]);
   const [adminFiltered, setAdminFiltered] = useState([])
 
-
+  const store = TokenStorage()
+  const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("/adminStaff").then((response) => {
-      setAdminStaff(response.data);
-
-      setAdminFiltered(response.data)
-    });
+    if (store.tokenValid) {   
+      axios.get("/adminStaff", {headers:{
+        "access-token": store.token
+      }}).then((response) => {
+        setAdminStaff(response.data);
+        setAdminFiltered(response.data)
+      });
+    }else{
+      navigate("/login")
+    }
   }, []);
 
   const handleSearchInput = (e) => {

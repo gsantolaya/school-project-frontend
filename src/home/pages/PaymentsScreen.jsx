@@ -6,17 +6,27 @@ import Form from 'react-bootstrap/Form';
 import { FaInfoCircle } from "react-icons/fa";
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
+import { TokenStorage } from "../../utils/TokenStorage";
 
 export const PaymentsScreen = () => {
   const [students, setStudents] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchOption, setSearchOption] = useState('name');
 
+
+  const store = TokenStorage()
+
   useEffect(() => {
-    axios.get('/students')
-      .then((response) => {
-        setStudents(response.data)
-      })
+    if (store.tokenValid) {   
+      axios.get('/students',{headers:{
+          "access-token": store.token
+        }})
+          .then((response) => {
+              setStudents(response.data)
+          })
+      }else{
+          navigate("/login")
+        }
   }, [])
 
   const handleSearchInputChange = (event) => {
@@ -31,7 +41,9 @@ export const PaymentsScreen = () => {
     const isPaymentAlDia = event.target.value === "alDia";
     const updatedStudent = { ...student, payment: isPaymentAlDia };
     try {
-      const response = await axios.put(`/students/${student._id}`, updatedStudent);
+      const response = await axios.put(`/students/${student._id}`, updatedStudent, {headers:{
+        "access-token": store.token
+      }});
       // Handle successful update
       console.log(response.data); // Optional: Log the response data
 

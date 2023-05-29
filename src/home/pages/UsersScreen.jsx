@@ -81,6 +81,7 @@ export const UsersScreen = () => {
   }
   const handleEditMyUserFormSubmit = async (e) => {
     e.preventDefault();
+    console.log(editedUser)
     const token = localStorage.getItem('token');
     try {
       const response = await axios.put(`/users/${editedUser._id}`, editedUser, {
