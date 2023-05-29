@@ -6,6 +6,7 @@ import axios from "axios";
 import InputGroup from 'react-bootstrap/InputGroup';
 import { TokenStorage } from "../../utils/TokenStorage";
 import { useNavigate } from "react-router-dom";
+import './StudentsScreen.css';
 
 import {
   BsSearch
@@ -77,7 +78,7 @@ export const AdministrativeStaffScreen = () => {
         </div>
 
 
-        <div className="table-responsive m-2">
+        <div className="table-container m-2">
           <Table striped bordered hover size="sm">
             <thead className="title align-middle text-center">
               <tr>
