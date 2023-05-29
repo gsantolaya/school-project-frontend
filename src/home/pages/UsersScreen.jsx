@@ -24,7 +24,7 @@ export const UsersScreen = () => {
   //Funcion obtener usuarios:
   useEffect(() => {
     const token = localStorage.getItem('token');
-    axios.get('http://localhost:8060/api/users', {
+    axios.get('/users', {
       headers: {
         'access-token': `${token}`
       }
@@ -83,7 +83,7 @@ export const UsersScreen = () => {
     e.preventDefault();
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.put(`http://localhost:8060/api/users/${editedUser._id}`, editedUser, {
+      const response = await axios.put(`/users/${editedUser._id}`, editedUser, {
         headers: {
           'access-token': token
         }
@@ -142,7 +142,7 @@ export const UsersScreen = () => {
     const token = localStorage.getItem('token');
     try {
       const response = await axios.put(
-        'http://localhost:8060/api/users/reset/password',
+        '/users/reset/password',
         { email: editedUser.email, password: data.password },
         {
           headers: {
@@ -168,13 +168,13 @@ export const UsersScreen = () => {
   });
 
 
-  const handleEditPasswordInputChange = (event) => {
-    const { value } = event.target;
-    setEditedUser((prevUser) => ({
-      ...prevUser,
-      // Remove the password assignment here
-    }));
-  };
+  // const handleEditPasswordInputChange = (event) => {
+  //   const { value } = event.target;
+  //   setEditedUser((prevUser) => ({
+  //     ...prevUser,
+  //     // Remove the password assignment here
+  //   }));
+  // };
 
   //----------------------------------------------------------------------------------------------------------------------
   // Funciones eliminar otro usuario:
@@ -189,14 +189,14 @@ export const UsersScreen = () => {
   const deleteUser = async (id) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.delete(`http://localhost:8060/api/users/${id}`, {
+      const response = await axios.delete(`/users/${id}`, {
         headers: {
           'access-token': `${token}`
         }
       });
       if (response.status === 200) {
         handleCloseDeleteUserModal();
-        const { data } = await axios.get('http://localhost:8060/api/users');
+        const { data } = await axios.get('/users');
         setUsers(data);
       }
     } catch (error) {

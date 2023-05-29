@@ -29,7 +29,7 @@ export const Error404Screen = () => {
             >
               <Link
                 className="fs-3 fw-ligh    "
-                to={"/home"}
+                to={"/"}
                 style={{
                   textDecoration: "none",
                   color: " #C85D16",

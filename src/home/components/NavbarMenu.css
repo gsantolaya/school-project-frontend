@@ -105,3 +105,44 @@
         display: none !important;
     }
 }
+@media screen and (min-width:577px) and (max-width: 766px) {
+    .navSideLinks {
+        display: inherit !important;
+    }
+
+    .logOut {
+        display: inherit !important;
+    }
+    .smallScreen{
+        display: inherit !important;
+    }
+    .bigScreen{
+        display: none !important;
+    }
+}
+@media screen and (min-width:767px) and (max-width: 991px) {
+    .navSideLinks {
+        display: inherit !important;
+    }
+
+    .logOut {
+        display: inherit !important;
+    }
+    .smallScreen{
+        display: inherit !important;
+    }
+    .bigScreen{
+        display: none !important;
+    }
+}
+@media screen and (min-width:992px) and (max-width: 1400px) {
+    .navLinks{
+        text-align: center; 
+    }
+    .bigScreen{
+        padding-top: 20px !important;
+    }
+    .userNameLink{
+        text-align: center;
+    }
+}

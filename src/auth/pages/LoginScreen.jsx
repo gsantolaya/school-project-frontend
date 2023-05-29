@@ -19,7 +19,8 @@ export const LoginScreen = () => {
 
   const Submit = (data) => {
     console.log(data)
-    axios.post("http://localhost:8060/api/users/login", data)
+    
+    axios.post("/users/login", data)
       .then((res) => {
         let value = res.data.token;
         localStorage.setItem("token", value);

@@ -11,7 +11,7 @@ export const MyStudentInformationScreen = () => {
 
 
   useEffect(() => {
-    axios.get('http://localhost:8060/api/students')
+    axios.get('/students')
       .then((response) => {
         setStudents(response.data);
         const decodedToken = tokenIsValid();
