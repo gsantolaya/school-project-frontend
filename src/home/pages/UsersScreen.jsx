@@ -166,16 +166,6 @@ export const UsersScreen = () => {
       alert('Error al modificar la contraseña');
     }
   });
-
-
-  // const handleEditPasswordInputChange = (event) => {
-  //   const { value } = event.target;
-  //   setEditedUser((prevUser) => ({
-  //     ...prevUser,
-  //     // Remove the password assignment here
-  //   }));
-  // };
-
   //----------------------------------------------------------------------------------------------------------------------
   // Funciones eliminar otro usuario:
   const handleShowDeleteUserModal = (user) => {
