@@ -10,6 +10,7 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 export const LoginScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [loginError, setLoginError] = useState("");
   const navigate = useNavigate();
   const {
     register,
@@ -18,15 +19,19 @@ export const LoginScreen = () => {
   } = useForm();
 
   const Submit = (data) => {
-    console.log(data)
-    
-    axios.post("/users/login", data)
+    console.log(data);
+
+    axios
+      .post("/users/login", data)
       .then((res) => {
         let value = res.data.token;
         localStorage.setItem("token", value);
         navigate("/home");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setLoginError("Usuario o contraseña incorrectos");
+        console.log(err);
+      });
   };
 
   useEffect(() => {
@@ -43,8 +48,16 @@ export const LoginScreen = () => {
           <Form.Group className="authFormGroup p-3 m-3" controlId="formBasicEmail">
             <div className="col-10">
               <Form.Label className="d-inline">Email:</Form.Label>
-              <input className="authInput d-block w-100" type="email" maxLength={35} placeholder="Ingrese su email" id="email" name="email" {...register("email", { required: true })} />
-              {errors?.email && (<span className="authSpan">Este campo es requerido</span>)}
+              <input
+                className="authInput d-block w-100"
+                type="email"
+                maxLength={35}
+                placeholder="Ingrese su email"
+                id="email"
+                name="email"
+                {...register("email", { required: true })}
+              />
+              {errors?.email && <span className="authSpan">Este campo es requerido</span>}
             </div>
             <div className="d-flex align-items-center">
               <MdEmail size={25} />
@@ -53,29 +66,50 @@ export const LoginScreen = () => {
           <Form.Group className="authFormGroup p-3 m-3" controlId="formBasicPassword">
             <div className="col-10">
               <Form.Label className="d-inline">Contraseña:</Form.Label>
-              <input className="authInput d-block w-100" type={showPassword ? "text" : "password"} maxLength={35} placeholder="Ingrese su contraseña" id="password" name="password"
-                {...register("password", { required: true, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/, })} />
-              {errors?.password && (<span className="authSpan">Este campo es requerido. </span>)}
-              {errors?.password && errors.password.type === "pattern" &&
-                (<span className="authSpan">La contraseña debe tener al menos 6 caracteres, una mayuscula y un número.</span>)}
+              <input
+                className="authInput d-block w-100"
+                type={showPassword ? "text" : "password"}
+                maxLength={35}
+                placeholder="Ingrese su contraseña"
+                id="password"
+                name="password"
+                {...register("password", {
+                  required: true,
+                  pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/,
+                })}
+              />
+              {errors?.password && <span className="authSpan">Este campo es requerido.</span>}
+              {errors?.password && errors.password.type === "pattern" && (
+                <span className="authSpan">
+                  La contraseña debe tener al menos 6 caracteres, una mayúscula y un número.
+                </span>
+              )}
             </div>
             <div className="d-flex align-items-center" onClick={() => setShowPassword(!showPassword)}>
-              {showPassword ? <AiFillEye size={25} /> : <AiFillEyeInvisible size={25} />}
+              {showPassword ? <AiFillEye size={25} /> :<AiFillEyeInvisible size={25} />}
             </div>
           </Form.Group>
+          {loginError && (
+            <div className="text-center text-danger mb-2">
+              <span className="authError"><b>{loginError}</b></span>
+            </div>
+          )}
           <div className="text-center">
-            <Link className="authLink " to={"/error404"}><b>¿Olvidaste tu contraseña?</b></Link>
+            <Link className="authLink" to={"/error404"}>
+              <b>¿Olvidaste tu contraseña?</b>
+            </Link>
           </div>
-          <button className="authButton" type="submit">Acceder</button>
+          <button className="authButton" type="submit">
+            Acceder
+          </button>
           <p className="text-dark fw-bold mt-3 text-center">
             ¿Aún no tienes una Cuenta?{" "}
             <Link className="authLink" to={"/register"}>
-              <b>Registrate!</b>
+              <b>Regístrate!</b>
             </Link>
           </p>
         </Form>
       </div>
     </div>
-
   );
 };
