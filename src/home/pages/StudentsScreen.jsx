@@ -8,6 +8,8 @@ import Modal from 'react-bootstrap/Modal';
 import Toast from 'react-bootstrap/Toast';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
+import { TokenStorage } from "../../utils/TokenStorage";
+import { useNavigate } from "react-router-dom";
 
 
 export const StudentsScreen = () => {
@@ -21,11 +23,20 @@ export const StudentsScreen = () => {
     const [showEditModal, setShowEditModal] = useState(false);
     const [editedStudent, setEditedStudent] = useState(null);
 
+    const store = TokenStorage()
+    const navigate = useNavigate();
+
     useEffect(() => {
-        axios.get('/students')
+        if (store.tokenValid) {   
+        axios.get('/students',{headers:{
+            "access-token": store.token
+          }})
             .then((response) => {
                 setStudents(response.data)
             })
+        }else{
+            navigate("/login")
+          }
     }, [])
 
     const handleShowModal = (student) => {
@@ -74,11 +85,15 @@ export const StudentsScreen = () => {
 
     const deleteStudent = async (id) => {
         try {
-            const response = await axios.delete(`/students/${id}`);
+            const response = await axios.delete(`/students/${id}`,{headers:{
+                "access-token": store.token
+              }});
             if (response.status === 200) {
                 handleCloseModal()
                 setShowConfirmationToast(true)
-                const { data } = await axios.get('/students');
+                const { data } = await axios.get('/students',{headers:{
+                    "access-token": store.token
+                  }});
                 setStudents(data);
             }
         } catch (error) {
@@ -90,7 +105,9 @@ export const StudentsScreen = () => {
     const handleEditFormSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.put(`/students/${editedStudent._id}`, editedStudent);
+            const response = await axios.put(`/students/${editedStudent._id}`,editedStudent, {headers:{
+                "access-token": store.token
+              }});
             if (response.status === 200) {
                 const updatedStudents = students.map((student) => {
                     if (student._id === editedStudent._id) {

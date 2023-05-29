@@ -3,21 +3,31 @@ import Table from 'react-bootstrap/Table';
 import axios from 'axios';
 import { tokenIsValid } from '../../utils/TokenIsValid';
 import './MyStudentInformationScreen.css';
+import { TokenStorage } from "../../utils/TokenStorage";
+import { useNavigate } from "react-router-dom";
 
 export const MyStudentInformationScreen = () => {
 
   const [students, setStudents] = useState([]);
   const [currentUserStudent, setCurrentUserStudent] = useState([]);
 
+  const store = TokenStorage()
+  const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('/students')
+    if (store.tokenValid) {   
+      axios.get('/students',{headers:{
+        "access-token": store.token
+      }})
       .then((response) => {
         setStudents(response.data);
         const decodedToken = tokenIsValid();
         const foundStudent = response.data.find(student => student.email === decodedToken.email);
         setCurrentUserStudent(foundStudent);
       })
+    }else{
+      navigate("/login")
+    }
   }, []);
 
   const decodedToken = tokenIsValid();

@@ -48,7 +48,7 @@ export const UsersScreen = () => {
   const deleteMyUser = async (id) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.delete(`http://localhost:8060/api/users/${id}`, {
+      const response = await axios.delete(`/users/${id}`, {
         headers: {
           'access-token': `${token}`
         }
@@ -57,7 +57,7 @@ export const UsersScreen = () => {
         handleCloseDeleteMyUserModal();
         localStorage.removeItem('token');
         navigate("/");
-        const { data } = await axios.get('http://localhost:8060/api/users');
+        const { data } = await axios.get('/users');
         setUsers(data);
       }
     } catch (error) {

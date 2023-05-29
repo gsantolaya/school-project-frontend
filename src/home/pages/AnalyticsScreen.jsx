@@ -6,6 +6,8 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { FaTrashAlt, FaEdit } from "react-icons/fa";
 import './AnalyticsScreen.css';
+import { TokenStorage } from "../../utils/TokenStorage";
+import { useNavigate } from "react-router-dom";
 
 export const AnalyticsScreen = () => {
   const [students, setStudents] = useState([]);
@@ -18,12 +20,20 @@ export const AnalyticsScreen = () => {
   const [filterSubject, setFilterSubject] = useState("");
   const [filterGrade, setFilterGrade] = useState("");
 
+  const store = TokenStorage()
+  const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('/students')
-      .then((response) => {
-        setStudents(response.data);
-      });
+    if (store.tokenValid) {   
+      axios.get('/students',{headers:{
+          "access-token": store.token
+        }})
+          .then((response) => {
+              setStudents(response.data)
+          })
+      }else{
+          navigate("/login")
+        }
   }, []);
 
   const handleShowDeleteModal = (student, subject) => {
@@ -52,7 +62,9 @@ export const AnalyticsScreen = () => {
       const updatedStudent = { ...selectedStudent };
       updatedStudent.notes[subject] = null;
 
-      const response = await axios.put(`/students/${id}`, updatedStudent);
+      const response = await axios.put(`/students/${id}`, updatedStudent, {headers:{
+        "access-token": store.token
+      }});
 
       if (response.status === 200) {
         const updatedStudents = students.map((student) => {
@@ -75,7 +87,9 @@ export const AnalyticsScreen = () => {
   const handleEditFormSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.put(`/students/${editedStudent._id}`, editedStudent);
+      const response = await axios.put(`/students/${editedStudent._id}`, editedStudent, {headers:{
+        "access-token": store.token
+      }});
       if (response.status === 200) {
         const updatedStudents = students.map((student) => {
           if (student._id === editedStudent._id) {

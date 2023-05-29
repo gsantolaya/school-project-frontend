@@ -5,6 +5,8 @@ import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 import Toast from 'react-bootstrap/Toast';
 import Nav from 'react-bootstrap/Nav';
+import { TokenStorage } from "../../utils/TokenStorage";
+import { useNavigate } from "react-router-dom";
 
 export const NewStudentScreen = () => {
     const [showConfirmationToast, setShowConfirmationToast] = useState(false);
@@ -59,6 +61,8 @@ export const NewStudentScreen = () => {
             physicalEducationIV: null
         }
     });
+    const store = TokenStorage()
+    const navigate = useNavigate();
 
     const handleConfirmationToastClose = () => {
         setShowConfirmationToast(false);
@@ -70,11 +74,15 @@ export const NewStudentScreen = () => {
     const handleAddStudentFormSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/students', newStudent);
+            const response = await axios.post('/students', newStudent, {headers:{
+                "access-token": store.token
+              }});
             if (response.status === 201) {
                 setShowConfirmationToast(true);
                 console.log(newStudent)
-                //setShowConfirmationToast(true);
+                setTimeout(() => {
+                    navigate("/home/students");
+                }, 3000);
             }
         } catch (error) {
             console.log(error);
