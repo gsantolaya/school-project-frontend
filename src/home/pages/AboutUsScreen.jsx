@@ -14,7 +14,7 @@ export const AboutUsScreen = () => {
 
    <Container style={{ padding: "5rem 0 5rem 0", gap: "2rem" }}>
       <h1 className="text-center fw-bold" style={{ color: " #7A0045" }}>
-        Code School
+      ScriptGenius
       </h1>
       <h2 className="text-center" style={{ fontStyle: "italic" }}>
         “Imagine it and make it real!”
