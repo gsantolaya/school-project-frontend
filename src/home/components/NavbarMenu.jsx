@@ -48,13 +48,10 @@ export function NavbarMenu() {
               <NavDropdown.Item className={`navDropdownLinks ${isActive('/home/payments')}`} href="/home/payments">Pagos</NavDropdown.Item>
             </NavDropdown>
             <Nav.Link className="navLinks" href="/aboutUs">Acerca de nosotros</Nav.Link>
-
-
-
-
+    
             {decodedToken ? (
               <>
-                <Nav.Link className="userNameLink text-start" href="/home/users"><FaUserAlt /> {decodedToken.firstName} {decodedToken.lastName}</Nav.Link>
+                <Nav.Link className="userNameLink text-center" href="/home/users"><FaUserAlt /> {decodedToken.firstName} {decodedToken.lastName}</Nav.Link>
                 <Nav.Link className="logOut ms-auto" href="/home">Cerrar Sesión</Nav.Link>
               </>
             ) : (

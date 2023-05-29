@@ -70,9 +70,10 @@ export const NewStudentScreen = () => {
     const handleAddStudentFormSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8060/api/students', newStudent);
+            const response = await axios.post('/students', newStudent);
             if (response.status === 201) {
                 setShowConfirmationToast(true);
+                console.log(newStudent)
                 //setShowConfirmationToast(true);
             }
         } catch (error) {

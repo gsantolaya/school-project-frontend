@@ -22,7 +22,7 @@ export const StudentsScreen = () => {
     const [editedStudent, setEditedStudent] = useState(null);
 
     useEffect(() => {
-        axios.get('http://localhost:8060/api/students')
+        axios.get('/students')
             .then((response) => {
                 setStudents(response.data)
             })
@@ -74,11 +74,11 @@ export const StudentsScreen = () => {
 
     const deleteStudent = async (id) => {
         try {
-            const response = await axios.delete(`http://localhost:8060/api/students/${id}`);
+            const response = await axios.delete(`/students/${id}`);
             if (response.status === 200) {
                 handleCloseModal()
                 setShowConfirmationToast(true)
-                const { data } = await axios.get('http://localhost:8060/api/students');
+                const { data } = await axios.get('/students');
                 setStudents(data);
             }
         } catch (error) {
@@ -90,7 +90,7 @@ export const StudentsScreen = () => {
     const handleEditFormSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.put(`http://localhost:8060/api/students/${editedStudent._id}`, editedStudent);
+            const response = await axios.put(`/students/${editedStudent._id}`, editedStudent);
             if (response.status === 200) {
                 const updatedStudents = students.map((student) => {
                     if (student._id === editedStudent._id) {
@@ -133,7 +133,7 @@ export const StudentsScreen = () => {
             <div className='text-center p-2 p-md-5'>
                 <h1 className='mb-5 title'><b>Listado de Alumnos</b></h1>
                 <div className='row d-md-flex'>
-                    <div className='col-12 col-md-4 my-2 my-md-0'>
+                    <div className='col-12 col-md-6 col-xl-4 my-2 my-md-0'>
                         <Form.Group controlId="searchForm">
                             <Form.Control
                                 maxLength={30}
@@ -144,7 +144,7 @@ export const StudentsScreen = () => {
                             />
                         </Form.Group>
                     </div>
-                    <div className='col-12 col-md-4 my-2 my-md-0'>
+                    <div className='col-12 col-md-6 col-xl-4 my-2 my-md-0'>
                         <Form.Group className='d-flex my-2 ' controlId="searchOptionForm">
                             <p><b>Buscar por:</b></p>
                             <Form.Control
@@ -159,7 +159,7 @@ export const StudentsScreen = () => {
                             </Form.Control>
                         </Form.Group>
                     </div>
-                    <div className='col-12 my-2 col-md-2 my-md-0 ms-auto'>
+                    <div className='col-12 col-xl-2 my-2 my-md-0 ms-auto'>
                         <Nav.Link className="buttonAddStudent" href="newStudent">Agregar Alumno</Nav.Link>
                     </div>
                 </div>
@@ -330,8 +330,6 @@ export const StudentsScreen = () => {
                     </Form>
                 </Modal.Body>
             </Modal>
-
-
             <div className="position-fixed bottom-0 end-0 p-3">
                 <Toast show={showConfirmationToast} onClose={handleConfirmationToastClose} delay={3000} autohide>
                     <Toast.Header>

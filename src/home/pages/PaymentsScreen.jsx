@@ -13,7 +13,7 @@ export const PaymentsScreen = () => {
   const [searchOption, setSearchOption] = useState('name');
 
   useEffect(() => {
-    axios.get('http://localhost:8060/api/students')
+    axios.get('/students')
       .then((response) => {
         setStudents(response.data)
       })
@@ -31,7 +31,7 @@ export const PaymentsScreen = () => {
     const isPaymentAlDia = event.target.value === "alDia";
     const updatedStudent = { ...student, payment: isPaymentAlDia };
     try {
-      const response = await axios.put(`http://localhost:8060/api/students/${student._id}`, updatedStudent);
+      const response = await axios.put(`/students/${student._id}`, updatedStudent);
       // Handle successful update
       console.log(response.data); // Optional: Log the response data
 
@@ -73,7 +73,7 @@ export const PaymentsScreen = () => {
       <div className='text-center p-2 p-md-5'>
         <h1 className="title mb-3"><b>Pagos</b></h1>
         <div className='row d-md-flex'>
-          <div className='col-12 col-md-4 my-2 my-md-0'>
+          <div className='col-12 col-md-6 col-lg-4 my-2 my-md-0'>
             <Form.Group controlId="searchForm">
               <Form.Control
                 type="text"
@@ -84,7 +84,7 @@ export const PaymentsScreen = () => {
               />
             </Form.Group>
           </div>
-          <div className='col-12 col-md-4 my-2 my-md-0'>
+          <div className='col-12 col-md-6 col-lg-4 my-2 my-md-0'>
             <Form.Group className='d-flex my-2 ' controlId="searchOptionForm">
               <p><b>Buscar por:</b></p>
               <Form.Control
@@ -100,7 +100,8 @@ export const PaymentsScreen = () => {
             </Form.Group>
           </div>
         </div>
-        <Table striped bordered hover>
+        <div className='table-container mt-4'>
+        <Table  striped bordered hover>
           <thead>
             <tr>
               <th>ID de Expediente</th>
@@ -149,6 +150,7 @@ export const PaymentsScreen = () => {
             ))}
           </tbody>
         </Table>
+        </div>
       </div>
     </>
   );

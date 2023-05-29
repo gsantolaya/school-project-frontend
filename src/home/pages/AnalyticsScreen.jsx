@@ -20,7 +20,7 @@ export const AnalyticsScreen = () => {
 
 
   useEffect(() => {
-    axios.get('http://localhost:8060/api/students')
+    axios.get('/students')
       .then((response) => {
         setStudents(response.data);
       });
@@ -52,7 +52,7 @@ export const AnalyticsScreen = () => {
       const updatedStudent = { ...selectedStudent };
       updatedStudent.notes[subject] = null;
 
-      const response = await axios.put(`http://localhost:8060/api/students/${id}`, updatedStudent);
+      const response = await axios.put(`/students/${id}`, updatedStudent);
 
       if (response.status === 200) {
         const updatedStudents = students.map((student) => {
@@ -75,7 +75,7 @@ export const AnalyticsScreen = () => {
   const handleEditFormSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.put(`http://localhost:8060/api/students/${editedStudent._id}`, editedStudent);
+      const response = await axios.put(`/students/${editedStudent._id}`, editedStudent);
       if (response.status === 200) {
         const updatedStudents = students.map((student) => {
           if (student._id === editedStudent._id) {
