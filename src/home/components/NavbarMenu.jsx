@@ -39,14 +39,16 @@ export function NavbarMenu() {
         <Navbar.Brand className='smallScreen' onClick={handleNavClick}><img src={Logo} height="70px" alt="logo" /></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto">
-            <Nav.Link className="navLinks bigScreen" onClick={handleNavClick}>Inicio</Nav.Link>
+          <Nav className="ms-auto containerNavLink">
+
+            <Nav.Link className="navLinks" onClick={handleNavClick}>Inicio</Nav.Link>
             <NavDropdown className="navDropdownLinksTitle smallScreen" id="nav-dropdown-dark-example" title="Inicio" menuVariant="dark">
               <NavDropdown.Item className={`navDropdownLinks ${isActive('/home/administrativeStaff')}`} href="/home/administrativeStaff">Personal Administrativo</NavDropdown.Item>
               <NavDropdown.Item className={`navDropdownLinks ${isActive('/home/students')}`} href="/home/students">Alumnos</NavDropdown.Item>
               <NavDropdown.Item className={`navDropdownLinks ${isActive('/home/analytics')}`} href="/home/analytics">Analíticos</NavDropdown.Item>
               <NavDropdown.Item className={`navDropdownLinks ${isActive('/home/payments')}`} href="/home/payments">Pagos</NavDropdown.Item>
             </NavDropdown>
+
             <Nav.Link className="navLinks" href="/aboutUs">Acerca de nosotros</Nav.Link>
     
             {decodedToken ? (
@@ -57,6 +59,7 @@ export function NavbarMenu() {
             ) : (
               <>
                 <Nav.Link className="navLinks" href="/login">Login</Nav.Link>
+
                 <Nav.Link className="navLinks" href="/register">Registro</Nav.Link>
               </>
             )}

@@ -15,7 +15,7 @@
     color: white;
 }
 
-@media screen and (max-width: 576px) {
+ @media screen and (max-width: 576px) {
     #logoContainer {
         display: none !important;
     }
@@ -23,6 +23,11 @@
     #socialMediaContainer {
         display: none !important;
     }
+
+    .iconFooter > svg {
+        display: none;
+      }
+
 }
 
 @media screen and (min-width:577px) and (max-width: 766px) {
@@ -53,4 +58,4 @@
     #socialMediaContainer {
         display: inherit !important;
     }
-}
+} 
