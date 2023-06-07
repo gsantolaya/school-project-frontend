@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Form from "react-bootstrap/Form";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import "./Auth.css";
+import "./Register.css";
 import { FaUserAlt } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { BsFillPersonCheckFill, BsFillPersonXFill } from "react-icons/bs";
@@ -95,15 +95,15 @@ export const RegisterScreen = () => {
 
 
   return (
-    <div className="authContainer">
-      <div className="authForm col-12 col-md-4 py-5 m-md-4 pt-md-5 px-md-5 pb-md-4">
-        <h3 className="authTitle mb-3">Registrarse</h3>
+    <div className="registerContainer">
+      <div className="registerForm col-12 col-md-4 py-5 m-md-4 pt-md-5 px-md-5 pb-md-4">
+        <h3 className="registerTitle mb-3">Registrarse</h3>
         <Form onSubmit={handleSubmit(Submit)}>
-          <Form.Group className="authFormGroup p-3 m-3" controlId="formBasicEmail">
+          <Form.Group className="registerFormGroup p-3 m-3" controlId="formBasicEmail">
             <div className="col-10">
               <Form.Label className="d-inline">Nombre:</Form.Label>
               <input
-                className="authInput d-block w-100"
+                className="registerInput d-block w-100"
                 type="text"
                 maxLength={20}
                 placeholder="Ingrese su nombre"
@@ -117,34 +117,34 @@ export const RegisterScreen = () => {
               <FaUserAlt size={25} />
             </div>
           </Form.Group>
-          <Form.Group className="authFormGroup p-3 m-3" controlId="formBasicEmail">
+          <Form.Group className="registerFormGroup p-3 m-3" controlId="formBasicEmail">
             <div className="col-10">
               <Form.Label className="d-inline">Apellido:</Form.Label>
-              <input className="authInput d-block  w-100" type="text" maxLength={20} placeholder="Ingrese su apellido" id="lastName" name="lastName" {...register("lastName", { required: true, minLength: 3 })} />
+              <input className="registerInput d-block  w-100" type="text" maxLength={20} placeholder="Ingrese su apellido" id="lastName" name="lastName" {...register("lastName", { required: true, minLength: 3 })} />
               {errors?.lastName && (<span className="authSpan">Este campo es requerido.</span>)}
-              {errors?.lastName?.type === "minLength" && (<span className="authSpan">Debe tener al menos 3 caracteres.</span>)}
+              {errors?.lastName?.type === "minLength" && (<span className="registerSpan">Debe tener al menos 3 caracteres.</span>)}
             </div>
             <div className='d-flex align-items-center'>
               <FaUserAlt size={25} />
             </div>
           </Form.Group>
-          <Form.Group className="authFormGroup p-3 m-3" controlId="formBasicEmail">
+          <Form.Group className="registerFormGroup p-3 m-3" controlId="formBasicEmail">
             <div className="col-10">
               <Form.Label className="d-inline">Email:</Form.Label>
-              <input className="authInput d-block w-100" type="email" maxLength={35} placeholder="Ingrese su email" id="email" name="email"
+              <input className="registerInput d-block w-100" type="email" maxLength={35} placeholder="Ingrese su email" id="email" name="email"
                 {...register("email", { required: true, pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, })} />
-              {errors?.email?.type === "required" && (<span className="authSpan">Este campo es requerido.</span>)}
-              {errors?.email?.type === "pattern" && (<span className="authSpan">Ingrese un email válido.</span>)}
-              {emailExists && (<span className="authSpan">El email ya ha sido registrado.</span>)}
+              {errors?.email?.type === "required" && (<span className="registerSpan">Este campo es requerido.</span>)}
+              {errors?.email?.type === "pattern" && (<span className="registerSpan">Ingrese un email válido.</span>)}
+              {emailExists && (<span className="registerSpan">El email ya ha sido registrado.</span>)}
             </div>
             <div className='d-flex align-items-center'>
               <MdEmail size={25} />
             </div>
           </Form.Group>
-          <Form.Group className="authFormGroup p-3 m-3" controlId="formBasicPassword">
+          <Form.Group className="registerFormGroup p-3 m-3" controlId="formBasicPassword">
             <div className="col-10">
               <Form.Label className="d-inline">Contraseña:</Form.Label>
-              <input className="authInput d-block  w-100" type={showPassword ? "text" : "password"} placeholder="Ingrese su contraseña" id="password" maxLength={35} name="password"
+              <input className="registerInput d-block  w-100" type={showPassword ? "text" : "password"} placeholder="Ingrese su contraseña" id="password" maxLength={35} name="password"
                 {...register("password", { required: true, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/, })} />
               {errors?.password && (<span className="authSpan">Este campo es requerido.</span>)}
               {errors?.password && errors.password.type === "pattern" && (<span className="authSpan">La contraseña debe tener al menos 6 caracteres, una mayúscula y un número.</span>
@@ -154,10 +154,12 @@ export const RegisterScreen = () => {
               {showPassword ? <AiFillEye size={25} /> : <AiFillEyeInvisible size={25} />}
             </div>
           </Form.Group>
-          <button className="authButton" type="submit">Registrarme</button>
+          <div className='contenedorRegisterButton'>
+          <button className="registerButton" type="submit">Registrarme</button>
+          </div>
           <p className="text-dark fw-bold mt-3 text-center">
             ¿Ya tienes una cuenta?{" "}
-            <Link className="authLink" to={"/login"}>Ingresa Aquí</Link>
+            <Link className="registerLink" to={"/login"}>Ingresa Aquí</Link>
           </p>
         </Form>
       </div>
