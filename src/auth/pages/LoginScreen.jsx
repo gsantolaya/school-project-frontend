@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
-import "./Auth.css";
+import "./Login.css";
 import { tokenIsValid } from "../../utils/TokenIsValid";
 import { MdEmail } from "react-icons/md";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
@@ -41,15 +41,15 @@ export const LoginScreen = () => {
   }, [navigate]);
 
   return (
-    <div className="authContainer">
-      <div className="authForm col-12 col-md-4 py-5 m-md-4 pt-md-5 px-md-5 pb-md-4">
-        <h3 className="authTitle mb-3">Iniciar Sesión</h3>
+    <div className="loginContainer ">
+      <div className="loginForm col-12 col-md-4 py-5 m-md-4 pt-md-5 px-md-5 pb-md-4">
+        <h3 className="loginTitle mb-3">Iniciar Sesión</h3>
         <Form onSubmit={handleSubmit(Submit)}>
-          <Form.Group className="authFormGroup p-3 m-3" controlId="formBasicEmail">
+          <Form.Group className="loginFormGroup p-3 m-3" controlId="formBasicEmail">
             <div className="col-10">
               <Form.Label className="d-inline">Email:</Form.Label>
               <input
-                className="authInput d-block w-100"
+                className="loginInput d-block w-100"
                 type="email"
                 maxLength={35}
                 placeholder="Ingrese su email"
@@ -57,17 +57,17 @@ export const LoginScreen = () => {
                 name="email"
                 {...register("email", { required: true })}
               />
-              {errors?.email && <span className="authSpan">Este campo es requerido</span>}
+              {errors?.email && <span className="loginSpan">Este campo es requerido</span>}
             </div>
             <div className="d-flex align-items-center">
               <MdEmail size={25} />
             </div>
           </Form.Group>
-          <Form.Group className="authFormGroup p-3 m-3" controlId="formBasicPassword">
+          <Form.Group className="loginFormGroup p-3 m-3" controlId="formBasicPassword">
             <div className="col-10">
               <Form.Label className="d-inline">Contraseña:</Form.Label>
               <input
-                className="authInput d-block w-100"
+                className="loginInput d-block w-100"
                 type={showPassword ? "text" : "password"}
                 maxLength={35}
                 placeholder="Ingrese su contraseña"
@@ -78,9 +78,9 @@ export const LoginScreen = () => {
                   pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/,
                 })}
               />
-              {errors?.password && <span className="authSpan">Este campo es requerido.</span>}
+              {errors?.password && <span className="loginSpan">Este campo es requerido.</span>}
               {errors?.password && errors.password.type === "pattern" && (
-                <span className="authSpan">
+                <span className="loginSpan">
                   La contraseña debe tener al menos 6 caracteres, una mayúscula y un número.
                 </span>
               )}
@@ -91,20 +91,22 @@ export const LoginScreen = () => {
           </Form.Group>
           {loginError && (
             <div className="text-center text-danger mb-2">
-              <span className="authError"><b>{loginError}</b></span>
+              <span className="loginError"><b>{loginError}</b></span>
             </div>
           )}
           <div className="text-center">
-            <Link className="authLink" to={"/error404"}>
+            <Link className="loginLink" to={"/error404"}>
               <b>¿Olvidaste tu contraseña?</b>
             </Link>
           </div>
-          <button className="authButton" type="submit">
+          <div className="contenedorloginButton" >
+          <button className="loginButton" type="submit">
             Acceder
           </button>
+          </div>
           <p className="text-dark fw-bold mt-3 text-center">
             ¿Aún no tienes una Cuenta?{" "}
-            <Link className="authLink" to={"/register"}>
+            <Link className="loginLink" to={"/register"}>
               <b>Regístrate!</b>
             </Link>
           </p>

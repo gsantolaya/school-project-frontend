@@ -1,40 +1,43 @@
 
-.authContainer {
+.registerContainer {
     background-color: #95968a !important;
     min-height: 70vh;
     color: #7a0045 !important;
-    display: flex;
     justify-content: center;
+    display: flex;
+    align-items: center;
 }
-.authForm {
+.registerForm {
     background-color: #CDCFC0 !important;
     border: #7a0045 solid 3px;
     border-radius: 10px;
+    margin: 0 auto; 
+  padding: 20px; 
 }
-.authTitle {
+.registerTitle {
     color: #7a0045;
     font-weight: bold;
     text-align: center;
 }
-.authFormGroup {
+.registerFormGroup {
     background-color: white;
     border-radius: 10px;
     color: black;
     font-weight: bold;
     display: flex;
 }
-.authInput {
+.registerInput {
     border: 0px;
 }
 
-.authInput:focus {
+.registerInput:focus {
     outline: none;
     border-bottom-color: #ccc;
 }
-.authButton {
+.registerButton {
     margin-top: 10px;
     border: none;
-    width: 100%;
+    width: 70%;
     padding: 10px 0;
     cursor: pointer;
     font-weight: bold;
@@ -43,26 +46,47 @@
     border-radius: 8px;
     transition-duration: 1s;
 }
-.authButton:hover{
+
+.contenedorRegisterButton{
+    display: flex;
+    justify-content: center;
+}
+.registerButton:hover{
     transform: scale(1.05);
 }
-.authLink{
+.registerLink{
     color: #7A0045;
     text-decoration: none;
 }
-.authLink:hover{
+.registerLink:hover{
     color: #7A0045;
     text-decoration: underline;
 }
-.authSpan {
+.registerSpan {
     color: red;
     text-decoration: none;
     font-weight: lighter;
 }
 @media screen and (max-width: 576px) {
-    .authForm {
-        min-height: 70vh;
+    .registerForm {
+        min-height: 72vh;
         border: none;
         border-radius: 0px;
-    }
+    } 
 }
+
+@media screen and (min-width: 577px) and (max-width: 992px) {
+.registerForm{
+   min-width: 70vw;
+}
+.registerContainer{
+    min-height: 85vh; 
+}
+  }
+
+  @media screen and (min-width:993px) and (max-width: 1200px) {
+    .registerForm{
+       min-width: 50vw;
+       min-height: 50vh;
+    }
+      }
