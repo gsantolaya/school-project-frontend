@@ -6,9 +6,9 @@
   margin: 10px;
   padding-left: 20px !important;
   padding-right: 20px !important;
-  text-decoration: none;
-
+  text-decoration: none; 
 }
+
 .title{
   color: #7a0045 !important;
 }
@@ -16,11 +16,12 @@
   text-decoration:line-through;
   text-decoration-color: red;
 }
+
+  
 .buttonAddStudent:hover{
-  color: black !important;
-  background-color: white !important;
   transform: scale(1.05)
 }
+
 
 .customDatepicker {
   color: #333;
@@ -33,4 +34,13 @@
   .table-container {
     overflow-x: scroll !important;
   }
+=======
+@media screen and (max-width: 576px){
+    .table-container {
+        overflow-x: scroll !important;
+      }
+      .buttonAddStudent{
+        margin-top: 20px;
+      }
+
 }

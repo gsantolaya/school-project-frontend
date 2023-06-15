@@ -7,6 +7,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Toast from "react-bootstrap/Toast";
 import Form from "react-bootstrap/Form";
+
 import Nav from "react-bootstrap/Nav";
 import { TokenStorage } from "../../utils/TokenStorage";
 import { useNavigate } from "react-router-dom";
@@ -21,12 +22,26 @@ export const StudentsScreen = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchOption, setSearchOption] = useState("name");
   const [showModal, setShowModal] = useState(false);
+
+import { TokenStorage } from "../../utils/TokenStorage";
+import { useNavigate } from "react-router-dom";
+import InputGroup from "react-bootstrap/InputGroup";
+import { BsSearch } from "react-icons/bs";
+
+export const StudentsScreen = () => {
+  const [students, setStudents] = useState([]);
+  const [studentFiltered, setStudentFiltered] = useState([]);
+   const [showModal, setShowModal] = useState(false);
+
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [showConfirmationToast, setShowConfirmationToast] = useState(false);
   const [showErrorToast, setShowErrorToast] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [editedStudent, setEditedStudent] = useState( null );
 
+ 
+
+
+  const [editedStudent, setEditedStudent] = useState(null);
 
   const store = TokenStorage();
   const navigate = useNavigate();
@@ -41,11 +56,19 @@ export const StudentsScreen = () => {
         })
         .then((response) => {
           setStudents(response.data);
+
+
+          setStudentFiltered(response.data);
+
         });
     } else {
       navigate("/login");
     }
+
   }, []);
+
+  }, [navigate, store.tokenValid, store.token]);
+
 
   const handleShowModal = (student) => {
     setSelectedStudent(student);
@@ -84,12 +107,14 @@ export const StudentsScreen = () => {
       }));
     }
   };
+
   const handleSearchInputChange = (event) => {
     setSearchTerm(event.target.value);
   };
   const handleSearchOptionChange = (event) => {
     setSearchOption(event.target.value);
   };
+
 
   const deleteStudent = async (id) => {
     try {
@@ -144,6 +169,7 @@ export const StudentsScreen = () => {
       alert("Error al actualizar el estudiante");
     }
   };
+
 
   const filteredStudents = students.filter((student) => {
     const fullName = `${student.firstName} ${student.lastName}`.toLowerCase();
@@ -207,6 +233,51 @@ export const StudentsScreen = () => {
           </div>
         </div>
 
+
+
+  const handleSearchInput = (e) => {
+    let studentInput = e.target.value.toLowerCase();
+    if (studentInput === "") {
+      setStudentFiltered(students);
+    } else {
+      const filterStudent = students.filter((student) => {
+        return (
+          student.lastName.toLowerCase().includes(studentInput) ||
+          student.firstName.toLowerCase().includes(studentInput) ||
+          student._id.toLowerCase().includes(studentInput) ||
+          (student.payment ? "al dia" : "pendiente").includes(studentInput)
+        );
+      });
+      setStudentFiltered(filterStudent);
+    }
+  };
+
+  return (
+    <>
+      <div className="text-center p-5 p-md-5">
+        <h1 className="mb-5 title">
+          <b>Listado de Alumnos</b>
+        </h1>
+        <div className="row d-md-flex ">
+    <div className="col-md-6 mb-1  ">
+            <InputGroup>
+              <InputGroup.Text id="btnGroupAddon">
+                <BsSearch />
+              </InputGroup.Text>
+              <Form.Control
+                type="text"
+                placeholder="Buscar por Apellido, Nombre, Id o Cuota"
+                aria-label="Input group example"
+                aria-describedby="btnGroupAddon"
+                onChange={handleSearchInput}
+              />
+            </InputGroup>
+          </div>
+          <div className="buttonAddStudent col-md-6 mb-1 mt-3 mt-md-0 ">
+          <Button href="newStudent" style={{ fontWeight:"bold", color :'white', backgroundColor: "#7a0045",  border: "solid #7a0045"}}>Agregar Alumno</Button>
+          </div>
+        </div>
+
         <div className="table-container mt-4">
           <Table striped bordered hover>
             <thead>
@@ -219,7 +290,11 @@ export const StudentsScreen = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredStudents.map((student) => (
+
+             
+
+              {studentFiltered.map((student) => (
+
                 <tr
                   key={student._id}
                   className={student.isBanned ? "banned" : ""}
@@ -275,6 +350,7 @@ export const StudentsScreen = () => {
           </Button>
         </Modal.Footer>
       </Modal>
+
 
       <Modal show={showEditModal} onHide={handleCloseEditModal}>
         <Modal.Header closeButton>
@@ -397,11 +473,102 @@ export const StudentsScreen = () => {
                 type="Date"
                 locale={es}
                 dateFormat="yyyy-MM-dd" 
+
+
+      <Modal show={showEditModal} onHide={handleCloseEditModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Editar Estudiante</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={handleEditFormSubmit}>
+            <Form.Group controlId="editFormFirstName">
+              <Form.Label>Nombre:</Form.Label>
+              <Form.Control
+                maxLength={20}
+                type="text"
+                name="firstName"
+                value={editedStudent?.firstName || ""}
+                onChange={handleEditInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="editFormLastName">
+              <Form.Label>Apellido:</Form.Label>
+              <Form.Control
+                maxLength={20}
+                type="text"
+                name="lastName"
+                value={editedStudent?.lastName || ""}
+                onChange={handleEditInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="editFormLastName">
+              <Form.Label>DNI:</Form.Label>
+              <Form.Control
+                maxLength={20}
+                type="text"
+                name="dni"
+                value={editedStudent?.dni || ""}
+                onChange={handleEditInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="editFormCurrentYearOfStudy">
+              <Form.Label>Año de cursado actual:</Form.Label>
+              <Form.Control
+                maxLength={1}
+                min={1}
+                max={4}
+                type="number"
+                name="currentYearOfStudy"
+                value={editedStudent?.currentYearOfStudy || ""}
+                onChange={handleEditInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="editFormPhone">
+              <Form.Label>Teléfono:</Form.Label>
+              <Form.Control
+                maxLength={15}
+                type="string"
+                name="phone"
+                value={editedStudent?.phone || ""}
+                onChange={handleEditInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="editFormAddress">
+              <Form.Label>Dirección</Form.Label>
+              <Form.Control
+                maxLength={30}
+                type="string"
+                name="address"
+                value={editedStudent?.address || ""}
+                onChange={handleEditInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="editFormLastName">
+              <Form.Label>Email:</Form.Label>
+              <Form.Control
+                maxLength={35}
+                type="text"
+                name="email"
+                value={editedStudent?.email || ""}
+                onChange={handleEditInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="editFormBirthdate">
+              <Form.Label>Fecha de nacimiento:</Form.Label>
+              <Form.Control
+                type="string"
+                maxLength={9}
+                name="birthdate"
+                value={editedStudent?.birthdate || ""}
+                onChange={handleEditInputChange}
+
               />
             </Form.Group>
             <Form.Group controlId="editFormIsBanned">
               <Form.Check
+
                 className="mt-3"
+
                 type="checkbox"
                 name="isBanned"
                 checked={editedStudent?.isBanned || false}
@@ -411,7 +578,9 @@ export const StudentsScreen = () => {
             </Form.Group>
             <Form.Group controlId="editFormPayment">
               <Form.Check
+
                 className="mt-2"
+
                 type="checkbox"
                 name="payment"
                 checked={editedStudent?.payment || false}
@@ -419,7 +588,11 @@ export const StudentsScreen = () => {
                 label="Pago al día"
               />
             </Form.Group>
+
             <Modal.Footer className="mt-3">
+
+            <Modal.Footer>
+
               <Button variant="secondary" onClick={handleCloseEditModal}>
                 Cancelar
               </Button>
