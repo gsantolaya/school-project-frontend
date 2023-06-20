@@ -1,13 +1,10 @@
-.buttonAddStudent {
-  color: white !important;
-  font-weight: bold !important;
-  border: solid white;
-  border-radius: 20px;
-  margin: 10px;
-  padding-left: 20px !important;
-  padding-right: 20px !important;
-  text-decoration: none; 
+.addStudent{
+ font-weight: bold  !important ;
+ color: white !important;
+ background-color: #7a0045 !important;
+ border: solid #7a0045 2px !important;
 }
+
 
 .title{
   color: #7a0045 !important;
@@ -16,9 +13,8 @@
   text-decoration:line-through;
   text-decoration-color: red;
 }
-
   
-.buttonAddStudent:hover{
+.addStudent:hover{
   transform: scale(1.05)
 }
 
@@ -30,11 +26,6 @@
   padding: 5px 12px;
 }
 
-@media screen and (max-width: 576px) {
-  .table-container {
-    overflow-x: scroll !important;
-  }
-=======
 @media screen and (max-width: 576px){
     .table-container {
         overflow-x: scroll !important;
