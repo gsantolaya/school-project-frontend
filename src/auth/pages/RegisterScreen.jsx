@@ -48,26 +48,23 @@ export const RegisterScreen = () => {
 
     axios
       .post("/users", {
-        ...data,
-        isAdmin: false,
-        isActivated: true,
-      })
+        ...data, isAdmin: false, isActivated: true,})
       .then((response) => {
-      setShowConfirmationRegisterToast(true);
-        alert("El usuario fue creado con exito");
-        navigate("/login");
-      })
+          setShowConfirmationRegisterToast(true);
+          alert("El usuario fue creado con exito");
+          navigate("/login");
+        })
       .catch((err) => {
-        setShowErrorRegisterToast(true);
-        alert("No se ha podido completar el registro, intente nuevamente.");
-      });
+          setShowErrorRegisterToast(true);
+          alert("No se ha podido completar el registro, intente nuevamente.");
+        });
   };
 
   useEffect(() => {
     axios.get('/users')
       .then((response) => {
-        setUsers(response.data);
-      })
+          setUsers(response.data);
+        })
       .catch((err) => console.log(err));
 
     if (tokenIsValid()) {
