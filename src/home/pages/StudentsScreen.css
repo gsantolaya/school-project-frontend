@@ -4,23 +4,82 @@
     font-weight: bold !important;
     border: solid white;
     border-radius: 20px;
-    margin: 10px;
-    padding-left: 20px !important;
-    padding-right: 20px !important;
+    margin: 5px;
+    padding: 3px !important;
     text-decoration: none;
+    width: 100%;
 
+}
+.buttonAddStudent:hover{
+  color: black !important;
+  
+  background-color: white !important;
+  transform: scale(1.05)
 }
 .title{
   color: #7a0045 !important;
+}
+.homeText{
+  color: #7a0045 !important;
+}
+.modalTitle{
+  color: white !important;
+  padding-left: 20%;
+}
+.modalHeader{
+  background-color: #7a0045;
+}
+.modalBody{
+  background-color: #CDCFC0 !important;
 }
 .banned{
   text-decoration:line-through;
   text-decoration-color: red;
 }
-.buttonAddStudent:hover{
-  color: black !important;
-  background-color: white !important;
-  transform: scale(1.05)
+.buttonsFormAddStudent {
+  background-color: #7a0045 !important;
+  color: white !important;
+  font-weight: bold !important;
+  border-radius: 10px !important;
+  text-align: center !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.formFields{
+  color: #7a0045;
+  font-weight: bold !important;
+}
+.customDatepicker {
+  display: block;
+  width: 100%;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.customDatepicker:focus {
+  color: #212529;
+  background-color: #fff;
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+.customDatepicker::-webkit-input-placeholder {
+  color: #6c757d;
+  opacity: 1;
+}
+.customDatepicker::placeholder {
+  color: #6c757d;
+  opacity: 1;
 }
 
 @media screen and (max-width: 576px){

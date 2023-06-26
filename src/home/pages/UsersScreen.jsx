@@ -7,21 +7,16 @@ import { FaTrashAlt, FaEdit } from "react-icons/fa";
 import { tokenIsValid } from '../../utils/TokenIsValid';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import { useNavigate } from "react-router-dom";
 import { useForm } from 'react-hook-form';
 
 export const UsersScreen = () => {
-  const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [editedUser, setEditedUser] = useState(null);
-  const [showDeleteMyUserModal, setShowDeleteMyUserModal] = useState(false);
   const [showEditMyUserModal, setShowEditMyUserModal] = useState(false);
   const [showDeleteUserModal, setShowDeleteUserModal] = useState(false);
-
   const [showEditPasswordModal, setShowEditPasswordModal] = useState(false);
 
-  //Funcion obtener usuarios:
   useEffect(() => {
     const token = localStorage.getItem('token');
     axios.get('/users', {
@@ -35,38 +30,6 @@ export const UsersScreen = () => {
       .catch((error) => {
       });
   }, []);
-  //----------------------------------------------------------------------------------------------------------------------
-  // Funciones eliminar mi usuario:
-  const handleShowDeleteMyUserModal = (user) => {
-    setSelectedUser(user);
-    setShowDeleteMyUserModal(true);
-  };
-  const handleCloseDeleteMyUserModal = () => {
-    setSelectedUser(null);
-    setShowDeleteMyUserModal(false);
-  }
-  const deleteMyUser = async (id) => {
-    const token = localStorage.getItem('token');
-    try {
-      const response = await axios.delete(`/users/${id}`, {
-        headers: {
-          'access-token': `${token}`
-        }
-      });
-      if (response.status === 200) {
-        handleCloseDeleteMyUserModal();
-        localStorage.removeItem('token');
-        navigate("/");
-        const { data } = await axios.get('/users');
-        setUsers(data);
-      }
-    } catch (error) {
-      handleCloseDeleteMyUserModal()
-      // setShowErrorToast(true);
-    }
-  }
-  //----------------------------------------------------------------------------------------------------------------------
-  // Funciones editar mi usuario:
   const handleShowEditMyUserModal = (user) => {
     setEditedUser({
       ...user,
@@ -120,8 +83,6 @@ export const UsersScreen = () => {
       }));
     }
   };
-  //----------------------------------------------------------------------------------------------------------------------
-  // Funciones para editar la contrasena
   const handleShowEditPassword = (user) => {
     setEditedUser({
       ...user,
@@ -136,7 +97,7 @@ export const UsersScreen = () => {
     setShowEditPasswordModal(false);
   };
 
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit,watch, formState: { errors } } = useForm();
 
   const handleEditPasswordFormSubmit = handleSubmit(async (data) => {
     const token = localStorage.getItem('token');
@@ -191,7 +152,6 @@ export const UsersScreen = () => {
       }
     } catch (error) {
       handleCloseDeleteUserModal()
-      // setShowErrorToast(true);
     }
   }
   //----------------------------------------------------------------------------------------------------------------------
@@ -217,7 +177,6 @@ export const UsersScreen = () => {
                         <>
                           <Button className='m-1' variant="secondary" onClick={() => handleShowEditPassword(user)}>Modificar contraseña</Button>
                           <Button className='m-1' onClick={() => handleShowEditMyUserModal(user)} variant="dark"><FaEdit /></Button>
-                          <Button className='m-1' onClick={() => handleShowDeleteMyUserModal(user)} variant="danger"><FaTrashAlt /></Button>
                         </>
                       )}
                     </td>
@@ -234,9 +193,9 @@ export const UsersScreen = () => {
           <Table striped bordered hover>
             <thead>
               <tr>
-                <th>Usuario</th>
-                <th>Apellido y Nombre</th>
-                <th>Tipo de cuenta</th>
+                <th className='homeText'>Usuario</th>
+                <th className='homeText'>Apellido y Nombre</th>
+                <th className='homeText'>Tipo de cuenta</th>
                 <th></th>
               </tr>
             </thead>
@@ -266,32 +225,14 @@ export const UsersScreen = () => {
           </Table>
         </div>
       )}
-
-      {/* Modal eliminar mi cuenta */}
-      <Modal show={showDeleteMyUserModal} onHide={handleCloseDeleteMyUserModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Eliminar mi cuenta</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          ¿Está seguro de que desea eliminar su cuenta de usuario?
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseDeleteMyUserModal}>
-            Cancelar
-          </Button>
-          <Button variant="danger" onClick={() => deleteMyUser(selectedUser?._id)}>
-            Eliminar
-          </Button>
-        </Modal.Footer>
-      </Modal>
-      {/* Modal editar mi cuenta */}
+      {/* Modal editar cuenta */}
       <Modal show={showEditMyUserModal} onHide={handleCloseEditMyUserModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Editar mi Usuario</Modal.Title>
+        <Modal.Header className='modalHeader' closeButton>
+          <Modal.Title className='modalTitle' ><strong>Editar Usuario</strong></Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className='modalBody'>
           <Form onSubmit={handleEditMyUserFormSubmit}>
-            <Form.Group controlId="editFormFirstName">
+            <Form.Group className='formFields' controlId="editFormFirstName">
               <Form.Label>Nombre:</Form.Label>
               <Form.Control
                 type="text"
@@ -301,7 +242,7 @@ export const UsersScreen = () => {
                 onChange={handleEditInputChange}
               />
             </Form.Group>
-            <Form.Group controlId="editFormLasttName">
+            <Form.Group className='formFields' controlId="editFormLasttName">
               <Form.Label>Apellido:</Form.Label>
               <Form.Control
                 type="text"
@@ -313,8 +254,8 @@ export const UsersScreen = () => {
             </Form.Group>
             {decodedToken.isAdmin && (
               <>
-                <Form.Group controlId="editFormIsActivated">
-                  <Form.Check
+                <Form.Group className='formFields' controlId="editFormIsActivated">
+                  <Form.Check className="mt-3"
                     type="checkbox"
                     name="isActivated"
                     checked={editedUser?.isActivated || false}
@@ -322,8 +263,8 @@ export const UsersScreen = () => {
                     label="Cuenta activa"
                   />
                 </Form.Group>
-                <Form.Group controlId="editFormIsAdmin">
-                  <Form.Check
+                <Form.Group className='formFields' controlId="editFormIsAdmin">
+                  <Form.Check className="mt-3"
                     type="checkbox"
                     name="isAdmin"
                     checked={editedUser?.isAdmin || false}
@@ -333,11 +274,11 @@ export const UsersScreen = () => {
                 </Form.Group>
               </>
             )}
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleCloseEditMyUserModal}>
+            <Modal.Footer className="mt-3 d-flex justify-content-center">
+              <Button className='buttonsFormAddStudent' variant="null" onClick={handleCloseEditMyUserModal}>
                 Cancelar
               </Button>
-              <Button variant="primary" type="submit">
+              <Button className='buttonsFormAddStudent' variant="null" type="submit">
                 Guardar cambios
               </Button>
             </Modal.Footer>
@@ -346,55 +287,69 @@ export const UsersScreen = () => {
       </Modal>
       {/* Modal modificar contrasena */}
       <Modal show={showEditPasswordModal} onHide={handleCloseEditPasswordModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Cambiar contraseña</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleEditPasswordFormSubmit}>
-            <Form.Group controlId="editFormFirstName">
-              <Form.Label>Email:</Form.Label>
-              <Form.Control
-                type="text"
-                name="email"
-                value={editedUser?.email || ''}
-                disabled  // Deshabilita el campo de entrada
-              />
-            </Form.Group>
-            <Form.Group controlId="editFormLasttName">
-              <Form.Label>Nueva contraseña:</Form.Label>
-              <Form.Control
-                type="password"
-                maxLength={35}
-                name="password"
-                {...register('password', { required: true, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/ })}
-              />
-              {errors.password && (
-                <span className="text-danger">
-                  La contraseña debe contener al menos una letra mayúscula, una letra minúscula, un número y tener al menos 6 caracteres.
-                </span>
-              )}
-            </Form.Group>
+  <Modal.Header className='modalHeader' closeButton>
+    <Modal.Title className="modalTitle"><strong>Modificar contraseña</strong></Modal.Title>
+  </Modal.Header>
+  <Modal.Body className='modalBody'>
+    <Form onSubmit={handleEditPasswordFormSubmit}>
+      <Form.Group className="formFields" controlId="editFormFirstName">
+        <Form.Label>Email:</Form.Label>
+        <Form.Control
+          type="text"
+          name="email"
+          value={editedUser?.email || ''}
+          disabled
+        />
+      </Form.Group>
+      <Form.Group className="formFields" controlId="editFormPassword">
+        <Form.Label>Nueva contraseña:</Form.Label>
+        <Form.Control
+          type="password"
+          maxLength={35}
+          name="password"
+          {...register('password', { required: true, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/ })}
+        />
+        {errors.password && (
+          <span className="text-danger">
+            La contraseña debe contener al menos una letra mayúscula, una letra minúscula, un número y tener al menos 6 caracteres.
+          </span>
+        )}
+      </Form.Group>
+      <Form.Group className="formFields" controlId="editFormRepeatPassword">
+        <Form.Label>Repetir nueva contraseña:</Form.Label>
+        <Form.Control
+          type="password"
+          maxLength={35}
+          name="repeatPassword"
+          {...register('repeatPassword', { required: true, validate: value => value === watch('password') })}
+        />
+        {errors.repeatPassword && (
+          <span className="text-danger">
+            Las contraseñas ingresadas no son iguales.
+          </span>
+        )}
+      </Form.Group>
+      <Modal.Footer className='mt-3 d-flex justify-content-center'>
+        <Button className='buttonsFormAddStudent' variant="null" onClick={handleCloseEditPasswordModal}>
+          Cancelar
+        </Button>
+        <Button className='buttonsFormAddStudent' variant="null" type="submit">
+          Modificar
+        </Button>
+      </Modal.Footer>
+    </Form>
+  </Modal.Body>
+</Modal>
 
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleCloseEditPasswordModal}>
-                Cancelar
-              </Button>
-              <Button variant="primary" type="submit">
-                Modificar
-              </Button>
-            </Modal.Footer>
-          </Form>
-        </Modal.Body>
-      </Modal>
 
       {/* Modal eliminar otra cuenta */}
       <Modal show={showDeleteUserModal} onHide={handleCloseDeleteUserModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Eliminar mi cuenta</Modal.Title>
+        <Modal.Header className='modalHeader' closeButton>
+          <Modal.Title className='modalTitle'><strong>Confirmar Eliminación</strong></Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          ¿Estás seguro de que deseas eliminar la cuenta de {selectedUser?.firstName} {selectedUser?.lastName}?</Modal.Body>
-        <Modal.Footer>
+        <Modal.Body className='modalBody py-4'>
+          ¿Estás seguro de que deseas eliminar la cuenta de <b>{selectedUser?.firstName} {selectedUser?.lastName}</b>?</Modal.Body>
+        <Modal.Footer className='modalBody'>
           <Button variant="secondary" onClick={handleCloseDeleteUserModal}>
             Cancelar
           </Button>

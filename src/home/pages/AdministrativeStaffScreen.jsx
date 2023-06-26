@@ -69,7 +69,7 @@ export const AdministrativeStaffScreen = () => {
             <InputGroup.Text id="btnGroupAddon"><BsSearch /></InputGroup.Text>
             <Form.Control
               type="text"
-              placeholder="Buscar por Apellido, Nombre Institución o Fecha Ingreso"
+              placeholder="Buscar por Apellido/ Nombre, Institución o Fecha Ingreso"
               aria-label="Input group example"
               aria-describedby="btnGroupAddon"
               onChange={handleSearchInput}
