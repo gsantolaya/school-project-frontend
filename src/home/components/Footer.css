@@ -23,6 +23,10 @@
     #socialMediaContainer {
         display: none !important;
     }
+    
+    .iconFooter > svg {
+        display: none;
+      }
 }
 
 @media screen and (min-width:577px) and (max-width: 766px) {
