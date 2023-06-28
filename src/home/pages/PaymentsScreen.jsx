@@ -7,6 +7,8 @@ import { FaInfoCircle } from "react-icons/fa";
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 import { TokenStorage } from "../../utils/TokenStorage";
+import InputGroup from "react-bootstrap/InputGroup";
+import { BsSearch } from "react-icons/bs";
 
 export const PaymentsScreen = () => {
   const [students, setStudents] = useState([]);
@@ -17,16 +19,18 @@ export const PaymentsScreen = () => {
   const store = TokenStorage()
 
   useEffect(() => {
-    if (store.tokenValid) {   
-      axios.get('/students',{headers:{
+    if (store.tokenValid) {
+      axios.get('/students', {
+        headers: {
           "access-token": store.token
-        }})
-          .then((response) => {
-              setStudents(response.data)
-          })
-      }else{
-          navigate("/login")
         }
+      })
+        .then((response) => {
+          setStudents(response.data)
+        })
+    } else {
+      navigate("/login")
+    }
   }, [])
 
   const handleSearchInputChange = (event) => {
@@ -39,29 +43,26 @@ export const PaymentsScreen = () => {
 
   const handlePaymentStatusChange = async (event, student) => {
     const isPaymentAlDia = event.target.value === "alDia";
-    const updatedStudent = { ...student, payment: isPaymentAlDia };
+    const updatedPayment = {payment: isPaymentAlDia };
     try {
-      const response = await axios.put(`/students/${student._id}`, updatedStudent, {headers:{
-        "access-token": store.token
-      }});
-      // Handle successful update
-      console.log(response.data); // Optional: Log the response data
-
-      // Update the students state with the updated student
-      const updatedStudents = students.map((s) => (s._id === student._id ? updatedStudent : s));
+      const response = await axios.patch(`/students/${student._id}/payment`, updatedPayment, {
+        headers: {
+          "access-token": store.token
+        }
+      });
+      console.log(response.data);
+      const updatedStudents = students.map((s) => (s._id === student._id ? { ...s, payment: isPaymentAlDia } : s));
       setStudents(updatedStudents);
     } catch (error) {
-      // Handle error
       console.log(error);
     }
   };
 
-    const navigate = useNavigate();
-  
-    const redirectToErrorPage = () => {
-      // Redirige a la página de error
-      navigate('/error404');
-    };
+  const navigate = useNavigate();
+
+  const redirectToErrorPage = () => {
+    navigate('/error404');
+  };
 
   const filteredStudents = students.filter((student) => {
     const fullName = `${student.firstName} ${student.lastName}`.toLowerCase();
@@ -83,85 +84,87 @@ export const PaymentsScreen = () => {
   return (
     <>
       <div className='text-center p-2 p-md-5'>
-        <h1 className="title mb-3"><b>Pagos</b></h1>
+        <h1 className="mb-5 title"><b>Pagos</b></h1>
         <div className='row d-md-flex'>
-          <div className='col-12 col-md-6 col-lg-4 my-2 my-md-0'>
-            <Form.Group controlId="searchForm">
+          <div className='col-12 col-md-6 col-xl-4 my-2 my-md-0'>
+            <InputGroup>
+              <InputGroup.Text id="btnGroupAddon">
+                <BsSearch />
+              </InputGroup.Text>
               <Form.Control
+                maxLength={30}
                 type="text"
-                maxLength={35}
-                placeholder="Buscar estudiante"
+                placeholder="Buscar alumno"
                 value={searchTerm}
                 onChange={handleSearchInputChange}
               />
-            </Form.Group>
+            </InputGroup>
           </div>
-          <div className='col-12 col-md-6 col-lg-4 my-2 my-md-0'>
-            <Form.Group className='d-flex my-2 ' controlId="searchOptionForm">
-              <p><b>Buscar por:</b></p>
-              <Form.Control
-                as="select"
-                value={searchOption}
-                onChange={handleSearchOptionChange}
-              >
-                <option value="name">Nombre</option>
+          <div className='col-12 col-md col-xl-5 my-2 my-md-0'>
+            <Form.Group className='d-flex' controlId="searchOptionForm">
+              <Form.Label className='w-25' column sm={2}><b className='homeText'>Buscar por:</b></Form.Label>
+              <Form.Select className='w-75' as="select" value={searchOption} onChange={handleSearchOptionChange}>
+                <option value="name">Apellido/ nombre</option>
                 <option value="id">ID</option>
                 <option value="payment">Cuota</option>
 
-              </Form.Control>
+              </Form.Select>
             </Form.Group>
           </div>
         </div>
         <div className='table-container mt-4'>
-        <Table  striped bordered hover>
-          <thead>
-            <tr>
-              <th>ID de Expediente</th>
-              <th>Alumno</th>
-              <th>Estado</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredStudents.map((student) => (
-              <tr key={student._id} className={student.isBanned ? "banned" : ""}>
-                <td>{student._id}</td>
-                <td>{student.lastName}, {student.firstName}</td>
-                <td>
-                  <select
-                    value={student.payment ? "alDia" : "pendiente"}
-                    onChange={(e) => handlePaymentStatusChange(e, student)}
-                    style={{
-                      padding: "8px",
-                      fontSize: "16px",
-                      borderRadius: "4px",
-                      color: student.payment ? "green" : "red",
-                      border: "none",
-                      background: "transparent",
-                      width: "150px",
-                      outline: "none",
-                      textAlign: "center",
-                    }}
-                  >
-                    <option
-                      value="alDia"
-                      style={{ backgroundColor: "#CDCFC0", color: "green" }}
-                    >
-                      Al día
-                    </option>
-                    <option
-                      value="pendiente"
-                      style={{ backgroundColor: "#CDCFC0", color: "red" }}
-                    >
-                      Pendiente
-                    </option>
-                  </select>
-                </td>
-                <td><Button className='m-1' variant="secondary" onClick={redirectToErrorPage}><FaInfoCircle /> Detalles</Button></td>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th className='homeText'>ID de Expediente</th>
+                <th className='homeText'>Alumno</th>
+                <th className='homeText'>Estado</th>
+                <th></th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
+            </thead>
+            <tbody>
+              {filteredStudents.map((student) => (
+                <tr key={student._id} className={student.isBanned ? "banned" : ""}>
+                  <td>{student._id}</td>
+                  <td>{student.lastName}, {student.firstName}</td>
+                  <td>
+                    <select
+                      value={student.payment ? "alDia" : "pendiente"}
+                      onChange={(e) => handlePaymentStatusChange(e, student)}
+                      style={{
+                        padding: "8px",
+                        fontSize: "16px",
+                        borderRadius: "4px",
+                        color: student.payment ? "green" : "red",
+                        border: "none",
+                        background: "transparent",
+                        width: "150px",
+                        outline: "none",
+                        textAlign: "center",
+                      }}
+                    >
+                      <option
+                        value="alDia"
+                        style={{ backgroundColor: "#CDCFC0", color: "green" }}
+                      >
+                        Al día
+                      </option>
+                      <option
+                        value="pendiente"
+                        style={{ backgroundColor: "#CDCFC0", color: "red" }}
+                      >
+                        Pendiente
+                      </option>
+                    </select>
+                  </td>
+                  <td><Button className='m-1' variant="secondary" onClick={redirectToErrorPage}><FaInfoCircle /> Detalles</Button></td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
+        <div className='text-end'>
+          <h5 className='text-danger m-3'>* <s>Alumno</s> = <i>Alumno Inactivo</i></h5>
         </div>
       </div>
     </>
