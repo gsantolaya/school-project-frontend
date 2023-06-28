@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,10 +7,10 @@ import { FaUserAlt } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { BsFillPersonCheckFill, BsFillPersonXFill } from "react-icons/bs";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { tokenIsValid } from '../../utils/TokenIsValid';
+import { tokenIsValid } from "../../utils/TokenIsValid";
 import axios from "axios";
-import emailjs from '@emailjs/browser';
-import Toast from 'react-bootstrap/Toast';
+import Toast from "react-bootstrap/Toast";
+
 
 export const RegisterScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -18,8 +18,10 @@ export const RegisterScreen = () => {
   const [passwordMatch, setPasswordMatch] = useState(true);
   const [users, setUsers] = useState([]);
   const [emailExists, setEmailExists] = useState(false);
-  const [showConfirmationRegisterToast, setShowConfirmationRegisterToast] = useState(false);
+  const [showConfirmationRegisterToast, setShowConfirmationRegisterToast] =
+    useState(false);
   const [showErrorRegisterToast, setShowErrorRegisterToast] = useState(false);
+
 
   const navigate = useNavigate();
   const {
@@ -64,11 +66,15 @@ export const RegisterScreen = () => {
           });
         navigate('/login');
       })
-      .catch((err) =>
-        console.log(err),
-        setShowErrorRegisterToast(true),
-      )
-      ;
+      .then((response) => {
+      setShowConfirmationRegisterToast(true);
+        alert("El usuario fue creado con exito");
+        navigate("/login");
+      })
+      .catch((err) => {
+        setShowErrorRegisterToast(true);
+        alert("No se ha podido completar el registro, intente nuevamente.");
+      });
   };
 
   useEffect(() => {
@@ -83,14 +89,12 @@ export const RegisterScreen = () => {
     }
   }, [navigate]);
 
-
   const handleConfirmationToastRegisterClose = () => {
     setShowConfirmationRegisterToast(false);
   };
   const handleErrorToastRegisterClose = () => {
     setShowErrorRegisterToast(false);
   };
-
 
   return (
     <div className="registerContainer">
@@ -262,10 +266,6 @@ export const RegisterScreen = () => {
                 <span className="registerSpan">
                   Las contraseñas no coinciden.
                 </span>
-              )}
-            </div>
-            <div
-              className="d-flex align-items-center"
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
             >
               {showConfirmPassword ? (
@@ -294,7 +294,6 @@ export const RegisterScreen = () => {
           <Toast.Body className='text-dark'>Registro exitoso, recibira un mail con los datos de su cuenta.</Toast.Body>
         </Toast>
       </div>
-
       <div className="position-fixed bottom-0 end-0 p-3">
         <Toast show={showErrorRegisterToast} onClose={handleErrorToastRegisterClose} delay={3000} autohide>
           <Toast.Header>

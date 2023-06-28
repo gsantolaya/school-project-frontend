@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { FaInfoCircle, FaTrashAlt } from "react-icons/fa";
-import Table from 'react-bootstrap/Table';
-import './StudentsScreen.css';
-import axios from 'axios';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import Toast from 'react-bootstrap/Toast';
-import Form from 'react-bootstrap/Form';
-import Nav from 'react-bootstrap/Nav';
+import Table from "react-bootstrap/Table";
+import "./StudentsScreen.css";
+import axios from "axios";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import Toast from "react-bootstrap/Toast";
+import Form from "react-bootstrap/Form";
 import { TokenStorage } from "../../utils/TokenStorage";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
@@ -35,8 +34,23 @@ export const StudentsScreen = () => {
     const [isBanned, setIsBanned] = useState(false);
     const [payment, setPayment] = useState(false);
 
-    const store = TokenStorage()
-    const navigate = useNavigate();
+
+  useEffect(() => {
+    if (store.tokenValid) {
+      axios
+        .get("/students", {
+          headers: {
+            "access-token": store.token,
+          },
+        })
+        .then((response) => {
+          setStudents(response.data);
+          setStudentFiltered(response.data);
+        });
+    } else {
+      navigate("/login");
+    }
+  }, [navigate, store.token, store.tokenValid]);
 
 
 
@@ -55,13 +69,16 @@ export const StudentsScreen = () => {
         }
     }, [])
 
-    const handleShowModal = (student) => {
-        setSelectedStudent(student);
-        setShowModal(true);
-    };
-    const handleCloseModal = () => {
-        setSelectedStudent(null);
-        setShowModal(false);
+    if (type === "checkbox") {
+      setEditedStudent((prevStudent) => ({
+        ...prevStudent,
+        [name]: checked,
+      }));
+    } else {
+      setEditedStudent((prevStudent) => ({
+        ...prevStudent,
+        [name]: value,
+      }));
     }
     const handleShowEditModal = (student) => {
         setEditedStudent(student);
@@ -92,24 +109,28 @@ export const StudentsScreen = () => {
     const handleEditInputChange = (event) => {
         const { name, value, type, checked } = event.target;
 
-        if (type === 'checkbox') {
-            setEditedStudent((prevStudent) => ({
-                ...prevStudent,
-                [name]: checked,
-            }));
-        } else {
-            setEditedStudent((prevStudent) => ({
-                ...prevStudent,
-                [name]: value,
-            }));
-        }
-    };
-    const handleSearchInputChange = (event) => {
-        setSearchTerm(event.target.value);
-    };
-    const handleSearchOptionChange = (event) => {
-        setSearchOption(event.target.value);
-    };
+  const deleteStudent = async (id) => {
+    try {
+      const response = await axios.delete(`/students/${id}`, {
+        headers: {
+          "access-token": store.token,
+        },
+      });
+      if (response.status === 200) {
+        handleCloseModal();
+        setShowConfirmationToast(true);
+        const { data } = await axios.get("/students", {
+          headers: {
+            "access-token": store.token,
+          },
+        });
+        setStudents(data);
+      }
+    } catch (error) {
+      handleCloseModal();
+      setShowErrorToast(true);
+    }
+  };
 
     const deleteStudent = async (id) => {
         try {
@@ -132,7 +153,23 @@ export const StudentsScreen = () => {
             handleCloseModal()
             setShowErrorToast(true);
         }
+      );
+      if (response.status === 200) {
+        const updatedStudents = students.map((student) => {
+          if (student._id === editedStudent._id) {
+            return { ...student, ...editedStudent };
+          }
+          return student;
+        });
+        setStudents(updatedStudents);
+        handleCloseEditModal();
+        alert("Estudiante actualizado correctamente");
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Error al actualizar el estudiante");
     }
+  };
 
     const handleEditFormSubmit = async (e) => {
         e.preventDefault();
@@ -150,16 +187,44 @@ export const StudentsScreen = () => {
                     return student;
                 });
                 setStudents(updatedStudents);
+  return (
+    <>
+      <div className="text-center p-5 p-md-5">
+        <h1 className="mb-5 title">
+          <b>Listado de Alumnos</b>
+        </h1>
+        <div className="row d-md-flex ">
+    <div className="col-md-6 mb-1  ">
+            <InputGroup>
+              <InputGroup.Text id="btnGroupAddon">
+                <BsSearch />
+              </InputGroup.Text>
+              <Form.Control
+                type="text"
+                placeholder="Buscar por Apellido, Nombre, Id o Cuota"
+                aria-label="Input group example"
+                aria-describedby="btnGroupAddon"
+                onChange={handleSearchInput}
+              />
+            </InputGroup>
+          </div>
+          <div className=" col-md-6 mb-1 mt-3 mt-md-0 ">
+          <Button href="newStudent" className="addStudent">Agregar Alumno</Button>
+          </div>
+        </div>
 
-                handleCloseEditModal();
-
-                alert("Estudiante actualizado correctamente");
-            }
-        } catch (error) {
-            console.log(error);
-            alert("Error al actualizar el estudiante");
-        }
-    };
+        <div className="table-container mt-4">
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>ID de Expediente</th>
+                <th>Alumno</th>
+                <th>Año de cursado actual</th>
+                <th>Cuota</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -319,12 +384,166 @@ export const StudentsScreen = () => {
                     <Button variant="secondary" onClick={handleCloseModal}>
                         Cancelar
                     </Button>
-                    <Button variant="danger" onClick={() => deleteStudent(selectedStudent?._id)}>
-                        Eliminar
+                    <Button
+                      className="m-1"
+                      onClick={() => handleShowModal(student)}
+                      variant="danger"
+                    >
+                      {" "}
+                      <FaTrashAlt />
                     </Button>
-                </Modal.Footer>
-            </Modal>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
+      </div>
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmar eliminación</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          ¿Estás seguro de que deseas eliminar al estudiante{" "}
+          {selectedStudent?.firstName} {selectedStudent?.lastName}?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Cancelar
+          </Button>
+          <Button
+            variant="danger"
+            onClick={() => deleteStudent(selectedStudent?._id)}
+          >
+            Eliminar
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
+      <Modal show={showEditModal} onHide={handleCloseEditModal}>
+        <Modal.Header closeButton>
+          <Modal.Title className="title">
+            {" "}
+            <strong>Información Estudiante</strong>{" "}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={handleEditFormSubmit}>
+            <Form.Group controlId="editFormFirstName">
+              <Form.Label>
+                {" "}
+                <strong>Nombre</strong>
+              </Form.Label>
+              <Form.Control
+                maxLength={20}
+                type="text"
+                name="firstName"
+                value={editedStudent?.firstName || ""}
+                onChange={handleEditInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="editFormLastName">
+              <Form.Label className="mt-2">
+                <strong>Apellido</strong>{" "}
+              </Form.Label>
+              <Form.Control
+                maxLength={20}
+                type="text"
+                name="lastName"
+                value={editedStudent?.lastName || ""}
+                onChange={handleEditInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="editFormID">
+              <Form.Label className="mt-2">
+                {" "}
+                <strong>DNI</strong>
+              </Form.Label>
+              <Form.Control
+                maxLength={20}
+                type="text"
+                name="dni"
+                value={editedStudent?.dni || ""}
+                onChange={handleEditInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="editFormCurrentYearOfStudy">
+              <Form.Label className="mt-2">
+                <strong>Año de cursado actual</strong>
+              </Form.Label>
+              <Form.Control
+                maxLength={1}
+                min={1}
+                max={4}
+                type="number"
+                name="currentYearOfStudy"
+                value={editedStudent?.currentYearOfStudy || ""}
+                onChange={handleEditInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="editFormPhone">
+              <Form.Label className="mt-2">
+                <strong>Teléfono</strong>
+              </Form.Label>
+              <Form.Control
+                maxLength={15}
+                type="string"
+                name="phone"
+                value={editedStudent?.phone || ""}
+                onChange={handleEditInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="editFormAddress">
+              <Form.Label className="mt-2">
+                <strong>Dirección</strong>
+              </Form.Label>
+              <Form.Control
+                maxLength={30}
+                type="string"
+                name="address"
+                value={editedStudent?.address || ""}
+                onChange={handleEditInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="editFormEmail">
+              <Form.Label className="mt-2">
+                <strong>Email</strong>
+              </Form.Label>
+              <Form.Control
+                maxLength={35}
+                type="text"
+                name="email"
+                value={editedStudent?.email || ""}
+                onChange={handleEditInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="editFormBirthdate">
+              <Form.Label className="mt-2">
+                <strong>Fecha de nacimiento</strong>
+              </Form.Label>
+
+              <DatePicker
+                className="customDatepicker mb-4"
+                selected={
+                  editedStudent?.birthdate
+                  ? moment(editedStudent.birthdate).toDate()
+                  : null
+                }
+                onChange={(date) => {
+                    const formattedDate = moment(date).format('YYYY-MM-DD');
+                    setEditedStudent((prevStudent) => ({
+                      ...prevStudent,
+                      birthdate: formattedDate,
+                    }));
+                  }}
+                maxDate={addDays(new Date(), 0)}
+                name="birthdate"
+                type="Date"
+                locale={es}
+                dateFormat="yyyy-MM-dd" 
+                />
+            </Form.Group>   
+            <Modal.Footer>
             <Modal show={showEditModal} onHide={handleCloseEditModal}>
                 <Modal.Header className='modalHeader' closeButton>
                     <Modal.Title className="modalTitle">
@@ -605,4 +824,3 @@ export const StudentsScreen = () => {
         </>
     )
 }
-

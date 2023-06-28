@@ -1,16 +1,21 @@
 .navContainer {
     background-color: #7A0045;
 }
+
+.containerNavLink{
+     display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .navLinks {
     color: white !important;
     font-weight: bold !important;
-    border: solid white;
+    border: solid 2px white;
     border-radius: 20px;
     margin: 10px;
     padding-left: 20px !important;
     padding-right: 20px !important;
     text-decoration: none;
-
 }
 .navDropdownLinksTitle{
     background-color: #7A0045 !important;
@@ -66,7 +71,7 @@
     color: #d89841 !important;
     font-weight: bold !important;
     text-align: end !important;
-    border: solid #d89841;
+    border: solid  #d89841;
     border-radius: 20px;
     margin: 10px;
     padding-left: 20px !important;
@@ -146,3 +151,12 @@
         text-align: center;
     }
 }
+
+
+  
+  
+  
+  
+  
+  
+  
