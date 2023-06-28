@@ -1,72 +1,64 @@
 import React, { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
-import Pagination from "react-bootstrap/Pagination";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
-import InputGroup from 'react-bootstrap/InputGroup';
+import InputGroup from "react-bootstrap/InputGroup";
 import { TokenStorage } from "../../utils/TokenStorage";
 import { useNavigate } from "react-router-dom";
-import './StudentsScreen.css';
-
-import {
-  BsSearch
-} from "react-icons/bs";
-//pagination
-let active = 1;
-let items = [];
-for (let number = 1; number <= 5; number++) {
-
-  items.push(
-    <Pagination.Item key={number} active={number === active}>
-      {number}
-    </Pagination.Item>
-  );
-}
+import "./StudentsScreen.css";
+import { BsSearch } from "react-icons/bs";
 
 export const AdministrativeStaffScreen = () => {
   const [adminStaff, setAdminStaff] = useState([]);
-  const [adminFiltered, setAdminFiltered] = useState([])
+  const [adminFiltered, setAdminFiltered] = useState([]);
 
-  const store = TokenStorage()
+  const store = TokenStorage();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (store.tokenValid) {   
-      axios.get("/adminStaff", {headers:{
-        "access-token": store.token
-      }}).then((response) => {
-        setAdminStaff(response.data);
-        setAdminFiltered(response.data)
-      });
-    }else{
-      navigate("/login")
+    if (store.tokenValid) {
+      axios
+        .get("/adminStaff", {
+          headers: {
+            "access-token": store.token,
+          },
+        })
+        .then((response) => {
+          setAdminStaff(response.data);
+          setAdminFiltered(response.data);
+        });
+    } else {
+      navigate("/login");
     }
-  }, [navigate,store.tokenValid,store.token]);
+  }, [navigate, store.tokenValid, store.token]);
 
   const handleSearchInput = (e) => {
-    let userInput = (e.target.value).toLowerCase()
+    let userInput = e.target.value.toLowerCase();
     if (userInput === "") {
-      setAdminFiltered(adminStaff)
+      setAdminFiltered(adminStaff);
     } else {
       const filterAdminStaff = adminStaff.filter((admin) => {
-        return admin.firstName.toLowerCase().includes(userInput) ||
+        return (
+          admin.firstName.toLowerCase().includes(userInput) ||
           admin.schoolName.toLowerCase().includes(userInput) ||
           admin.lastName.toLowerCase().includes(userInput)
+        );
       });
-      setAdminFiltered(filterAdminStaff)
+      setAdminFiltered(filterAdminStaff);
     }
   };
-
-
 
   return (
     <>
       <div className="text-center p-2 p-md-5">
-        <h1 className="title mb-5"><b>Personal Administrativo</b></h1>
+        <h1 className="title mb-5">
+          <b>Personal Administrativo</b>
+        </h1>
         <div className="mb-4 w-50">
-
-          <InputGroup >
-            <InputGroup.Text id="btnGroupAddon"><BsSearch /></InputGroup.Text>
+          <InputGroup>
+            <InputGroup.Text id="btnGroupAddon">
+              <BsSearch />
+            </InputGroup.Text>
             <Form.Control
               type="text"
               placeholder="Buscar por Apellido/ Nombre, Institución o Fecha Ingreso"
@@ -76,7 +68,6 @@ export const AdministrativeStaffScreen = () => {
             />
           </InputGroup>
         </div>
-
 
         <div className="table-container m-2">
           <Table striped bordered hover size="sm">
