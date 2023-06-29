@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import "./Register.css";
+import "./RegisterScreen.css";
 import { FaUserAlt } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { BsFillPersonCheckFill, BsFillPersonXFill } from "react-icons/bs";
@@ -46,9 +46,32 @@ export const RegisterScreen = () => {
       return;
     }
 
+<<<<<<< HEAD
     axios
       .post("/users", {
         ...data, isAdmin: false, isActivated: true,})
+=======
+
+    axios.post("/users", {
+      ...data,
+      "isAdmin": false,
+      "isActivated": true
+    })
+      .then((response) => {setShowConfirmationRegisterToast(true)
+        const templateParams = {
+          from_name: 'CODE SCHOOL',
+          to_name: `${data.firstName} ${data.lastName}`,
+          to_email: `${data.email}`,
+        };
+        emailjs.send('service_5ww2agm', 'template_on5t7by', templateParams, '7vD0FeJBpJC_JXRfq')
+          .then((response) => {
+            console.log('SUCCESS!', response.status, response.text);
+          }, (err) => {
+            console.log('FAILED...', err);
+          });
+        navigate('/login');
+      })
+>>>>>>> d613533fd3013fb6c3debe8fe0e2bcdf812fb8cb
       .then((response) => {
           setShowConfirmationRegisterToast(true);
           alert("El usuario fue creado con exito");
@@ -249,10 +272,6 @@ export const RegisterScreen = () => {
                 <span className="registerSpan">
                   Las contraseñas no coinciden.
                 </span>
-              )}
-            </div>
-            <div
-              className="d-flex align-items-center"
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
             >
               {showConfirmPassword ? (
@@ -281,7 +300,6 @@ export const RegisterScreen = () => {
           <Toast.Body className='text-dark'>Registro exitoso, recibira un mail con los datos de su cuenta.</Toast.Body>
         </Toast>
       </div>
-
       <div className="position-fixed bottom-0 end-0 p-3">
         <Toast show={showErrorRegisterToast} onClose={handleErrorToastRegisterClose} delay={3000} autohide>
           <Toast.Header>

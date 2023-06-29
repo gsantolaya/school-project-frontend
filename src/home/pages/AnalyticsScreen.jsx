@@ -24,16 +24,18 @@ export const AnalyticsScreen = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (store.tokenValid) {   
-      axios.get('/students',{headers:{
+    if (store.tokenValid) {
+      axios.get('/students', {
+        headers: {
           "access-token": store.token
-        }})
-          .then((response) => {
-              setStudents(response.data)
-          })
-      }else{
-          navigate("/login")
         }
+      })
+        .then((response) => {
+          setStudents(response.data)
+        })
+    } else {
+      navigate("/login")
+    }
   }, []);
 
   const handleShowDeleteModal = (student, subject) => {
@@ -62,9 +64,11 @@ export const AnalyticsScreen = () => {
       const updatedStudent = { ...selectedStudent };
       updatedStudent.notes[subject] = null;
 
-      const response = await axios.put(`/students/${id}`, updatedStudent, {headers:{
-        "access-token": store.token
-      }});
+      const response = await axios.put(`/students/${id}`, updatedStudent, {
+        headers: {
+          "access-token": store.token
+        }
+      });
 
       if (response.status === 200) {
         const updatedStudents = students.map((student) => {
@@ -87,9 +91,11 @@ export const AnalyticsScreen = () => {
   const handleEditFormSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.put(`/students/${editedStudent._id}`, editedStudent, {headers:{
-        "access-token": store.token
-      }});
+      const response = await axios.put(`/students/${editedStudent._id}`, editedStudent, {
+        headers: {
+          "access-token": store.token
+        }
+      });
       if (response.status === 200) {
         const updatedStudents = students.map((student) => {
           if (student._id === editedStudent._id) {
@@ -156,22 +162,22 @@ export const AnalyticsScreen = () => {
 
 
           <Form.Group className='d-flex m-2' controlId="formNameFilter">
-            <Form.Label className='col-2 '><b>Nombre:</b></Form.Label>
-            <Form.Control type="text" placeholder="Filtrar por nombre" value={filterName} onChange={(e) => setFilterName(e.target.value)} maxLength={30} />
+            <Form.Label className='col-2 '><b className='homeText'>Nombre:</b></Form.Label>
+            <Form.Control type="text" placeholder="Filtrar por apellido/ nombre" value={filterName} onChange={(e) => setFilterName(e.target.value)} maxLength={30} />
           </Form.Group>
 
 
           <Form.Group className='d-flex m-2' controlId="formSubjectFilter">
-            <Form.Label className='col-2'><b>Materia:</b></Form.Label>
-            <Form.Control as="select" value={filterSubject} onChange={(e) => setFilterSubject(e.target.value)}>
+            <Form.Label className='col-2'><b className='homeText'>Materia:</b></Form.Label>
+            <Form.Select as="select" value={filterSubject} onChange={(e) => setFilterSubject(e.target.value)}>
               <option value="">Todas las materias</option>
               {Object.values(SUBJECTS_LABELS).map((subjectLabel) => (
                 <option key={subjectLabel} value={subjectLabel}>{subjectLabel}</option>
               ))}
-            </Form.Control>
+            </Form.Select>
           </Form.Group>
           <Form.Group className='d-flex m-2' controlId="formGradeFilter">
-            <Form.Label className='col-2'><b>Nota:</b></Form.Label>
+            <Form.Label className='col-2'><b className='homeText'>Nota:</b></Form.Label>
             <Form.Control type="text" placeholder="Filtrar por nota" value={filterGrade} onChange={(e) => setFilterGrade(e.target.value)} maxLength={2} />
           </Form.Group>
 
@@ -180,9 +186,9 @@ export const AnalyticsScreen = () => {
           <Table striped bordered hover>
             <thead>
               <tr>
-                <th>Materia</th>
-                <th>Alumno</th>
-                <th>Nota final</th>
+                <th className='homeText'>Materia</th>
+                <th className='homeText'>Alumno</th>
+                <th className='homeText'>Nota final</th>
                 <th></th>
               </tr>
             </thead>
@@ -224,13 +230,13 @@ export const AnalyticsScreen = () => {
         </div>
       </div>
       <Modal show={showDeleteModal} onHide={handleCloseDeleteModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Confirmar eliminación</Modal.Title>
+        <Modal.Header className='modalHeader' closeButton>
+          <Modal.Title className='modalTitle'><strong>Confirmar eliminación</strong></Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          ¿Estás seguro de que deseas eliminar la nota {selectedStudent?.notes[selectedSubject]} de la materia: {selectedSubject} del estudiante: {selectedStudent?.firstName} {selectedStudent?.lastName}?
+        <Modal.Body className='modalBody p-4'>
+          ¿Estás seguro de que deseas eliminar esta nota del alumno <b>{selectedStudent?.firstName} {selectedStudent?.lastName}</b>?
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer className='modalBody'>
           <Button variant="secondary" onClick={handleCloseDeleteModal}>
             Cancelar
           </Button>
@@ -241,12 +247,12 @@ export const AnalyticsScreen = () => {
       </Modal>
 
       <Modal show={showEditModal} onHide={handleCloseEditModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Cambiar Calificación</Modal.Title>
+        <Modal.Header className='modalHeader' closeButton>
+          <Modal.Title className='modalTitle'><strong>Cambiar Calificación</strong></Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className='modalBody p-4'>
           <Form onSubmit={handleEditFormSubmit}>
-            <Form.Group controlId="editGrade">
+            <Form.Group className="formFields" controlId="editGrade">
               <Form.Label>Nota:</Form.Label>
               <Form.Control
                 type="number"
@@ -257,16 +263,17 @@ export const AnalyticsScreen = () => {
                 onChange={(event) => event.target.value !== '' && setEditedStudent({ ...selectedStudent, notes: { ...selectedStudent.notes, [selectedSubject]: parseFloat(event.target.value) } })}
               />
             </Form.Group>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleCloseEditModal}>
+            <Modal.Footer className='modalBody mt-3 d-flex justify-content-center'>
+              <Button className='buttonsFormAddStudent' variant="null" onClick={handleCloseEditModal}>
                 Cancelar
               </Button>
-              <Button variant="primary" type="submit">
+              <Button className='buttonsFormAddStudent' variant="null" type="submit">
                 Guardar cambios
               </Button>
             </Modal.Footer>
           </Form>
         </Modal.Body>
+        
       </Modal>
     </>
   );
