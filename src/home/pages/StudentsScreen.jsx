@@ -27,11 +27,8 @@ export const StudentsScreen = () => {
     const [selectedStudent, setSelectedStudent] = useState(null);
     const [showConfirmationToast, setShowConfirmationToast] = useState(false);
     const [showErrorToast, setShowErrorToast] = useState(false);
-
     const [showEditStudentConfirmationToast, setShowEditStudentConfirmationToast] = useState(false);
     const [showEditStudentErrorToast, setShowEditStudentErrorToast] = useState(false);
-
-
     const [showConfirmationAddStudentToast, setShowConfirmationAddStudentToast] = useState(false);
     const [showErrorAddStudentToast, setShowErrorAddStudentToast] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
@@ -39,11 +36,8 @@ export const StudentsScreen = () => {
     const [editedStudent, setEditedStudent] = useState(null);
     const [isBanned, setIsBanned] = useState(false);
     const [payment, setPayment] = useState(false);
-
     const store = TokenStorage()
     const navigate = useNavigate();
-
-
 
     useEffect(() => {
         if (store.tokenValid) {
@@ -58,7 +52,7 @@ export const StudentsScreen = () => {
         } else {
             navigate("/login")
         }
-    }, [])
+    }, [navigate, store.token, store.tokenValid])
 
     const handleShowModal = (student) => {
         setSelectedStudent(student);
