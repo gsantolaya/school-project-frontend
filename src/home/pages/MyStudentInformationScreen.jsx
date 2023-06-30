@@ -30,7 +30,7 @@ export const MyStudentInformationScreen = () => {
     } else {
       navigate("/login")
     }
-  }, []);
+  }, [navigate, store.token, store.tokenValid]);
 
   const decodedToken = tokenIsValid();
   const SUBJECTS_LABELS = {

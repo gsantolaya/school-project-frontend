@@ -36,7 +36,7 @@ export const AnalyticsScreen = () => {
     } else {
       navigate("/login")
     }
-  }, []);
+  }, [navigate, store.token, store.tokenValid]);
 
   const handleShowDeleteModal = (student, subject) => {
     setSelectedStudent({ ...student, subject });

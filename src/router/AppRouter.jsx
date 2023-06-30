@@ -10,7 +10,6 @@ import { AnalyticsScreen } from '../home/pages/AnalyticsScreen';
 import { PaymentsScreen } from '../home/pages/PaymentsScreen';
 import { UsersScreen } from '../home/pages/UsersScreen';
 import { NavbarMenu } from '../home/components/NavbarMenu';
-import { NewStudentScreen } from '../home/pages/NewStudentScreen';
 import { MyStudentInformationScreen } from '../home/pages/MyStudentInformationScreen';
 import { Error404Screen } from '../Error404Screen';
 import { Welcome } from '../home/components/Welcome';
@@ -45,7 +44,6 @@ const AppContent = () => {
           <Route path="/home/analytics" element={<AnalyticsScreen />} />
           <Route path="/home/payments" element={<PaymentsScreen />} />
           <Route path="/home/users" element={<UsersScreen />} />
-          <Route path="/home/newStudent" element={<NewStudentScreen />} />
           <Route path="/home/myStudentInformation" element={<MyStudentInformationScreen />} />
         </Route>
         <Route path="/error404" element={<Error404Screen />} />

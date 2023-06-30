@@ -13,10 +13,9 @@ import { BsSearch } from "react-icons/bs";
 export const PaymentsScreen = () => {
   const [students, setStudents] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchOption, setSearchOption] = useState('name');
-
-
-  const store = TokenStorage()
+  const [searchOption, setSearchOption] = useState('');
+  const store = TokenStorage();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (store.tokenValid) {
@@ -25,13 +24,14 @@ export const PaymentsScreen = () => {
           "access-token": store.token
         }
       })
-        .then((response) => {
-          setStudents(response.data)
-        })
+      .then((response) => {
+        setStudents(response.data);
+      });
     } else {
-      navigate("/login")
+      navigate("/login");
     }
-  }, [])
+  }, [navigate, store.token, store.tokenValid]);
+
 
   const handleSearchInputChange = (event) => {
     setSearchTerm(event.target.value);
@@ -57,8 +57,6 @@ export const PaymentsScreen = () => {
       console.log(error);
     }
   };
-
-  const navigate = useNavigate();
 
   const redirectToErrorPage = () => {
     navigate('/error404');

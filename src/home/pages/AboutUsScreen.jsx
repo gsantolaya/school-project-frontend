@@ -7,7 +7,6 @@ import Image from "react-bootstrap/Image";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Figure from "react-bootstrap/Figure";
-import "./AboutUsScreen.css";
 
 export const AboutUsScreen = () => {
   return (
