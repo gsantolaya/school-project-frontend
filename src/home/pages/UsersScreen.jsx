@@ -158,7 +158,7 @@ export const UsersScreen = () => {
   const decodedToken = tokenIsValid();
   return (
     <>
-      <div className='text-center p-5'>
+      <div className='text-center p-5 table-container'>
         <h1 className="title mb-3"><b>Bienvenid@ {decodedToken.firstName}</b></h1>
         <h4 className="text-start title mb-3"><b>Mi usuario:</b></h4>
         <Table striped bordered hover>
@@ -188,7 +188,7 @@ export const UsersScreen = () => {
         </Table>
       </div>
       {decodedToken.isAdmin && (
-        <div className='text-center px-5'>
+        <div className='text-center px-5 table-container mt-5 mt-md-0'>
           <h4 className="text-start title mb-3"><b>Otros Usuarios:</b></h4>
           <Table striped bordered hover>
             <thead>
