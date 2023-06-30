@@ -453,13 +453,13 @@ export const StudentsScreen = () => {
                                 label="Pago al día"
                             />
                         </Form.Group>
-                        <Modal.Footer className="mt-3">
-                            <div>
-                                <Button className='buttonsFormAddStudent' variant="null" onClick={handleCloseEditModal}>
-                                    Cancelar
-                                </Button>
-                                <Button className='buttonsFormAddStudent' variant="null" type="submit">
+                        <Modal.Footer className="mt-3 col-8">
+                            <div className='col-12'>
+                                <Button className='buttonsFormAddStudent m-2 w-100' variant="null" type="submit">
                                     Guardar cambios
+                                </Button>
+                                <Button className='buttonsFormAddStudent m-2 w-100' variant="null" onClick={handleCloseEditModal}>
+                                    Cancelar
                                 </Button>
                             </div>
                         </Modal.Footer>
@@ -553,12 +553,12 @@ export const StudentsScreen = () => {
                                 label="Pago al día"
                             />
                         </Form.Group>
-                        <Modal.Footer className="mt-3">
-                            <div>
-                                <Button className='buttonsFormAddStudent' variant="null" type="submit">
+                        <Modal.Footer className="mt-3 col-8">
+                            <div className='col-12'>
+                                <Button className='buttonsFormAddStudent m-2 w-100' variant="null" type="submit">
                                     Agregar Nuevo Alumno
                                 </Button>
-                                <Button className='buttonsFormAddStudent' variant="null" onClick={handleCloseAddModal}>
+                                <Button className='buttonsFormAddStudent m-2 w-100' variant="null" onClick={handleCloseAddModal}>
                                     Cancelar
                                 </Button>
                             </div>
