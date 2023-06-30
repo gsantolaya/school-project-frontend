@@ -94,7 +94,7 @@ export const LoginScreen = () => {
               )}
             </div>
             <div className="d-flex align-items-center" onClick={() => setShowPassword(!showPassword)}>
-              {showPassword ? <AiFillEye size={25} /> :<AiFillEyeInvisible size={25} />}
+              {showPassword ? <AiFillEye size={25} /> : <AiFillEyeInvisible size={25} />}
             </div>
           </Form.Group>
           {loginError && (
@@ -108,9 +108,9 @@ export const LoginScreen = () => {
             </Link>
           </div>
           <div className="contenedorloginButton" >
-          <button className="loginButton" type="submit">
-            Acceder
-          </button>
+            <button className="loginButton" type="submit">
+              Acceder
+            </button>
           </div>
           <p className="text-dark fw-bold mt-3 text-center">
             ¿Aún no tienes una Cuenta?{" "}

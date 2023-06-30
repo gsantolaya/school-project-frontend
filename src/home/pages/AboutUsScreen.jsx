@@ -12,9 +12,9 @@ import "./AboutUsScreen.css";
 export const AboutUsScreen = () => {
   return (
 
-   <Container style={{ padding: "5rem 0 5rem 0", gap: "2rem" }}>
+    <Container style={{ padding: "5rem 0 5rem 0", gap: "2rem" }}>
       <h1 className="text-center fw-bold" style={{ color: " #7A0045" }}>
-      ScriptGenius
+        ScriptGenius
       </h1>
       <h2 className="text-center" style={{ fontStyle: "italic" }}>
         “Imagine it and make it real!”
@@ -24,12 +24,12 @@ export const AboutUsScreen = () => {
           src={Logotipo}
           alt="Code School logo"
           className=" img-fluid"
-          style={{ width: "400px", height: "400px",   }}
+          style={{ width: "400px", height: "400px", }}
         />
       </div>
 
       <Row>
-        <Col  
+        <Col
           className="justify-content-end d-flex  align-content-center text-center  mt-5"
         >
           <Figure>
@@ -85,8 +85,7 @@ export const AboutUsScreen = () => {
           </Figure>
         </Col>
       </Row>
-      </Container>
+    </Container>
 
   );
 };
-

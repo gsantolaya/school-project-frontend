@@ -33,7 +33,7 @@ export function NavbarMenu() {
   return (
     <Navbar className="navContainer p-1" variant="dark" expand="lg">
       <Container className='mx-4 ms-auto px-4'>
-        <Navbar.Brand className='bigScreen' onClick={handleNavClick}><img src={LogoHorizontal} height="70px" alt="logo" /></Navbar.Brand>      
+        <Navbar.Brand className='bigScreen' onClick={handleNavClick}><img src={LogoHorizontal} height="70px" alt="logo" /></Navbar.Brand>
       </Container>
       <Container className='mx-4 ms-auto px-4'>
         <Navbar.Brand className='smallScreen' onClick={handleNavClick}><img src={Logo} height="70px" alt="logo" /></Navbar.Brand>
@@ -50,7 +50,7 @@ export function NavbarMenu() {
             </NavDropdown>
 
             <Nav.Link className="navLinks" href="/aboutUs">Acerca de nosotros</Nav.Link>
-    
+
             {decodedToken ? (
               <>
                 <Nav.Link className="userNameLink text-center" href="/home/users"><FaUserAlt /> {decodedToken.firstName} {decodedToken.lastName}</Nav.Link>

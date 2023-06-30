@@ -1,15 +1,16 @@
-.table-container{
-    max-height: 500px;
-    overflow-y: scroll;
-  }
-  .table-container::-webkit-scrollbar {
-    width: 0.5em;
-  }
-  
-  .table-container::-webkit-scrollbar-thumb {
-    background-color: #7A0045 ;
-  }
-  
-  .table-container::-webkit-scrollbar-thumb:hover {
-    background-color: black;
-  }
+.table-container {
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
+.table-container::-webkit-scrollbar {
+  width: 0.5em;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background-color: #7A0045;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background-color: black;
+}

@@ -43,7 +43,7 @@ export const PaymentsScreen = () => {
 
   const handlePaymentStatusChange = async (event, student) => {
     const isPaymentAlDia = event.target.value === "alDia";
-    const updatedPayment = {payment: isPaymentAlDia };
+    const updatedPayment = { payment: isPaymentAlDia };
     try {
       const response = await axios.patch(`/students/${student._id}/payment`, updatedPayment, {
         headers: {

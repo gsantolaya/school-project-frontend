@@ -7,8 +7,6 @@ import { Welcome } from '../components/Welcome';
 
 export const HomeScreen = () => {
   const location = useLocation();
-
-  // Verificar si la ruta es exactamente "/home"
   const isHome = location.pathname === '/home';
 
   return (

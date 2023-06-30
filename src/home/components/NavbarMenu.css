@@ -2,11 +2,12 @@
     background-color: #7A0045;
 }
 
-.containerNavLink{
-     display: flex;
-  justify-content: center;
-  align-items: center;
+.containerNavLink {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
 .navLinks {
     color: white !important;
     font-weight: bold !important;
@@ -17,10 +18,11 @@
     padding-right: 20px !important;
     text-decoration: none;
 }
-.navDropdownLinksTitle{
+
+.navDropdownLinksTitle {
     background-color: #7A0045 !important;
     color: white !important;
-    margin:10px !important;
+    margin: 10px !important;
     padding: 0px !important;
     padding-left: 20px !important;
     padding-right: 20px !important;
@@ -29,16 +31,19 @@
     font-weight: bold !important;
     text-decoration: none;
 }
-.navDropdownLinks{
+
+.navDropdownLinks {
     background-color: #7A0045 !important;
     font-weight: bold !important;
 
 }
+
 .navLinks:hover {
     color: #7a0045 !important;
     background-color: white !important;
     transform: scale(1.05)
 }
+
 .navSideLinks {
     display: none !important;
     color: white !important;
@@ -50,13 +55,15 @@
     padding-right: 20px !important;
     text-decoration: none;
 }
-.dropdown-menu{
+
+.dropdown-menu {
     margin: 0px !important;
     border: 0px !important;
     padding: 0px !important;
     color: white !important;
     font-weight: bold !important;
 }
+
 .logOut {
     display: none !important;
     color: white !important;
@@ -67,34 +74,40 @@
 .logOut:hover {
     text-decoration: underline !important;
 }
-.userNameLink{
+
+.userNameLink {
     color: #d89841 !important;
     font-weight: bold !important;
     text-align: end !important;
-    border: solid  #d89841;
+    border: solid #d89841;
     border-radius: 20px;
     margin: 10px;
     padding-left: 20px !important;
     padding-right: 20px !important;
     text-decoration: none;
 }
-.userNameLink:hover{
+
+.userNameLink:hover {
     transform: scale(1.05);
     background-color: #d89841 !important;
-    color:#7a0045 !important;
+    color: #7a0045 !important;
 
 }
-.smallScreen{
+
+.smallScreen {
     display: none !important;
     background-color: #7A0045 !important;
     cursor: pointer !important;
 }
-.bigScreen{
+
+.bigScreen {
     cursor: pointer !important;
 }
-.navActive{
+
+.navActive {
     text-decoration: underline !important;
 }
+
 @media screen and (max-width: 576px) {
     .navSideLinks {
         display: inherit !important;
@@ -103,13 +116,16 @@
     .logOut {
         display: inherit !important;
     }
-    .smallScreen{
+
+    .smallScreen {
         display: inherit !important;
     }
-    .bigScreen{
+
+    .bigScreen {
         display: none !important;
     }
 }
+
 @media screen and (min-width:577px) and (max-width: 766px) {
     .navSideLinks {
         display: inherit !important;
@@ -118,13 +134,16 @@
     .logOut {
         display: inherit !important;
     }
-    .smallScreen{
+
+    .smallScreen {
         display: inherit !important;
     }
-    .bigScreen{
+
+    .bigScreen {
         display: none !important;
     }
 }
+
 @media screen and (min-width:767px) and (max-width: 991px) {
     .navSideLinks {
         display: inherit !important;
@@ -133,30 +152,26 @@
     .logOut {
         display: inherit !important;
     }
-    .smallScreen{
+
+    .smallScreen {
         display: inherit !important;
     }
-    .bigScreen{
+
+    .bigScreen {
         display: none !important;
     }
 }
+
 @media screen and (min-width:992px) and (max-width: 1400px) {
-    .navLinks{
-        text-align: center; 
+    .navLinks {
+        text-align: center;
     }
-    .bigScreen{
+
+    .bigScreen {
         padding-top: 20px !important;
     }
-    .userNameLink{
+
+    .userNameLink {
         text-align: center;
     }
 }
-
-
-  
-  
-  
-  
-  
-  
-  

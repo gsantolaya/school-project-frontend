@@ -1,11 +1,13 @@
-.sideMenu{
+.sideMenu {
     background-color: #E6E8DB !important;
 }
-.main{
+
+.main {
     background-color: #CDCFC0 !important;
 }
-@media screen and (max-width: 576px){
-    .sideMenu{
+
+@media screen and (max-width: 576px) {
+    .sideMenu {
         display: none !important;
     }
 }

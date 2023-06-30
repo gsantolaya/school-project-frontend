@@ -97,7 +97,7 @@ export const UsersScreen = () => {
     setShowEditPasswordModal(false);
   };
 
-  const { register, handleSubmit,watch, formState: { errors } } = useForm();
+  const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
   const handleEditPasswordFormSubmit = handleSubmit(async (data) => {
     const token = localStorage.getItem('token');
@@ -287,61 +287,59 @@ export const UsersScreen = () => {
       </Modal>
       {/* Modal modificar contrasena */}
       <Modal show={showEditPasswordModal} onHide={handleCloseEditPasswordModal}>
-  <Modal.Header className='modalHeader' closeButton>
-    <Modal.Title className="modalTitle"><strong>Modificar contraseña</strong></Modal.Title>
-  </Modal.Header>
-  <Modal.Body className='modalBody'>
-    <Form onSubmit={handleEditPasswordFormSubmit}>
-      <Form.Group className="formFields" controlId="editFormFirstName">
-        <Form.Label>Email:</Form.Label>
-        <Form.Control
-          type="text"
-          name="email"
-          value={editedUser?.email || ''}
-          disabled
-        />
-      </Form.Group>
-      <Form.Group className="formFields" controlId="editFormPassword">
-        <Form.Label>Nueva contraseña:</Form.Label>
-        <Form.Control
-          type="password"
-          maxLength={35}
-          name="password"
-          {...register('password', { required: true, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/ })}
-        />
-        {errors.password && (
-          <span className="text-danger">
-            La contraseña debe contener al menos una letra mayúscula, una letra minúscula, un número y tener al menos 6 caracteres.
-          </span>
-        )}
-      </Form.Group>
-      <Form.Group className="formFields" controlId="editFormRepeatPassword">
-        <Form.Label>Repetir nueva contraseña:</Form.Label>
-        <Form.Control
-          type="password"
-          maxLength={35}
-          name="repeatPassword"
-          {...register('repeatPassword', { required: true, validate: value => value === watch('password') })}
-        />
-        {errors.repeatPassword && (
-          <span className="text-danger">
-            Las contraseñas ingresadas no son iguales.
-          </span>
-        )}
-      </Form.Group>
-      <Modal.Footer className='mt-3 d-flex justify-content-center'>
-        <Button className='buttonsFormAddStudent' variant="null" onClick={handleCloseEditPasswordModal}>
-          Cancelar
-        </Button>
-        <Button className='buttonsFormAddStudent' variant="null" type="submit">
-          Modificar
-        </Button>
-      </Modal.Footer>
-    </Form>
-  </Modal.Body>
-</Modal>
-
-
+        <Modal.Header className='modalHeader' closeButton>
+          <Modal.Title className="modalTitle"><strong>Modificar contraseña</strong></Modal.Title>
+        </Modal.Header>
+        <Modal.Body className='modalBody'>
+          <Form onSubmit={handleEditPasswordFormSubmit}>
+            <Form.Group className="formFields" controlId="editFormFirstName">
+              <Form.Label>Email:</Form.Label>
+              <Form.Control
+                type="text"
+                name="email"
+                value={editedUser?.email || ''}
+                disabled
+              />
+            </Form.Group>
+            <Form.Group className="formFields" controlId="editFormPassword">
+              <Form.Label>Nueva contraseña:</Form.Label>
+              <Form.Control
+                type="password"
+                maxLength={35}
+                name="password"
+                {...register('password', { required: true, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/ })}
+              />
+              {errors.password && (
+                <span className="text-danger">
+                  La contraseña debe contener al menos una letra mayúscula, una letra minúscula, un número y tener al menos 6 caracteres.
+                </span>
+              )}
+            </Form.Group>
+            <Form.Group className="formFields" controlId="editFormRepeatPassword">
+              <Form.Label>Repetir nueva contraseña:</Form.Label>
+              <Form.Control
+                type="password"
+                maxLength={35}
+                name="repeatPassword"
+                {...register('repeatPassword', { required: true, validate: value => value === watch('password') })}
+              />
+              {errors.repeatPassword && (
+                <span className="text-danger">
+                  Las contraseñas ingresadas no son iguales.
+                </span>
+              )}
+            </Form.Group>
+            <Modal.Footer className='mt-3 d-flex justify-content-center'>
+              <Button className='buttonsFormAddStudent' variant="null" onClick={handleCloseEditPasswordModal}>
+                Cancelar
+              </Button>
+              <Button className='buttonsFormAddStudent' variant="null" type="submit">
+                Modificar
+              </Button>
+            </Modal.Footer>
+          </Form>
+        </Modal.Body>
+      </Modal>
       {/* Modal eliminar otra cuenta */}
       <Modal show={showDeleteUserModal} onHide={handleCloseDeleteUserModal}>
         <Modal.Header className='modalHeader' closeButton>

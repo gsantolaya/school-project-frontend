@@ -15,17 +15,19 @@ export const MyStudentInformationScreen = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (store.tokenValid) {   
-      axios.get('/students',{headers:{
-        "access-token": store.token
-      }})
-      .then((response) => {
-        setStudents(response.data);
-        const decodedToken = tokenIsValid();
-        const foundStudent = response.data.find(student => student.email === decodedToken.email);
-        setCurrentUserStudent(foundStudent);
+    if (store.tokenValid) {
+      axios.get('/students', {
+        headers: {
+          "access-token": store.token
+        }
       })
-    }else{
+        .then((response) => {
+          setStudents(response.data);
+          const decodedToken = tokenIsValid();
+          const foundStudent = response.data.find(student => student.email === decodedToken.email);
+          setCurrentUserStudent(foundStudent);
+        })
+    } else {
       navigate("/login")
     }
   }, []);
@@ -139,7 +141,6 @@ export const MyStudentInformationScreen = () => {
             </tbody>
           </Table>
         </div>
-
       </div>
     </>
   )

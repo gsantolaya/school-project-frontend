@@ -16,22 +16,23 @@
 
 @media screen and (max-width: 540px) {
   .appLogo {
-    width: 350px; 
-    
+    width: 350px;
+
   }
 }
 
 @media screen and (min-width: 541px) and (max-width: 768px) {
   .appLogo {
-    width: 400px; 
+    width: 400px;
   }
 }
 
 @media screen and (min-width: 769px) and (max-width: 992px) {
   .appLogo {
-    width: 500px; 
+    width: 500px;
   }
-  .textWelcome{
+
+  .textWelcome {
     font-size: 3rem;
   }
 }

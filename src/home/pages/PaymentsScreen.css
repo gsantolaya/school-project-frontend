@@ -1,5 +1,5 @@
-@media screen and (max-width: 576px){
-    .table-container {
-        overflow-x: scroll !important;
-      }
+@media screen and (max-width: 576px) {
+  .table-container {
+    overflow-x: scroll !important;
+  }
 }

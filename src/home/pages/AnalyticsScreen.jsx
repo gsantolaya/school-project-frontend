@@ -273,7 +273,7 @@ export const AnalyticsScreen = () => {
             </Modal.Footer>
           </Form>
         </Modal.Body>
-        
+
       </Modal>
     </>
   );

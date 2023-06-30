@@ -81,10 +81,10 @@ export const StudentsScreen = () => {
     };
     const handleEditStudentConfirmationToastClose = () => {
         setShowEditStudentConfirmationToast(false)
-    } 
+    }
     const handleEditStudentErrorToastClose = () => {
         setShowEditStudentErrorToast(false)
-    } 
+    }
     const handleErrorToastClose = () => {
         setShowErrorToast(false);
     };
