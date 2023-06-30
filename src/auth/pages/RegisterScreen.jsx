@@ -38,19 +38,19 @@ export const RegisterScreen = () => {
       setEmailExists(true);
       return;
     }
-
+  
     if (data.password !== data.confirmPassword) {
       setPasswordMatch(false);
       return;
     }
-
-
-    axios.post("/users", {
-      ...data,
-      "isAdmin": false,
-      "isActivated": true
-    })
-      .then((response) => {setShowConfirmationRegisterToast(true)
+  
+    axios
+      .post("/users", {
+        ...data,
+        isAdmin: false,
+        isActivated: true
+      })
+      .then((response) => {
         const templateParams = {
           from_name: 'CODE SCHOOL',
           to_name: `${data.firstName} ${data.lastName}`,
@@ -59,18 +59,21 @@ export const RegisterScreen = () => {
         emailjs.send('service_5ww2agm', 'template_on5t7by', templateParams, '7vD0FeJBpJC_JXRfq')
           .then((response) => {
             console.log('SUCCESS!', response.status, response.text);
-          }, (err) => {
+            setShowConfirmationRegisterToast(true);
+            setTimeout(function() {
+              navigate('/login');
+            }, 3000);
+          })
+          .catch((err) => {
             console.log('FAILED...', err);
+            setShowErrorRegisterToast(true);
           });
-        navigate('/login');
       })
-      .catch((err) =>
-        console.log(err),
-        setShowErrorRegisterToast(true),
-      )
-      ;
-  };
-
+      .catch((err) => {
+        console.log(err);
+        setShowErrorRegisterToast(true);
+      });
+  };  
   useEffect(() => {
     axios.get('/users')
       .then((response) => {
@@ -82,16 +85,12 @@ export const RegisterScreen = () => {
       navigate("/home");
     }
   }, [navigate]);
-
-
-  const handleConfirmationToastRegisterClose = () => {
+  const handleConfirmationRegisterToastClose = () => {
     setShowConfirmationRegisterToast(false);
   };
-  const handleErrorToastRegisterClose = () => {
+  const handleErrorRegisterToastClose = () => {
     setShowErrorRegisterToast(false);
   };
-
-
   return (
     <div className="registerContainer">
       <div className="registerForm col-12 col-md-4 py-5 m-md-4 pt-md-5 px-md-5 pb-md-4">
@@ -285,18 +284,17 @@ export const RegisterScreen = () => {
         </Form>
       </div>
      <div className="position-fixed bottom-0 end-0 p-3">
-        <Toast show={showConfirmationRegisterToast} onClose={handleConfirmationToastRegisterClose} delay={3000} autohide>
+        <Toast show={showConfirmationRegisterToast} onClose={handleConfirmationRegisterToastClose} delay={3000} autohide>
           <Toast.Header>
             <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
-            <strong className="me-auto">Confirmación    <BsFillPersonCheckFill /></strong>
+            <strong className="me-auto">Confirmación<BsFillPersonCheckFill /></strong>
             <small>Ahora</small>
           </Toast.Header>
           <Toast.Body className='text-dark'>Registro exitoso, recibira un mail con los datos de su cuenta.</Toast.Body>
         </Toast>
       </div>
-
       <div className="position-fixed bottom-0 end-0 p-3">
-        <Toast show={showErrorRegisterToast} onClose={handleErrorToastRegisterClose} delay={3000} autohide>
+        <Toast show={showErrorRegisterToast} onClose={handleErrorRegisterToastClose} delay={3000} autohide>
           <Toast.Header>
             <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
             <strong className="me-auto">Error    <BsFillPersonXFill /></strong>
