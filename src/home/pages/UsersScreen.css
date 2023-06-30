@@ -1,3 +1,8 @@
 .inactive-user {
     color: red !important;
 }
+@media screen and (max-width: 576px) {
+    .table-container {
+      overflow-x: scroll !important;
+    }
+  }

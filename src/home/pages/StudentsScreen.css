@@ -19,7 +19,6 @@
 
 .buttonAddStudent:hover {
   color: black !important;
-
   background-color: white !important;
   transform: scale(1.05)
 }
