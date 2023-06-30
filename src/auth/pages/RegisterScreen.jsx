@@ -290,7 +290,7 @@ export const RegisterScreen = () => {
             <strong className="me-auto">Confirmación<BsFillPersonCheckFill /></strong>
             <small>Ahora</small>
           </Toast.Header>
-          <Toast.Body className='text-dark'>Registro exitoso, recibira un mail con los datos de su cuenta.</Toast.Body>
+          <Toast.Body className='text-dark'>Registro exitoso, ya puede iniciar sesión.</Toast.Body>
         </Toast>
       </div>
       <div className="position-fixed bottom-0 end-0 p-3">

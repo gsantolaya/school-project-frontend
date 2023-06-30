@@ -27,6 +27,11 @@ export const StudentsScreen = () => {
     const [selectedStudent, setSelectedStudent] = useState(null);
     const [showConfirmationToast, setShowConfirmationToast] = useState(false);
     const [showErrorToast, setShowErrorToast] = useState(false);
+
+    const [showEditStudentConfirmationToast, setShowEditStudentConfirmationToast] = useState(false);
+    const [showEditStudentErrorToast, setShowEditStudentErrorToast] = useState(false);
+
+
     const [showConfirmationAddStudentToast, setShowConfirmationAddStudentToast] = useState(false);
     const [showErrorAddStudentToast, setShowErrorAddStudentToast] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
@@ -80,6 +85,12 @@ export const StudentsScreen = () => {
     const handleConfirmationToastClose = () => {
         setShowConfirmationToast(false);
     };
+    const handleEditStudentConfirmationToastClose = () => {
+        setShowEditStudentConfirmationToast(false)
+    } 
+    const handleEditStudentErrorToastClose = () => {
+        setShowEditStudentErrorToast(false)
+    } 
     const handleErrorToastClose = () => {
         setShowErrorToast(false);
     };
@@ -150,14 +161,13 @@ export const StudentsScreen = () => {
                     return student;
                 });
                 setStudents(updatedStudents);
-
                 handleCloseEditModal();
-
-                alert("Estudiante actualizado correctamente");
+                setShowEditStudentConfirmationToast(true)
             }
         } catch (error) {
             console.log(error);
-            alert("Error al actualizar el estudiante");
+            handleCloseEditModal();
+            setShowEditStudentErrorToast(true)
         }
     };
 
@@ -562,6 +572,33 @@ export const StudentsScreen = () => {
                     </Form>
                 </Modal.Body>
             </Modal>
+
+
+
+            <div className="position-fixed bottom-0 end-0 p-3">
+                <Toast show={showEditStudentConfirmationToast} onClose={handleEditStudentConfirmationToastClose} delay={3000} autohide>
+                    <Toast.Header>
+                        <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+                        <strong className="me-auto">Confirmación</strong>
+                        <small>Ahora</small>
+                    </Toast.Header>
+                    <Toast.Body>Alumno editado correctamente.</Toast.Body>
+                </Toast>
+            </div>
+            <div className="position-fixed bottom-0 end-0 p-3">
+                <Toast show={showEditStudentErrorToast} onClose={handleEditStudentErrorToastClose} delay={3000} autohide>
+                    <Toast.Header>
+                        <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+                        <strong className="me-auto">Error</strong>
+                        <small>Ahora</small>
+                    </Toast.Header>
+                    <Toast.Body>No se pudo editar al alumno seleccionado.</Toast.Body>
+                </Toast>
+            </div>
+
+
+
+
             <div className="position-fixed bottom-0 end-0 p-3">
                 <Toast show={showConfirmationToast} onClose={handleConfirmationToastClose} delay={3000} autohide>
                     <Toast.Header>
@@ -569,7 +606,7 @@ export const StudentsScreen = () => {
                         <strong className="me-auto">Confirmación</strong>
                         <small>Ahora</small>
                     </Toast.Header>
-                    <Toast.Body>Estudiante eliminado correctamente.</Toast.Body>
+                    <Toast.Body>Alumno eliminado correctamente.</Toast.Body>
                 </Toast>
             </div>
             <div className="position-fixed bottom-0 end-0 p-3">
@@ -579,7 +616,7 @@ export const StudentsScreen = () => {
                         <strong className="me-auto">Error</strong>
                         <small>Ahora</small>
                     </Toast.Header>
-                    <Toast.Body>No se pudo eliminar el estudiante seleccionado.</Toast.Body>
+                    <Toast.Body>No se pudo eliminar al alumno seleccionado.</Toast.Body>
                 </Toast>
             </div>
             <div className="position-fixed bottom-0 end-0 p-3">
@@ -589,7 +626,7 @@ export const StudentsScreen = () => {
                         <strong className="me-auto">Confirmación</strong>
                         <small>Ahora</small>
                     </Toast.Header>
-                    <Toast.Body>Estudiante guardado correctamente.</Toast.Body>
+                    <Toast.Body>Alumno guardado correctamente.</Toast.Body>
                 </Toast>
             </div>
             <div className="position-fixed bottom-0 end-0 p-3">
@@ -599,7 +636,7 @@ export const StudentsScreen = () => {
                         <strong className="me-auto">Error</strong>
                         <small>Ahora</small>
                     </Toast.Header>
-                    <Toast.Body>No se pudo guardar el nuevo estudiante.</Toast.Body>
+                    <Toast.Body>No se pudo guardar el nuevo alumno.</Toast.Body>
                 </Toast>
             </div>
         </>
