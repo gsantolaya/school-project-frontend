@@ -40,8 +40,7 @@ export function NavbarMenu() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto containerNavLink">
-
-            <Nav.Link className="navLinks" onClick={handleNavClick}>Inicio</Nav.Link>
+            <Nav.Link id="inicioNavLink" className="navLinks" onClick={handleNavClick}>Inicio</Nav.Link>
             <NavDropdown className="navDropdownLinksTitle smallScreen" id="nav-dropdown-dark-example" title="Inicio" menuVariant="dark">
               <NavDropdown.Item className={`navDropdownLinks ${isActive('/home/administrativeStaff')}`} href="/home/administrativeStaff">Personal Administrativo</NavDropdown.Item>
               <NavDropdown.Item className={`navDropdownLinks ${isActive('/home/students')}`} href="/home/students">Alumnos</NavDropdown.Item>
