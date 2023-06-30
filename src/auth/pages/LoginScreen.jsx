@@ -55,9 +55,17 @@ export const LoginScreen = () => {
                 placeholder="Ingrese su email"
                 id="email"
                 name="email"
-                {...register("email", { required: true })}
+                {...register("email", {
+                  required: true,
+                  pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                })}
               />
-              {errors?.email && <span className="loginSpan">Este campo es requerido</span>}
+              {errors?.email?.type === "required" && (
+                <span className="registerSpan">Este campo es requerido.</span>
+              )}
+              {errors?.email?.type === "pattern" && (
+                <span className="registerSpan">Ingrese un email válido.</span>
+              )}
             </div>
             <div className="d-flex align-items-center">
               <MdEmail size={25} />
@@ -78,7 +86,7 @@ export const LoginScreen = () => {
                   pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/,
                 })}
               />
-              {errors?.password && <span className="loginSpan">Este campo es requerido.</span>}
+              {errors?.password && <span className="loginSpan">Este campo es requerido. </span>}
               {errors?.password && errors.password.type === "pattern" && (
                 <span className="loginSpan">
                   La contraseña debe tener al menos 6 caracteres, una mayúscula y un número.
