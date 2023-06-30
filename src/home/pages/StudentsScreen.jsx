@@ -642,4 +642,3 @@ export const StudentsScreen = () => {
         </>
     )
 }
-

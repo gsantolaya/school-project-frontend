@@ -1,3 +1,9 @@
+.addStudent{
+ font-weight: bold  !important ;
+ color: white !important;
+ background-color: #7a0045 !important;
+ border: solid #7a0045 2px !important;
+}
 
 .buttonAddStudent{
     color: white !important;
@@ -80,6 +86,12 @@
 .customDatepicker::placeholder {
   color: #6c757d;
   opacity: 1;
+}
+.customDatepicker {
+  color: #333;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 5px 12px;
 }
 
 @media screen and (max-width: 576px){
