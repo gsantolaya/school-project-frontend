@@ -50,7 +50,6 @@ export const PaymentsScreen = () => {
           "access-token": store.token
         }
       });
-      console.log(response.data);
       const updatedStudents = students.map((s) => (s._id === student._id ? { ...s, payment: isPaymentAlDia } : s));
       setStudents(updatedStudents);
     } catch (error) {
