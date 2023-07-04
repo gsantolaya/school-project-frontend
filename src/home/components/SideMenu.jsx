@@ -5,12 +5,10 @@ import { tokenIsValid } from '../../utils/TokenIsValid';
 
 export function SideMenu() {
   const decodedToken = tokenIsValid();
-
   const currentPath = window.location.pathname;
   const isActive = (path) => {
     return currentPath === path ? 'active' : '';
   };
-
   const handleLogout = () => {
     localStorage.removeItem('token');
   };

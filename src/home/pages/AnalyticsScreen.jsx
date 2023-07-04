@@ -19,7 +19,6 @@ export const AnalyticsScreen = () => {
   const [filterName, setFilterName] = useState("");
   const [filterSubject, setFilterSubject] = useState("");
   const [filterGrade, setFilterGrade] = useState("");
-
   const store = TokenStorage()
   const navigate = useNavigate();
 
@@ -43,6 +42,7 @@ export const AnalyticsScreen = () => {
     setSelectedSubject(subject);
     setShowDeleteModal(true);
   };
+
   const handleCloseDeleteModal = () => {
     setSelectedStudent(null);
     setShowDeleteModal(false);
@@ -54,6 +54,7 @@ export const AnalyticsScreen = () => {
     setEditedStudent({ ...student });
     setShowEditModal(true);
   };
+
   const handleCloseEditModal = () => {
     setEditedStudent(null);
     setShowEditModal(false);
@@ -165,8 +166,6 @@ export const AnalyticsScreen = () => {
             <Form.Label className='col-2 '><b className='homeText'>Nombre:</b></Form.Label>
             <Form.Control type="text" placeholder="Filtrar por apellido/ nombre" value={filterName} onChange={(e) => setFilterName(e.target.value)} maxLength={30} />
           </Form.Group>
-
-
           <Form.Group className='d-flex m-2' controlId="formSubjectFilter">
             <Form.Label className='col-2'><b className='homeText'>Materia:</b></Form.Label>
             <Form.Select as="select" value={filterSubject} onChange={(e) => setFilterSubject(e.target.value)}>
@@ -180,7 +179,6 @@ export const AnalyticsScreen = () => {
             <Form.Label className='col-2'><b className='homeText'>Nota:</b></Form.Label>
             <Form.Control type="text" placeholder="Filtrar por nota" value={filterGrade} onChange={(e) => setFilterGrade(e.target.value)} maxLength={2} />
           </Form.Group>
-
         </div>
         <div className='table-container mt-5'>
           <Table striped bordered hover>
@@ -196,7 +194,6 @@ export const AnalyticsScreen = () => {
               {students.map((student) => {
                 const { firstName, lastName, notes } = student;
                 const subjectKeys = Object.keys(notes);
-
                 return subjectKeys.map((subject) => {
                   const grade = notes[subject];
                   const subjectLabel = SUBJECTS_LABELS[subject];
@@ -210,7 +207,6 @@ export const AnalyticsScreen = () => {
                   ) {
                     return null;
                   }
-
                   return (
                     <tr key={`${student.firstName}-${subject}`}>
                       <td>{subjectLabel}</td>
@@ -225,7 +221,6 @@ export const AnalyticsScreen = () => {
                 });
               })}
             </tbody>
-
           </Table>
         </div>
       </div>
@@ -245,7 +240,6 @@ export const AnalyticsScreen = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-
       <Modal show={showEditModal} onHide={handleCloseEditModal}>
         <Modal.Header className='modalHeader' closeButton>
           <Modal.Title className='modalTitle'><strong>Cambiar Calificación</strong></Modal.Title>
@@ -273,7 +267,6 @@ export const AnalyticsScreen = () => {
             </Modal.Footer>
           </Form>
         </Modal.Body>
-
       </Modal>
     </>
   );

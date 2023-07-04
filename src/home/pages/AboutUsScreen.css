@@ -1,22 +1,19 @@
-.containerAbout{
+.containerAbout {
     padding: 5rem 0 5rem 0;
     gap: 2rem;
 }
 
-.titleAbout{
-text-align: center;
-font-weight: bold;
-color:#7A0045;
+.titleAbout {
+    text-align: center;
+    font-weight: bold;
+    color: #7A0045;
 }
 
-.subTitleAbout{
+.subTitleAbout {
     font-style: italic;
     text-align: center;
 }
 
-.descriptionAbout{
+.descriptionAbout {
     color: black !important;
-   
-
 }
-

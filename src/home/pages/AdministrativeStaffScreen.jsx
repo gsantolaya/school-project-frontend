@@ -11,7 +11,6 @@ import { BsSearch } from "react-icons/bs";
 export const AdministrativeStaffScreen = () => {
   const [adminStaff, setAdminStaff] = useState([]);
   const [adminFiltered, setAdminFiltered] = useState([]);
-
   const store = TokenStorage();
   const navigate = useNavigate();
 
@@ -68,7 +67,6 @@ export const AdministrativeStaffScreen = () => {
             />
           </InputGroup>
         </div>
-
         <div className="table-container m-2">
           <Table striped bordered hover size="sm">
             <thead className="title align-middle text-center">

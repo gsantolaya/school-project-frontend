@@ -24,14 +24,13 @@ export const PaymentsScreen = () => {
           "access-token": store.token
         }
       })
-      .then((response) => {
-        setStudents(response.data);
-      });
+        .then((response) => {
+          setStudents(response.data);
+        });
     } else {
       navigate("/login");
     }
   }, [navigate, store.token, store.tokenValid]);
-
 
   const handleSearchInputChange = (event) => {
     setSearchTerm(event.target.value);

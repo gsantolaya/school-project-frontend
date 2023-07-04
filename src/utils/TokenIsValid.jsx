@@ -9,7 +9,6 @@ export function tokenIsValid() {
   const expirationTime = exp * 1000;
   const currentTime = new Date().getTime();
   const timeBeforeExpiration = 1200000;
-
   const isValid = currentTime < expirationTime - timeBeforeExpiration;
 
   if (isValid) {

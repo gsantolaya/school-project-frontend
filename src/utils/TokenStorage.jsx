@@ -11,7 +11,6 @@ export function TokenStorage() {
   const timeBeforeExpiration = 1200000;
   const isValid = currentTime < expirationTime - timeBeforeExpiration;
   const decodedToken = jwtDecode(tokenStore);
-
   if (isValid) {
     return {tokenValid:true, token:tokenStore, decoded:decodedToken};
   }
