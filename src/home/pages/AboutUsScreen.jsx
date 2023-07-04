@@ -7,15 +7,16 @@ import Image from "react-bootstrap/Image";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Figure from "react-bootstrap/Figure";
+import "./AboutUsScreen.css"
 
 export const AboutUsScreen = () => {
   return (
 
-    <Container style={{ padding: "5rem 0 5rem 0", gap: "2rem" }}>
-      <h1 className="text-center fw-bold" style={{ color: " #7A0045" }}>
-        ScriptGenius
+    <Container className="containerAbout">
+      <h1 className="titleAbout" >
+        Code School
       </h1>
-      <h2 className="text-center" style={{ fontStyle: "italic" }}>
+      <h2 className="subTitleAbout">
         “Imagine it and make it real!”
       </h2>
       <div className="d-flex align-content-center justify-content-center">
@@ -23,30 +24,28 @@ export const AboutUsScreen = () => {
           src={Logotipo}
           alt="Code School logo"
           className=" img-fluid"
-          style={{ width: "400px", height: "400px", }}
+          style={{ width: "300px", height: "300px", }}
         />
       </div>
 
       <Row>
-        <Col
-          className="justify-content-end d-flex  align-content-center text-center  mt-5"
+        <Col lg="6" sm="6" 
+          className="justify-content-end d-flex  align-content-center text-center  mt-5" 
         >
           <Figure>
             <Figure.Image
-              width={300}
-              height={300}
+              width={250}
+              height={250}
               alt="Foto Dev. Masi"
               src={MasielVenegas}
               style={{ borderRadius: "50%" }}
             />
-            <h2 className=" fw-semibold" style={{ color: " #7A0045" }}>
+            <h2 className="titleAbout">
               Masiel Venegas
             </h2>
-            <Figure.Caption className="fs-6" style={{ color: " black" }}>
-              <strong className="fs-5" style={{ color: " #7A0045" }}>
-                Full Stack Developer - Farmacéutica
-              </strong>{" "}
-              <br /> Combino mi conocimiento en el campo de la salud con mi
+            <h5 className="titleAbout">   Full Stack Developer - Farmacéutica</h5>
+            <Figure.Caption className="descriptionAbout" >
+              Combino mi conocimiento en el campo de la salud con mi
               fascinación por la tecnología para explorar nuevas formas de
               mejorar la atención médica. Además, dedico mi tiempo libre a
               practicar deporte y desarrollar habilidades en programación, donde
@@ -56,26 +55,21 @@ export const AboutUsScreen = () => {
           </Figure>
         </Col>
 
-        <Col
-
-          className="justify-content-center d-flex  align-content-center text-center mt-5 "
-        >
+        <Col lg="6" sm="6" className="justify-content-center d-flex  align-content-center text-center mt-5  m-auto"  >
           <Figure>
             <Figure.Image
-              width={300}
-              height={300}
+              width={250}
+              height={250}
               alt="Foto Dev. Masi"
               src={GuillermoSantolaya}
               style={{ borderRadius: "50%" }}
             />
-            <h2 className=" fw-semibold" style={{ color: " #7A0045" }}>
+            <h2 className=" titleAbout">
               Guillermo Santolaya
             </h2>
-            <Figure.Caption className="fs-6" style={{ color: "black" }}>
-              <strong className="fs-5" style={{ color: " #7A0045" }}>
-                Full Stack Developer - Odontólogo
-              </strong>{" "}
-              <br /> Mi dedicación se encuentra en brindar una atención de
+            <h5 className="titleAbout">   Full Stack Developer - Odontólogo</h5>
+            <Figure.Caption className="descriptionAbout">         
+           Mi dedicación se encuentra en brindar una atención de
               calidad, combinando mis conocimiento en odontología con las
               últimas innovaciones tecnológicas. Fuera de la práctica
               profesional disfruto explorar las últimas tendencias tecnológicas
@@ -83,7 +77,7 @@ export const AboutUsScreen = () => {
             </Figure.Caption>
           </Figure>
         </Col>
-      </Row>
+      </Row> 
     </Container>
 
   );
