@@ -19,8 +19,6 @@ export const LoginScreen = () => {
   } = useForm();
 
   const Submit = (data) => {
-    console.log(data);
-
     axios
       .post("/users/login", data)
       .then((res) => {

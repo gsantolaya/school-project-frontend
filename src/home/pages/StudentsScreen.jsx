@@ -168,7 +168,6 @@ export const StudentsScreen = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const handleAddStudentFormSubmit = async (data) => {
-        console.log(data)
         const notes = {
             mathI: null,
             languageAndLiteratureI: null,
@@ -208,7 +207,6 @@ export const StudentsScreen = () => {
             physicalEducationIV: null
         }
         const newdata = { ...data, payment, isBanned, notes }
-        console.log(newdata)
         axios.post('/students', { ...newdata }, {
             headers: {
                 "access-token": store.token
@@ -421,6 +419,7 @@ export const StudentsScreen = () => {
                                         ? moment(editedStudent.birthdate).toDate()
                                         : null
                                 }
+                                maxDate={addDays(new Date(), 0)}
                                 onChange={(date) => {
                                     const formattedDate = moment(date).format('YYYY-MM-DD');
                                     setEditedStudent((prevStudent) => ({
@@ -428,11 +427,10 @@ export const StudentsScreen = () => {
                                         birthdate: formattedDate,
                                     }));
                                 }}
-                                maxDate={addDays(new Date(), 0)}
                                 name="birthdate"
                                 type="Date"
                                 locale={es}
-                                dateFormat="yyyy-MM-dd"
+                                dateFormat="dd-MM-yyyy"
                             />
                         </Form.Group>
                         <Form.Group className='formFields m-2 col-10 col-md-5' controlId="editFormIsBanned">
@@ -530,7 +528,7 @@ export const StudentsScreen = () => {
                                         birthdate: formattedDate,
                                     }));
                                 }}
-                                maxDate={addDays(new Date(), 0)} locale={es} dateFormat="yyyy-MM-dd"
+                                maxDate={addDays(new Date(), 0)} locale={es} dateFormat="dd-MM-yyyy"
                             />
                         </Form.Group>
                         <Form.Group className="formFields m-2 col-10 col-md-5" controlId="formBasicIsBanned">
@@ -566,9 +564,6 @@ export const StudentsScreen = () => {
                     </Form>
                 </Modal.Body>
             </Modal>
-
-
-
             <div className="position-fixed bottom-0 end-0 p-3">
                 <Toast show={showEditStudentConfirmationToast} onClose={handleEditStudentConfirmationToastClose} delay={3000} autohide>
                     <Toast.Header>
@@ -589,10 +584,6 @@ export const StudentsScreen = () => {
                     <Toast.Body>No se pudo editar al alumno seleccionado.</Toast.Body>
                 </Toast>
             </div>
-
-
-
-
             <div className="position-fixed bottom-0 end-0 p-3">
                 <Toast show={showConfirmationToast} onClose={handleConfirmationToastClose} delay={3000} autohide>
                     <Toast.Header>

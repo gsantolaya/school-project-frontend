@@ -45,12 +45,11 @@ export const PaymentsScreen = () => {
     const isPaymentAlDia = event.target.value === "alDia";
     const updatedPayment = { payment: isPaymentAlDia };
     try {
-      const response = await axios.patch(`/students/${student._id}/payment`, updatedPayment, {
+      await axios.patch(`/students/${student._id}/payment`, updatedPayment, {
         headers: {
           "access-token": store.token
         }
       });
-      console.log(response.data);
       const updatedStudents = students.map((s) => (s._id === student._id ? { ...s, payment: isPaymentAlDia } : s));
       setStudents(updatedStudents);
     } catch (error) {

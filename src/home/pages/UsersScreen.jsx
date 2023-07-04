@@ -8,6 +8,7 @@ import { tokenIsValid } from '../../utils/TokenIsValid';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import { useForm } from 'react-hook-form';
+import Toast from 'react-bootstrap/Toast';
 
 export const UsersScreen = () => {
   const [users, setUsers] = useState([]);
@@ -16,6 +17,12 @@ export const UsersScreen = () => {
   const [showEditMyUserModal, setShowEditMyUserModal] = useState(false);
   const [showDeleteUserModal, setShowDeleteUserModal] = useState(false);
   const [showEditPasswordModal, setShowEditPasswordModal] = useState(false);
+  const [showEditUserConfirmationToast, setShowEditUserConfirmationToast] = useState(false);
+  const [showEditUserErrorToast, setShowEditUserErrorToast] = useState(false);
+  const [showEditPasswordConfirmationToast, setShowEditPasswordConfirmationToast] = useState(false);
+  const [showEditPasswordErrorToast, setShowEditPasswordErrorToast] = useState(false);
+  const [showDeleteUserConfirmationToast, setShowDeleteUserConfirmationToast] = useState(false);
+  const [showDeleteUserErrorToast, setShowDeleteUserErrorToast] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -60,11 +67,12 @@ export const UsersScreen = () => {
         });
         setUsers(updatedUsers);
         handleCloseEditMyUserModal();
-        alert("Tu cuenta ha sido modificada");
+        setShowEditUserConfirmationToast(true)
       }
     } catch (error) {
       console.log(error);
-      alert("Error al modificar la cuenta");
+      handleCloseEditMyUserModal();
+      setShowEditUserErrorToast(true)
     }
   };
 
@@ -97,6 +105,24 @@ export const UsersScreen = () => {
     setShowEditPasswordModal(false);
   };
 
+  const handleEditUserConfirmationToastClose = () => {
+    setShowEditUserConfirmationToast(false)
+  }
+  const handleEditUserErrorToastClose = () => {
+    setShowEditUserErrorToast(false)
+  }
+  const handleEditPasswordConfirmationToastClose = () => {
+    setShowEditPasswordConfirmationToast(false)
+  }
+  const handleEditPasswordErrorToastClose = () => {
+    setShowEditPasswordErrorToast(false)
+  }
+  const handleDeleteUserConfirmationToastClose = () => {
+    setShowDeleteUserConfirmationToast(false)
+  }
+  const handleDeleteUserErrorToastClose = () => {
+    setShowDeleteUserErrorToast(false)
+  }
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
   const handleEditPasswordFormSubmit = handleSubmit(async (data) => {
@@ -120,15 +146,14 @@ export const UsersScreen = () => {
         });
         setUsers(updatedUsers);
         handleCloseEditPasswordModal();
-        alert('Tu contraseña ha sido modificada');
+        setShowEditPasswordConfirmationToast(true)
       }
     } catch (error) {
       console.log(error);
-      alert('Error al modificar la contraseña');
+      handleCloseEditPasswordModal();
+      setShowEditPasswordErrorToast(true)
     }
   });
-  //----------------------------------------------------------------------------------------------------------------------
-  // Funciones eliminar otro usuario:
   const handleShowDeleteUserModal = (user) => {
     setSelectedUser(user);
     setShowDeleteUserModal(true);
@@ -147,14 +172,15 @@ export const UsersScreen = () => {
       });
       if (response.status === 200) {
         handleCloseDeleteUserModal();
+        setShowDeleteUserConfirmationToast(true)
         const { data } = await axios.get('/users');
         setUsers(data);
       }
     } catch (error) {
+      setShowDeleteUserErrorToast(true)
       handleCloseDeleteUserModal()
     }
   }
-  //----------------------------------------------------------------------------------------------------------------------
   const decodedToken = tokenIsValid();
   return (
     <>
@@ -225,7 +251,6 @@ export const UsersScreen = () => {
           </Table>
         </div>
       )}
-      {/* Modal editar cuenta */}
       <Modal show={showEditMyUserModal} onHide={handleCloseEditMyUserModal}>
         <Modal.Header className='modalHeader' closeButton>
           <Modal.Title className='modalTitle' ><strong>Editar Usuario</strong></Modal.Title>
@@ -285,7 +310,6 @@ export const UsersScreen = () => {
           </Form>
         </Modal.Body>
       </Modal>
-      {/* Modal modificar contrasena */}
       <Modal show={showEditPasswordModal} onHide={handleCloseEditPasswordModal}>
         <Modal.Header className='modalHeader' closeButton>
           <Modal.Title className="modalTitle"><strong>Modificar contraseña</strong></Modal.Title>
@@ -340,7 +364,6 @@ export const UsersScreen = () => {
           </Form>
         </Modal.Body>
       </Modal>
-      {/* Modal eliminar otra cuenta */}
       <Modal show={showDeleteUserModal} onHide={handleCloseDeleteUserModal}>
         <Modal.Header className='modalHeader' closeButton>
           <Modal.Title className='modalTitle'><strong>Confirmar Eliminación</strong></Modal.Title>
@@ -355,6 +378,67 @@ export const UsersScreen = () => {
             Eliminar
           </Button>
         </Modal.Footer>
-      </Modal>    </>
+      </Modal>
+      <div className="position-fixed bottom-0 end-0 p-3">
+        <Toast show={showEditUserConfirmationToast} onClose={handleEditUserConfirmationToastClose} delay={3000} autohide>
+          <Toast.Header>
+            <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+            <strong className="me-auto">Confirmación</strong>
+            <small>Ahora</small>
+          </Toast.Header>
+          <Toast.Body>Usuario editado correctamente.</Toast.Body>
+        </Toast>
+      </div>
+      <div className="position-fixed bottom-0 end-0 p-3">
+        <Toast show={showEditUserErrorToast} onClose={handleEditUserErrorToastClose} delay={3000} autohide>
+          <Toast.Header>
+            <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+            <strong className="me-auto">Error</strong>
+            <small>Ahora</small>
+          </Toast.Header>
+          <Toast.Body>No se pudo editar al usuario seleccionado.</Toast.Body>
+        </Toast>
+      </div>
+      <div className="position-fixed bottom-0 end-0 p-3">
+        <Toast show={showEditPasswordConfirmationToast} onClose={handleEditPasswordConfirmationToastClose} delay={3000} autohide>
+          <Toast.Header>
+            <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+            <strong className="me-auto">Confirmación</strong>
+            <small>Ahora</small>
+          </Toast.Header>
+          <Toast.Body>Contraseña modificada correctamente.</Toast.Body>
+        </Toast>
+      </div>
+      <div className="position-fixed bottom-0 end-0 p-3">
+        <Toast show={showEditPasswordErrorToast} onClose={handleEditPasswordErrorToastClose} delay={3000} autohide>
+          <Toast.Header>
+            <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+            <strong className="me-auto">Error</strong>
+            <small>Ahora</small>
+          </Toast.Header>
+          <Toast.Body>No se pudo modificar la contraseña.</Toast.Body>
+        </Toast>
+      </div>
+      <div className="position-fixed bottom-0 end-0 p-3">
+        <Toast show={showDeleteUserConfirmationToast} onClose={handleDeleteUserConfirmationToastClose} delay={3000} autohide>
+          <Toast.Header>
+            <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+            <strong className="me-auto">Confirmación</strong>
+            <small>Ahora</small>
+          </Toast.Header>
+          <Toast.Body>Usuario eliminado correctamente.</Toast.Body>
+        </Toast>
+      </div>
+      <div className="position-fixed bottom-0 end-0 p-3">
+        <Toast show={showDeleteUserErrorToast} onClose={handleDeleteUserErrorToastClose} delay={3000} autohide>
+          <Toast.Header>
+            <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+            <strong className="me-auto">Error</strong>
+            <small>Ahora</small>
+          </Toast.Header>
+          <Toast.Body>No se pudo eliminar al usuario seleccionado.</Toast.Body>
+        </Toast>
+      </div>
+    </>
   )
 }
