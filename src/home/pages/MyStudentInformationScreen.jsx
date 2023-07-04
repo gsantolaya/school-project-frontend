@@ -10,7 +10,6 @@ export const MyStudentInformationScreen = () => {
 
   const [students, setStudents] = useState([]);
   const [currentUserStudent, setCurrentUserStudent] = useState([]);
-
   const store = TokenStorage()
   const navigate = useNavigate();
 

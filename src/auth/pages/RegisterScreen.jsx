@@ -38,12 +38,12 @@ export const RegisterScreen = () => {
       setEmailExists(true);
       return;
     }
-  
+
     if (data.password !== data.confirmPassword) {
       setPasswordMatch(false);
       return;
     }
-  
+
     axios
       .post("/users", {
         ...data,
@@ -60,7 +60,7 @@ export const RegisterScreen = () => {
           .then((response) => {
             console.log('SUCCESS!', response.status, response.text);
             setShowConfirmationRegisterToast(true);
-            setTimeout(function() {
+            setTimeout(function () {
               navigate('/login');
             }, 3000);
           })
@@ -73,7 +73,7 @@ export const RegisterScreen = () => {
         console.log(err);
         setShowErrorRegisterToast(true);
       });
-  };  
+  };
   useEffect(() => {
     axios.get('/users')
       .then((response) => {
@@ -275,7 +275,7 @@ export const RegisterScreen = () => {
             </div>
           </Form.Group>
           <div className='contenedorRegisterButton'>
-          <button className="registerButton" type="submit">Registrarme</button>
+            <button className="registerButton" type="submit">Registrarme</button>
           </div>
           <p className="text-dark fw-bold mt-3 text-center">
             ¿Ya tienes una cuenta?{" "}
@@ -283,7 +283,7 @@ export const RegisterScreen = () => {
           </p>
         </Form>
       </div>
-     <div className="position-fixed bottom-0 end-0 p-3">
+      <div className="position-fixed bottom-0 end-0 p-3">
         <Toast show={showConfirmationRegisterToast} onClose={handleConfirmationRegisterToastClose} delay={3000} autohide>
           <Toast.Header>
             <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
@@ -302,7 +302,7 @@ export const RegisterScreen = () => {
           </Toast.Header>
           <Toast.Body className='text-dark'>No se ha podido completar el registro, intente nuevamente.</Toast.Body>
         </Toast>
-      </div> 
+      </div>
     </div>
   );
 };

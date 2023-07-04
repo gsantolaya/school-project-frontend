@@ -4,14 +4,11 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import LogoHorizontal from '../components/img/LogoHorizontal.jpg';
 import Logo from '../components/img/Logo.png';
-
 import './NavbarMenu.css';
 import { tokenIsValid } from '../../utils/TokenIsValid';
 import { FaUserAlt } from "react-icons/fa";
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useNavigate } from 'react-router-dom';
-
-
 
 export function NavbarMenu() {
   const currentPath = window.location.pathname;

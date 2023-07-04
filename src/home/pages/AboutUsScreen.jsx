@@ -10,8 +10,8 @@ import Figure from "react-bootstrap/Figure";
 import "./AboutUsScreen.css"
 
 export const AboutUsScreen = () => {
-  return (
 
+  return (
     <Container className="containerAbout">
       <h1 className="titleAbout" >
         Code School
@@ -27,10 +27,9 @@ export const AboutUsScreen = () => {
           style={{ width: "300px", height: "300px", }}
         />
       </div>
-
       <Row>
-        <Col lg="6" sm="6" 
-          className="justify-content-end d-flex  align-content-center text-center  mt-5" 
+        <Col lg="6" sm="6"
+          className="justify-content-end d-flex  align-content-center text-center  mt-5"
         >
           <Figure>
             <Figure.Image
@@ -54,7 +53,6 @@ export const AboutUsScreen = () => {
             </Figure.Caption>
           </Figure>
         </Col>
-
         <Col lg="6" sm="6" className="justify-content-center d-flex  align-content-center text-center mt-5  m-auto"  >
           <Figure>
             <Figure.Image
@@ -68,8 +66,8 @@ export const AboutUsScreen = () => {
               Guillermo Santolaya
             </h2>
             <h5 className="titleAbout">   Full Stack Developer - Odontólogo</h5>
-            <Figure.Caption className="descriptionAbout">         
-           Mi dedicación se encuentra en brindar una atención de
+            <Figure.Caption className="descriptionAbout">
+              Mi dedicación se encuentra en brindar una atención de
               calidad, combinando mis conocimiento en odontología con las
               últimas innovaciones tecnológicas. Fuera de la práctica
               profesional disfruto explorar las últimas tendencias tecnológicas
@@ -77,8 +75,7 @@ export const AboutUsScreen = () => {
             </Figure.Caption>
           </Figure>
         </Col>
-      </Row> 
+      </Row>
     </Container>
-
   );
 };
