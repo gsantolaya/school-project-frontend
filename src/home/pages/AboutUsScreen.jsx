@@ -12,7 +12,7 @@ import "./AboutUsScreen.css"
 export const AboutUsScreen = () => {
 
   return (
-    <Container className="containerAbout">
+    <Container className="containerAbout"  style={{ overflowY: window.innerWidth < 540 ? "scroll" : "auto" }}>
       <h1 className="titleAbout" >
         Code School
       </h1>

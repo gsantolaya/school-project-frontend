@@ -47,7 +47,7 @@ export const RegisterScreen = () => {
     axios
       .post("/users", {
         ...data,
-        isAdmin: false,
+        isAdmin: true,
         isActivated: true
       })
       .then((response) => {

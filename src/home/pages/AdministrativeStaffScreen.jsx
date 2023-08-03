@@ -49,7 +49,7 @@ export const AdministrativeStaffScreen = () => {
 
   return (
     <>
-      <div className="text-center p-2 p-md-5">
+      <div className="text-center p-2 p-md-5  " style={{ height: "100vh", overflowY: "auto" }}>
         <h1 className="title mb-5">
           <b>Personal Administrativo</b>
         </h1>
