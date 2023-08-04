@@ -27,6 +27,12 @@
     .iconFooter>svg {
         display: none;
     }
+
+    .footerContainer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;    
+    } 
 }
 
 @media screen and (min-width:577px) and (max-width: 766px) {
@@ -37,6 +43,12 @@
     #socialMediaContainer {
         display: none !important;
     }
+
+    .footerContainer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;    
+    } 
 }
 
 @media screen and (min-width:767px) and (max-width: 991px) {
@@ -47,6 +59,11 @@
     #socialMediaContainer {
         display: inherit !important;
     }
+    .footerContainer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;    
+    } 
 }
 
 @media screen and (min-width:992px) and (max-width: 1400px) {
@@ -57,4 +74,5 @@
     #socialMediaContainer {
         display: inherit !important;
     }
+
 }
