@@ -206,7 +206,9 @@ export const StudentsScreen = () => {
             historyIV: null,
             physicalEducationIV: null
         }
-        const newdata = { ...data, payment, isBanned, notes }
+        const newdata = { ...data, payment, isBanned, notes, birthdate: editedStudent?.birthdate ? moment(editedStudent.birthdate).format('YYYY-MM-DD') : null
+    }
+        console.log(data)
         axios.post('/students', { ...newdata }, {
             headers: {
                 "access-token": store.token
